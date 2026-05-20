@@ -27,7 +27,6 @@
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-secondary);color:var(--text-primary);min-height:100vh}
   #app{max-width:600px;margin:0 auto;padding:1rem}
 
-  /* Auth bar */
   .auth-bar{display:flex;align-items:center;justify-content:space-between;background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:.75rem 1.25rem;margin-bottom:1rem}
   .auth-bar-left{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary)}
   .auth-badge{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:var(--text-primary)}
@@ -36,7 +35,6 @@
   .auth-btn:active{opacity:.7}
   .auth-btn.unlock{color:var(--text-primary);border-color:var(--text-primary)}
 
-  /* PIN modal */
   .pin-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:300;padding:1rem}
   .pin-modal{background:var(--bg-primary);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:2rem 1.5rem;width:100%;max-width:280px;text-align:center}
   .pin-title{font-size:17px;font-weight:500;margin-bottom:6px}
@@ -44,14 +42,14 @@
   .pin-dots{display:flex;gap:10px;justify-content:center;margin-bottom:1.5rem}
   .pin-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border-med);transition:background .15s,border-color .15s}
   .pin-dot.filled{background:var(--text-primary);border-color:var(--text-primary)}
+  .pin-dot.error{border-color:var(--red)}
   .pin-error{font-size:13px;color:var(--red);margin-bottom:1rem;min-height:20px}
   .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
-  .pin-key{padding:16px;border-radius:var(--radius-md);border:0.5px solid var(--border);background:var(--bg-secondary);font-size:20px;font-weight:400;cursor:pointer;color:var(--text-primary)}
+  .pin-key{padding:16px;border-radius:var(--radius-md);border:0.5px solid var(--border);background:var(--bg-secondary);font-size:20px;font-weight:400;cursor:pointer;color:var(--text-primary);font-family:inherit}
   .pin-key:active{background:var(--border-med)}
   .pin-key.del{font-size:16px;color:var(--text-secondary)}
   .pin-cancel{font-size:13px;color:var(--text-tertiary);background:transparent;border:none;cursor:pointer;padding:8px;font-family:inherit}
 
-  /* Dashboard */
   .dashboard{background:var(--bg-primary);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;border:0.5px solid var(--border)}
   .dash-date{font-size:13px;color:var(--text-secondary);margin-bottom:10px;display:flex;align-items:baseline;gap:6px}
   .dash-day{font-size:22px;font-weight:500;color:var(--text-primary)}
@@ -64,7 +62,6 @@
   .dash-bal{font-size:16px;font-weight:500}
   .pos{color:var(--green)}.neg{color:var(--red)}
 
-  /* Month end */
   .month-end{border:0.5px solid var(--border-warning);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;background:var(--bg-warning)}
   .month-end-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-warning);font-weight:500;margin-bottom:10px}
   .month-end-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;font-size:13px;border-top:0.5px solid var(--border-warning)}
@@ -72,7 +69,6 @@
   .month-end-name{font-weight:500}
   .payout{color:var(--green);font-weight:500}.carry-fwd{color:var(--red);font-weight:500}
 
-  /* Top bar */
   .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .top-bar-left{display:flex;align-items:center;gap:6px}
   .kid-name{font-size:15px;font-weight:500}
@@ -82,13 +78,11 @@
   .icon-btn{font-size:13px;color:var(--text-tertiary);background:transparent;border:0.5px solid var(--border);cursor:pointer;padding:6px 12px;border-radius:var(--radius-md);display:flex;align-items:center;gap:5px;font-family:inherit}
   .icon-btn:active{opacity:.7}
 
-  /* Balance card */
   .balance-card{background:var(--bg-primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;border:0.5px solid var(--border);flex-wrap:wrap;gap:12px}
   .balance-label{font-size:13px;color:var(--text-secondary);margin-bottom:4px}
   .balance-amount{font-size:32px;font-weight:500}
   .balance-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
 
-  /* Actions */
   .actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
   .action-card{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem}
   .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:10px;font-weight:500}
@@ -101,7 +95,6 @@
   .lose-amt{color:var(--red);font-weight:500;font-size:13px;flex-shrink:0}
   .locked-notice{text-align:center;padding:.75rem;font-size:13px;color:var(--text-tertiary);background:var(--bg-secondary);border-radius:var(--radius-md);margin-bottom:1rem}
 
-  /* Log */
   .log-section{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
   .log-empty{font-size:13px;color:var(--text-tertiary);text-align:center;padding:1.5rem 0}
   .log-item{padding:10px 0;border-top:0.5px solid var(--border)}
@@ -118,11 +111,11 @@
   .delta-neg{color:var(--red);font-size:13px;font-weight:500;white-space:nowrap}
   .undo-btn{font-size:11px;color:var(--text-tertiary);background:transparent;border:none;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit}
 
-  /* History */
-  .history-section{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:1rem;overflow:hidden}
-  .history-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;user-select:none}
-  .history-header:active{background:var(--bg-secondary)}
-  .history-loading{text-align:center;padding:1.5rem;font-size:13px;color:var(--text-tertiary)}
+  .collapsible{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:1rem;overflow:hidden}
+  .collapsible-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;user-select:none}
+  .collapsible-header:active{background:var(--bg-secondary)}
+  .collapsible-loading{text-align:center;padding:1.5rem;font-size:13px;color:var(--text-tertiary)}
+  .collapsible-locked{text-align:center;padding:1.25rem;font-size:13px;color:var(--text-tertiary);border-top:0.5px solid var(--border)}
   .history-table-wrap{overflow-x:auto;padding:0 1.25rem 1.25rem}
   table.hist{width:100%;border-collapse:collapse;font-size:13px;min-width:360px}
   table.hist th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-tertiary);font-weight:500;text-align:right;padding:6px 8px;border-bottom:0.5px solid var(--border)}
@@ -134,9 +127,20 @@
   .h-bal{font-weight:500}.h-net{font-size:11px;color:var(--text-tertiary);margin-top:1px}
   .h-net.pos{color:var(--green)}.h-net.neg{color:var(--red)}
 
-  .error-box{background:var(--bg-danger);color:var(--text-danger);border-radius:var(--radius-md);padding:10px 14px;font-size:13px;margin-bottom:1rem}
+  .auth-log-wrap{padding:0 1.25rem 1.25rem}
+  .auth-log-item{display:flex;align-items:flex-start;justify-content:space-between;padding:9px 0;border-top:0.5px solid var(--border);gap:12px}
+  .auth-log-item:first-child{border-top:none}
+  .auth-log-left{display:flex;align-items:center;gap:8px}
+  .auth-event-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px}
+  .icon-unlock{background:#e8f7f2;color:var(--green)}
+  .icon-lock{background:var(--bg-secondary);color:var(--text-tertiary)}
+  .icon-fail{background:#fef2f2;color:var(--red)}
+  .auth-log-name{font-size:13px;font-weight:500}
+  .auth-log-event{font-size:11px;color:var(--text-tertiary);margin-top:1px}
+  .auth-log-event.fail{color:var(--red)}
+  .auth-log-time{font-size:11px;color:var(--text-tertiary);text-align:right;white-space:nowrap;flex-shrink:0}
 
-  /* Modal */
+  .error-box{background:var(--bg-danger);color:var(--text-danger);border-radius:var(--radius-md);padding:10px 14px;font-size:13px;margin-bottom:1rem}
   .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:200;padding:1rem}
   .modal{background:var(--bg-primary);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:1.5rem;width:100%;max-width:320px}
   .modal-title{font-size:16px;font-weight:500;margin-bottom:4px}
@@ -161,7 +165,6 @@ const SURL='https://plzihujpxuivhmpdjeck.supabase.co';
 const SKEY='sb_publishable_z8V65CwMYRdjtJmVV4sd2A_sgocfB-l';
 const CARRY_NAME='Deficit carried forward';
 
-// SHA-256 hashes of PINs — PINs never stored in plaintext
 const USERS={
   '597b5e92aa8d424a475adb764ab15bb5c92c701991af987b1784e43478fa30d4':'Josh',
   '5cfd7297b12dad983f6f629c15f0e7b5a3eb78e24d38ba7a87ff7b1139bd9c44':'Jasmine'
@@ -185,38 +188,41 @@ const KIDS=[
   {id:'kid-harvey', name:'Harvey'},
 ];
 
-// Auth
-let currentUser=null; // name string when unlocked
-let pinBuffer='';
-let pinError='';
-let showPinModal=false;
+let currentUser=null,pinBuffer='',pinError='',pinShake=false,showPinModal=false;
 
 async function hashPin(pin){
   const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
+async function logAuthEvent(username,event){
+  try{
+    await db.from('auth_log').insert({id:uid(),username,event,ts:Date.now()});
+    if(authLogOpen&&currentUser) await loadAuthLog(true);
+  }catch(e){}
+}
 async function attemptPin(){
   const h=await hashPin(pinBuffer);
   if(USERS[h]){
     currentUser=USERS[h];
-    pinBuffer='';pinError='';showPinModal=false;
+    pinBuffer='';pinError='';pinShake=false;showPinModal=false;
+    await logAuthEvent(currentUser,'unlocked');
     render();
   } else {
-    pinError='Incorrect PIN. Try again.';
+    await logAuthEvent('unknown','failed attempt');
+    pinError='Incorrect PIN';
+    pinShake=true;
     pinBuffer='';
     render();
-    setTimeout(()=>{pinError='';render()},2000);
+    setTimeout(()=>{pinShake=false;pinError='';render()},1500);
   }
 }
-function signOut(){currentUser=null;pinBuffer='';pinError='';render()}
-function openPin(){showPinModal=true;pinBuffer='';pinError='';render()}
-function cancelPin(){showPinModal=false;pinBuffer='';pinError='';render()}
-function pinKey(k){
-  if(pinBuffer.length>=6)return;
-  pinBuffer+=k;
-  render();
-  if(pinBuffer.length===6) setTimeout(attemptPin,120);
+function signOut(){
+  if(currentUser)logAuthEvent(currentUser,'locked');
+  currentUser=null;authLogOpen=false;authLogs=[];render();
 }
+function openPin(){showPinModal=true;pinBuffer='';pinError='';pinShake=false;render()}
+function cancelPin(){showPinModal=false;pinBuffer='';pinError='';pinShake=false;render()}
+function pinKey(k){if(pinBuffer.length>=6)return;pinBuffer+=k;render();if(pinBuffer.length===6)setTimeout(attemptPin,120)}
 function pinDel(){if(pinBuffer.length>0){pinBuffer=pinBuffer.slice(0,-1);render()}}
 
 function kidBase(id){return KID_CONFIG[id]?.base??DEFAULT_BASE}
@@ -227,6 +233,7 @@ function monthStart(m){const[y,mo]=m.split('-');return new Date(+y,+mo-1,1).getT
 function monthLabel(m){const[y,mo]=m.split('-');return new Date(+y,+mo-1,1).toLocaleString('default',{month:'long',year:'numeric'})}
 function monthLabelShort(m){const[y,mo]=m.split('-');return new Date(+y,+mo-1,1).toLocaleString('default',{month:'short',year:'numeric'})}
 function fmtTime(ts){const d=new Date(ts);return d.toLocaleDateString('default',{month:'short',day:'numeric',year:'numeric'})+' · '+d.toLocaleTimeString('default',{hour:'numeric',minute:'2-digit'})}
+function fmtFull(ts){const d=new Date(ts);return d.toLocaleDateString('default',{month:'short',day:'numeric',year:'numeric'})+' '+d.toLocaleTimeString('default',{hour:'numeric',minute:'2-digit',second:'2-digit'})}
 function uid(){return 'e-'+Date.now()+'-'+Math.random().toString(36).slice(2,7)}
 function isLastDay(){const d=new Date(),t=new Date(d);t.setDate(d.getDate()+1);return t.getMonth()!==d.getMonth()}
 function dayLabel(){
@@ -237,10 +244,10 @@ function dayLabel(){
 }
 
 const db=window.supabase.createClient(SURL,SKEY);
-let entries=[],allEntries=null,loading=true,syncing=false,dbError=null;
+let entries=[],allEntries=null,authLogs=[],loading=true,syncing=false,dbError=null;
 let activeKid=localStorage.getItem('allowance-active')||'kid-michael';
 let modalMode=null,pendingEntry=null;
-let carryChecked=false,historyOpen=false,historyLoading=false;
+let carryChecked=false,historyOpen=false,historyLoading=false,authLogOpen=false,authLogLoading=false;
 
 function kidEntries(kidId,month){const m=month||getMonth();return entries.filter(e=>e.kid_id===kidId&&e.month===m).sort((a,b)=>a.ts-b.ts)}
 function balance(kidId,month){return kidBase(kidId)+kidEntries(kidId,month).reduce((s,e)=>s+e.delta,0)}
@@ -263,6 +270,12 @@ async function loadAllEntries(skipRender){
   if(!error&&data)allEntries=data.map(r=>({...r,delta:parseFloat(r.delta)}));
   historyLoading=false;render();
 }
+async function loadAuthLog(skipRender){
+  authLogLoading=true;if(!skipRender)render();
+  const{data,error}=await db.from('auth_log').select('*').order('ts',{ascending:false}).limit(150);
+  if(!error&&data)authLogs=data;
+  authLogLoading=false;render();
+}
 async function applyCarryForwards(){
   const m=getMonth(),prev=getPrevMonth();let inserted=false;
   for(const kid of KIDS){
@@ -276,16 +289,21 @@ async function applyCarryForwards(){
 async function insertEntry(row){syncing=true;render();const{error}=await db.from('entries').insert(row);if(error)dbError=error.message;syncing=false;allEntries=null;await loadEntries()}
 async function removeEntry(id){syncing=true;render();const{error}=await db.from('entries').delete().eq('id',id);if(error)dbError=error.message;syncing=false;allEntries=null;await loadEntries()}
 async function clearMonth(){syncing=true;render();const{error}=await db.from('entries').delete().eq('month',getMonth());if(error)dbError=error.message;carryChecked=false;syncing=false;allEntries=null;await loadEntries()}
+
 function toggleHistory(){historyOpen=!historyOpen;if(historyOpen&&allEntries===null)loadAllEntries();else render()}
+function toggleAuthLog(){
+  if(!currentUser){openPin();return}
+  authLogOpen=!authLogOpen;
+  if(authLogOpen&&!authLogs.length)loadAuthLog();
+  else render();
+}
 
 function render(){
   const root=document.getElementById('app');
   if(loading){root.innerHTML='<div class="loading">Connecting…</div>';return}
-  const m=getMonth();
-  const kid=KIDS.find(k=>k.id===activeKid)||KIDS[0];
+  const m=getMonth(),kid=KIDS.find(k=>k.id===activeKid)||KIDS[0];
   const{day,context}=dayLabel();
   const unlocked=!!currentUser;
-
   let h='';
 
   // PIN modal
@@ -294,9 +312,8 @@ function render(){
       <div class="pin-title">Enter PIN</div>
       <div class="pin-sub">Unlock editing access</div>
       <div class="pin-dots">`;
-    for(let i=0;i<6;i++)h+=`<div class="pin-dot${i<pinBuffer.length?' filled':''}"></div>`;
-    h+=`</div>
-      <div class="pin-error">${pinError}</div>
+    for(let i=0;i<6;i++)h+=`<div class="pin-dot${i<pinBuffer.length?' filled':''}${pinShake?' error':''}"></div>`;
+    h+=`</div><div class="pin-error">${pinError}</div>
       <div class="pin-pad">
         ${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="pin-key" onclick="pinKey('${n}')">${n}</button>`).join('')}
         <button class="pin-key del" onclick="pinDel()">⌫</button>
@@ -347,10 +364,9 @@ function render(){
     <div style="text-align:right"><div style="font-size:13px;color:var(--text-secondary)">${monthLabel(m)}</div><div class="balance-sub">Base: $${base.toFixed(2)}/mo</div></div>
   </div>`;
 
-  // Actions — only when unlocked
+  // Actions
   if(unlocked){
-    h+=`<div class="actions-grid">
-      <div class="action-card"><div class="section-label">Earn</div>`;
+    h+=`<div class="actions-grid"><div class="action-card"><div class="section-label">Earn</div>`;
     for(const c of CHORES)h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${c.id}','${c.name}',${c.amount})"><div><div>${c.name}</div>${c.note?`<div class="action-note">${c.note}</div>`:''}</div><span class="earn-amt">+$${c.amount.toFixed(2)}</span></button>`;
     h+=`</div><div class="action-card"><div class="section-label">Deductions</div>`;
     for(const p of PENALTIES){const amt=kidPenalty(kid.id,p.id);h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${p.id}','${p.name}',${amt})"><div><div>${p.name}</div>${p.note?`<div class="action-note">${p.note}</div>`:''}</div><span class="lose-amt">-$${Math.abs(amt).toFixed(2)}</span></button>`;}
@@ -385,17 +401,17 @@ function render(){
   }
   h+=`</div>`;
 
-  // History
-  h+=`<div class="history-section">
-    <div class="history-header" onclick="toggleHistory()">
+  // Monthly history
+  h+=`<div class="collapsible">
+    <div class="collapsible-header" onclick="toggleHistory()">
       <div class="section-label" style="margin-bottom:0">Monthly history</div>
       <span style="font-size:18px;color:var(--text-tertiary)">${historyOpen?'▲':'▼'}</span>
     </div>`;
   if(historyOpen){
-    if(historyLoading){h+=`<div class="history-loading">Loading…</div>`;}
+    if(historyLoading){h+=`<div class="collapsible-loading">Loading…</div>`;}
     else if(allEntries){
       const months=histMonths();
-      if(!months.length){h+=`<div class="history-loading">No history yet.</div>`;}
+      if(!months.length){h+=`<div class="collapsible-loading">No history yet.</div>`;}
       else{
         h+=`<div class="history-table-wrap"><table class="hist"><thead><tr><th>Month</th>`;
         for(const k of KIDS)h+=`<th>${k.name}</th>`;
@@ -408,6 +424,45 @@ function render(){
         }
         h+=`</tbody></table></div>`;
       }
+    }
+  }
+  h+=`</div>`;
+
+  // Auth history — always show the toggle, content gated behind auth
+  h+=`<div class="collapsible">
+    <div class="collapsible-header" onclick="toggleAuthLog()">
+      <div class="section-label" style="margin-bottom:0">Auth history</div>
+      <span style="font-size:18px;color:var(--text-tertiary)">${authLogOpen?'▲':'▼'}</span>
+    </div>`;
+  if(authLogOpen){
+    if(!unlocked){
+      h+=`<div class="collapsible-locked"><i class="ti ti-lock" style="font-size:13px;vertical-align:-1px"></i> Unlock to view auth history</div>`;
+    } else if(authLogLoading){
+      h+=`<div class="collapsible-loading">Loading…</div>`;
+    } else if(!authLogs.length){
+      h+=`<div class="collapsible-loading">No auth history yet.</div>`;
+    } else {
+      h+=`<div class="auth-log-wrap">`;
+      for(const e of authLogs){
+        const isUnlock=e.event==='unlocked';
+        const isFail=e.event==='failed attempt';
+        const isLock=e.event==='locked';
+        let iconClass=isUnlock?'icon-unlock':isFail?'icon-fail':'icon-lock';
+        let iconName=isUnlock?'ti-lock-open':isFail?'ti-alert-triangle':'ti-lock';
+        let displayName=isFail?'Unknown':''+e.username;
+        let eventClass=isFail?'auth-log-event fail':'auth-log-event';
+        h+=`<div class="auth-log-item">
+          <div class="auth-log-left">
+            <div class="auth-event-icon ${iconClass}"><i class="ti ${iconName}"></i></div>
+            <div>
+              <div class="auth-log-name">${displayName}</div>
+              <div class="${eventClass}">${e.event}</div>
+            </div>
+          </div>
+          <div class="auth-log-time">${fmtFull(e.ts)}</div>
+        </div>`;
+      }
+      h+=`</div>`;
     }
   }
   h+=`</div>`;
@@ -463,6 +518,7 @@ function confirmReset(){
 }
 
 db.channel('entries-live').on('postgres_changes',{event:'*',schema:'public',table:'entries'},()=>{if(!syncing){allEntries=null;loadEntries()}}).subscribe();
+db.channel('auth-live').on('postgres_changes',{event:'INSERT',schema:'public',table:'auth_log'},()=>{if(authLogOpen&&currentUser)loadAuthLog(true)}).subscribe();
 loadEntries();
 </script>
 </body>
