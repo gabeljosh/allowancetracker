@@ -11,29 +11,48 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
   :root {
-    --bg-primary:#ffffff;--bg-secondary:#f5f5f4;--bg-danger:#fef2f2;--bg-warning:#fffbeb;
-    --text-primary:#1c1917;--text-secondary:#78716c;--text-tertiary:#a8a29e;
-    --text-danger:#b91c1c;--text-warning:#92400e;
-    --border:rgba(0,0,0,0.12);--border-med:rgba(0,0,0,0.22);--border-warning:rgba(180,130,0,0.3);
-    --radius-md:8px;--radius-lg:12px;--green:#1D9E75;--red:#E24B4A;--amber:#EF9F27;
+    --bg-primary:#ffffff;
+    --bg-secondary:#f9f9f9;
+    --bg-danger:#fef2f2;
+    --bg-warning:#fffbeb;
+    --text-primary:#111111;
+    --text-secondary:#555555;
+    --text-tertiary:#999999;
+    --text-danger:#b91c1c;
+    --text-warning:#92400e;
+    --border:rgba(0,0,0,0.10);
+    --border-med:rgba(0,0,0,0.20);
+    --border-warning:rgba(180,130,0,0.3);
+    --radius-md:8px;--radius-lg:12px;
+    --green:#1D9E75;--red:#E24B4A;--amber:#EF9F27;
+    --garnet:#73000A;--garnet-light:#fdf0f1;--garnet-mid:#9a0010;
   }
   @media(prefers-color-scheme:dark){:root{
-    --bg-primary:#1c1917;--bg-secondary:#292524;--bg-danger:#3b1515;--bg-warning:#2d2007;
-    --text-primary:#fafaf9;--text-secondary:#a8a29e;--text-tertiary:#78716c;
-    --text-danger:#fca5a5;--text-warning:#fcd34d;
-    --border:rgba(255,255,255,0.1);--border-med:rgba(255,255,255,0.2);--border-warning:rgba(200,150,0,0.3);
+    --bg-primary:#ffffff;
+    --bg-secondary:#f9f9f9;
+    --bg-danger:#fef2f2;
+    --bg-warning:#fffbeb;
+    --text-primary:#111111;
+    --text-secondary:#555555;
+    --text-tertiary:#999999;
+    --text-danger:#b91c1c;
+    --text-warning:#92400e;
+    --border:rgba(0,0,0,0.10);
+    --border-med:rgba(0,0,0,0.20);
+    --border-warning:rgba(180,130,0,0.3);
+    --garnet-light:#fdf0f1;--garnet-mid:#9a0010;
   }}
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-secondary);color:var(--text-primary);min-height:100vh}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#ffffff;color:var(--text-primary);min-height:100vh}
   #app{max-width:600px;margin:0 auto;padding:1rem}
 
-  .auth-bar{display:flex;align-items:center;justify-content:space-between;background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:.75rem 1.25rem;margin-bottom:1rem}
-  .auth-bar-left{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary)}
-  .auth-badge{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:var(--text-primary)}
-  .auth-badge i{color:var(--green)}
-  .auth-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius-md);border:0.5px solid var(--border-med);background:transparent;cursor:pointer;color:var(--text-secondary);font-family:inherit}
+  .auth-bar{display:flex;align-items:center;justify-content:space-between;background:var(--garnet);border:none;border-radius:var(--radius-lg);padding:.75rem 1.25rem;margin-bottom:1rem}
+  .auth-bar-left{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.75)}
+  .auth-badge{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:#ffffff}
+  .auth-badge i{color:rgba(255,255,255,0.8)}
+  .auth-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.4);background:transparent;cursor:pointer;color:rgba(255,255,255,0.85);font-family:inherit}
   .auth-btn:active{opacity:.7}
-  .auth-btn.unlock{color:var(--text-primary);border-color:var(--text-primary)}
+  .auth-btn.unlock{color:#ffffff;border-color:rgba(255,255,255,0.7);font-weight:500}
 
   .pin-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:300;padding:1rem}
   .pin-modal{background:var(--bg-primary);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:2rem 1.5rem;width:100%;max-width:280px;text-align:center}
@@ -41,7 +60,7 @@
   .pin-sub{font-size:13px;color:var(--text-secondary);margin-bottom:1.5rem}
   .pin-dots{display:flex;gap:10px;justify-content:center;margin-bottom:1.5rem}
   .pin-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border-med);transition:background .15s,border-color .15s}
-  .pin-dot.filled{background:var(--text-primary);border-color:var(--text-primary)}
+  .pin-dot.filled{background:var(--garnet);border-color:var(--garnet)}
   .pin-dot.error{border-color:var(--red)}
   .pin-error{font-size:13px;color:var(--red);margin-bottom:1rem;min-height:20px}
   .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
@@ -56,9 +75,9 @@
   .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   .dash-kid{background:var(--bg-secondary);border:0.5px solid var(--border);border-radius:var(--radius-md);padding:8px 6px;text-align:center;cursor:pointer;transition:border-color .15s}
   .dash-kid:active{opacity:.75}
-  .dash-kid.active{border:2px solid var(--text-primary)}
+  .dash-kid.active{border:2px solid var(--garnet)}
   .dash-name{font-size:10px;color:var(--text-tertiary);margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
-  .dash-kid.active .dash-name{color:var(--text-secondary)}
+  .dash-kid.active .dash-name{color:var(--garnet)}
   .dash-bal{font-size:16px;font-weight:500}
   .pos{color:var(--green)}.neg{color:var(--red)}
 
@@ -72,20 +91,20 @@
   .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .top-bar-left{display:flex;align-items:center;gap:6px}
   .kid-name{font-size:15px;font-weight:500}
-  .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
+  .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--garnet);flex-shrink:0}
   .sync-dot.syncing{background:var(--amber);animation:pulse .8s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-  .icon-btn{font-size:13px;color:var(--text-tertiary);background:transparent;border:0.5px solid var(--border);cursor:pointer;padding:6px 12px;border-radius:var(--radius-md);display:flex;align-items:center;gap:5px;font-family:inherit}
+  .icon-btn{font-size:13px;color:var(--garnet);background:transparent;border:0.5px solid var(--garnet);cursor:pointer;padding:6px 12px;border-radius:var(--radius-md);display:flex;align-items:center;gap:5px;font-family:inherit;font-weight:500}
   .icon-btn:active{opacity:.7}
 
-  .balance-card{background:var(--bg-primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;border:0.5px solid var(--border);flex-wrap:wrap;gap:12px}
+  .balance-card{background:var(--bg-primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;border:0.5px solid var(--border);border-left:3px solid var(--garnet);flex-wrap:wrap;gap:12px}
   .balance-label{font-size:13px;color:var(--text-secondary);margin-bottom:4px}
   .balance-amount{font-size:32px;font-weight:500}
   .balance-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
 
   .actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
   .action-card{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem}
-  .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:10px;font-weight:500}
+  .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--garnet);margin-bottom:10px;font-weight:600}
   .action-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:9px 10px;margin-bottom:6px;border-radius:var(--radius-md);border:0.5px solid var(--border);background:transparent;cursor:pointer;font-size:13px;text-align:left;color:var(--text-primary);font-family:inherit}
   .action-btn:last-child{margin-bottom:0}
   .action-btn:active{background:var(--bg-secondary)}
@@ -94,6 +113,17 @@
   .earn-amt{color:var(--green);font-weight:500;font-size:13px;flex-shrink:0}
   .lose-amt{color:var(--red);font-weight:500;font-size:13px;flex-shrink:0}
   .locked-notice{text-align:center;padding:.75rem;font-size:13px;color:var(--text-tertiary);background:var(--bg-secondary);border-radius:var(--radius-md);margin-bottom:1rem}
+  .chore-list{margin-bottom:1rem}
+  .chore-list-card{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+  .chore-list-header{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;cursor:pointer;user-select:none}
+  .chore-list-header:active{background:var(--bg-secondary)}
+  .chore-list-body{padding:0 1.25rem 1rem}
+  .chore-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--garnet);font-weight:600;margin:12px 0 6px}
+  .chore-row{display:flex;align-items:flex-start;justify-content:space-between;padding:7px 0;border-top:0.5px solid var(--border);gap:10px}
+  .chore-row:first-of-type{border-top:none}
+  .chore-row-name{font-size:13px;color:var(--text-primary)}
+  .chore-row-note{font-size:11px;color:var(--text-tertiary);margin-top:2px}
+  .chore-row-amt{font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
 
   .log-section{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
   .log-empty{font-size:13px;color:var(--text-tertiary);text-align:center;padding:1.5rem 0}
@@ -103,7 +133,7 @@
   .log-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
   .log-desc{font-size:13px;font-weight:500}
   .log-meta{font-size:11px;color:var(--text-tertiary);margin-top:2px}
-  .log-by{display:inline-block;font-size:10px;background:var(--bg-secondary);border:0.5px solid var(--border);border-radius:4px;padding:1px 5px;color:var(--text-secondary);margin-left:4px;vertical-align:middle}
+  .log-by{display:inline-block;font-size:10px;background:var(--garnet-light);border:0.5px solid var(--border);border-radius:4px;padding:1px 5px;color:var(--garnet);margin-left:4px;vertical-align:middle;font-weight:500}
   .log-bal{font-size:11px;color:var(--text-tertiary);margin-top:3px}
   .log-note{font-size:12px;color:var(--text-secondary);margin-top:5px;padding:5px 8px;background:var(--bg-secondary);border-radius:var(--radius-md);border-left:2px solid var(--border-med)}
   .log-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
@@ -132,7 +162,7 @@
   .auth-log-item:first-child{border-top:none}
   .auth-log-left{display:flex;align-items:center;gap:8px}
   .auth-event-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px}
-  .icon-unlock{background:#e8f7f2;color:var(--green)}
+  .icon-unlock{background:var(--garnet-light);color:var(--garnet)}
   .icon-lock{background:var(--bg-secondary);color:var(--text-tertiary)}
   .icon-fail{background:#fef2f2;color:var(--red)}
   .auth-log-name{font-size:13px;font-weight:500}
@@ -152,7 +182,7 @@
   .modal input[type=text]:focus,.modal textarea:focus{border-color:var(--text-secondary)}
   .modal-btns{display:flex;gap:8px;justify-content:flex-end}
   .modal-btns button{padding:9px 18px;border-radius:var(--radius-md);border:0.5px solid var(--border-med);cursor:pointer;font-size:14px;background:transparent;color:var(--text-primary);font-family:inherit}
-  .modal-btns button.primary{background:var(--text-primary);color:var(--bg-primary);border-color:transparent}
+  .modal-btns button.primary{background:var(--garnet);color:#fff;border-color:transparent}
   .modal-btns button.danger{background:var(--red);color:#fff;border-color:transparent;opacity:.35;pointer-events:none;transition:opacity .15s}
   .modal-btns button.danger.ready{opacity:1;pointer-events:auto}
   .loading{text-align:center;padding:4rem 1rem;color:var(--text-tertiary);font-size:15px}
@@ -171,23 +201,53 @@ const USERS={
 };
 
 const DEFAULT_BASE=10.00;
+
+// Monthly base overrides — used for pro-rated or special months
+// May 2026 is a ~10-day starter month; full base resumes June 2026
+const MONTH_BASE_OVERRIDE={
+  '2026-05':{
+    'kid-michael':10.00,
+    'kid-lincoln':5.00,
+    'kid-jackson':5.00,
+    'kid-harvey':5.00,
+  }
+};
+
 const CHORES=[
-  {id:'dishwasher',name:'Empty dishwasher',       note:'Dry dishes · in correct place · no mess on floor',amount:0.50},
-  {id:'trash',     name:'Take out trash',          note:'Only when bag is full',amount:0.50},
-  {id:'mealclean', name:'Help cleaning after meal',note:'Stay for full cleanup or until dismissed by adult',amount:0.50},
-];
-const PENALTIES=[
-  {id:'bedroom',name:'Messy bedroom check',note:'Random inspection',amount:-1.00},
-  {id:'bedtime',name:'Missed bedtime',     note:'',amount:-2.00},
-];
-const KID_CONFIG={'kid-michael':{base:20.00,penalties:{bedroom:-2.00,bedtime:-4.00}}};
-const KIDS=[
-  {id:'kid-michael',name:'Michael'},
-  {id:'kid-lincoln',name:'Lincoln'},
-  {id:'kid-jackson',name:'Jackson'},
-  {id:'kid-harvey', name:'Harvey'},
+  {id:'dishwasher', name:'Empty dishwasher',        note:'Dry dishes · in correct place · no mess on floor', amount:0.50},
+  {id:'trash',      name:'Take out trash',           note:'Only when bag is full', amount:0.25},
+  {id:'mealclean',  name:'Help cleaning after meal', note:'Stay for full cleanup or until dismissed by adult', amount:0.50},
+  {id:'swiffer',    name:'Swiffer steps',            note:'', amount:0.25},
+  {id:'baseboards', name:'Clean baseboards',         note:'Must use minimally damp rag · Per room', amount:0.50},
 ];
 
+// Penalties that apply to all kids
+const PENALTIES=[
+  {id:'bedroom', name:'Messy bedroom check', note:'Random inspection', amount:-1.00},
+  {id:'bedtime', name:'Missed bedtime',      note:'', amount:-2.00},
+];
+
+// Per-kid config: base amount, penalty overrides, and kid-specific extra penalties
+const KID_CONFIG={
+  'kid-michael':{
+    base:20.00,
+    penalties:{bedroom:-2.00, bedtime:-4.00},
+    extraPenalties:[
+      {id:'laundry', name:'Laundry not put away same day', note:'Must be put away day of', amount:-1.00}
+    ]
+  }
+};
+
+// Returns the correct base for a kid for a given month (handles overrides)
+function kidBaseForMonth(id, month){
+  const m=month||getMonth();
+  return MONTH_BASE_OVERRIDE[m]?.[id] ?? KID_CONFIG[id]?.base ?? DEFAULT_BASE;
+}
+function kidBase(id){return kidBaseForMonth(id,getMonth())}
+function kidPenalty(id,pid){return KID_CONFIG[id]?.penalties?.[pid]??PENALTIES.find(p=>p.id===pid)?.amount}
+function kidExtraPenalties(id){return KID_CONFIG[id]?.extraPenalties||[]}
+
+// Auth
 let currentUser=null,pinBuffer='',pinError='',pinShake=false,showPinModal=false;
 
 async function hashPin(pin){
@@ -197,36 +257,27 @@ async function hashPin(pin){
 async function logAuthEvent(username,event){
   try{
     await db.from('auth_log').insert({id:uid(),username,event,ts:Date.now()});
-    if(authLogOpen&&currentUser) await loadAuthLog(true);
+    if(authLogOpen&&currentUser)await loadAuthLog(true);
   }catch(e){}
 }
 async function attemptPin(){
   const h=await hashPin(pinBuffer);
   if(USERS[h]){
-    currentUser=USERS[h];
-    pinBuffer='';pinError='';pinShake=false;showPinModal=false;
-    await logAuthEvent(currentUser,'unlocked');
-    render();
+    currentUser=USERS[h];pinBuffer='';pinError='';pinShake=false;showPinModal=false;
+    await logAuthEvent(currentUser,'unlocked');render();
   } else {
     await logAuthEvent('unknown','failed attempt');
-    pinError='Incorrect PIN';
-    pinShake=true;
-    pinBuffer='';
-    render();
+    pinError='Incorrect PIN';pinShake=true;pinBuffer='';render();
     setTimeout(()=>{pinShake=false;pinError='';render()},1500);
   }
 }
-function signOut(){
-  if(currentUser)logAuthEvent(currentUser,'locked');
-  currentUser=null;authLogOpen=false;authLogs=[];render();
-}
+function signOut(){if(currentUser)logAuthEvent(currentUser,'locked');currentUser=null;authLogOpen=false;authLogs=[];render()}
 function openPin(){showPinModal=true;pinBuffer='';pinError='';pinShake=false;render()}
 function cancelPin(){showPinModal=false;pinBuffer='';pinError='';pinShake=false;render()}
 function pinKey(k){if(pinBuffer.length>=6)return;pinBuffer+=k;render();if(pinBuffer.length===6)setTimeout(attemptPin,120)}
 function pinDel(){if(pinBuffer.length>0){pinBuffer=pinBuffer.slice(0,-1);render()}}
 
-function kidBase(id){return KID_CONFIG[id]?.base??DEFAULT_BASE}
-function kidPenalty(id,pid){return KID_CONFIG[id]?.penalties?.[pid]??PENALTIES.find(p=>p.id===pid)?.amount}
+// Date / month helpers
 function getMonth(){const n=new Date();return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`}
 function getPrevMonth(){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
 function monthStart(m){const[y,mo]=m.split('-');return new Date(+y,+mo-1,1).getTime()}
@@ -247,13 +298,19 @@ const db=window.supabase.createClient(SURL,SKEY);
 let entries=[],allEntries=null,authLogs=[],loading=true,syncing=false,dbError=null;
 let activeKid=localStorage.getItem('allowance-active')||'kid-michael';
 let modalMode=null,pendingEntry=null;
-let carryChecked=false,historyOpen=false,historyLoading=false,authLogOpen=false,authLogLoading=false;
+let carryChecked=false,historyOpen=false,historyLoading=false,authLogOpen=false,authLogLoading=false,choresOpen=false;
 
 function kidEntries(kidId,month){const m=month||getMonth();return entries.filter(e=>e.kid_id===kidId&&e.month===m).sort((a,b)=>a.ts-b.ts)}
-function balance(kidId,month){return kidBase(kidId)+kidEntries(kidId,month).reduce((s,e)=>s+e.delta,0)}
-function runningBals(kidId){const log=kidEntries(kidId);const b=[];let r=kidBase(kidId);for(const e of log){r+=e.delta;b.push(r)}return b}
+function balance(kidId,month){const m=month||getMonth();return kidBaseForMonth(kidId,m)+kidEntries(kidId,m).reduce((s,e)=>s+e.delta,0)}
+function runningBals(kidId){
+  const log=kidEntries(kidId);const b=[];let r=kidBaseForMonth(kidId,getMonth());
+  for(const e of log){r+=e.delta;b.push(r)}return b;
+}
 function histMonths(){if(!allEntries)return[];const ms=new Set(allEntries.map(e=>e.month));ms.add(getMonth());return[...ms].sort((a,b)=>b.localeCompare(a))}
-function histBalance(kidId,month){if(!allEntries)return kidBase(kidId);return kidBase(kidId)+allEntries.filter(e=>e.kid_id===kidId&&e.month===month).reduce((s,e)=>s+e.delta,0)}
+function histBalance(kidId,month){
+  if(!allEntries)return kidBaseForMonth(kidId,month);
+  return kidBaseForMonth(kidId,month)+allEntries.filter(e=>e.kid_id===kidId&&e.month===month).reduce((s,e)=>s+e.delta,0);
+}
 
 async function loadEntries(){
   const m=getMonth(),prev=getPrevMonth();
@@ -281,7 +338,7 @@ async function applyCarryForwards(){
   for(const kid of KIDS){
     const hasCarry=entries.some(e=>e.kid_id===kid.id&&e.month===m&&e.name===CARRY_NAME);if(hasCarry)continue;
     const prevHas=entries.some(e=>e.kid_id===kid.id&&e.month===prev);
-    const prevBal=kidBase(kid.id)+entries.filter(e=>e.kid_id===kid.id&&e.month===prev).reduce((s,e)=>s+e.delta,0);
+    const prevBal=kidBaseForMonth(kid.id,prev)+entries.filter(e=>e.kid_id===kid.id&&e.month===prev).reduce((s,e)=>s+e.delta,0);
     if(prevHas&&prevBal<0){const{error}=await db.from('entries').insert({id:uid(),kid_id:kid.id,month:m,name:CARRY_NAME,delta:Math.round(prevBal*100)/100,note:`${monthLabel(prev)} ended at $${prevBal.toFixed(2)}`,ts:monthStart(m),edited_by:'system'});if(!error)inserted=true;}
   }
   return inserted;
@@ -291,12 +348,15 @@ async function removeEntry(id){syncing=true;render();const{error}=await db.from(
 async function clearMonth(){syncing=true;render();const{error}=await db.from('entries').delete().eq('month',getMonth());if(error)dbError=error.message;carryChecked=false;syncing=false;allEntries=null;await loadEntries()}
 
 function toggleHistory(){historyOpen=!historyOpen;if(historyOpen&&allEntries===null)loadAllEntries();else render()}
-function toggleAuthLog(){
-  if(!currentUser){openPin();return}
-  authLogOpen=!authLogOpen;
-  if(authLogOpen&&!authLogs.length)loadAuthLog();
-  else render();
-}
+function toggleAuthLog(){if(!currentUser){openPin();return}authLogOpen=!authLogOpen;if(authLogOpen&&!authLogs.length)loadAuthLog();else render()}
+function toggleChores(){choresOpen=!choresOpen;render()}
+
+const KIDS=[
+  {id:'kid-michael',name:'Michael'},
+  {id:'kid-lincoln',name:'Lincoln'},
+  {id:'kid-jackson',name:'Jackson'},
+  {id:'kid-harvey', name:'Harvey'},
+];
 
 function render(){
   const root=document.getElementById('app');
@@ -309,8 +369,7 @@ function render(){
   // PIN modal
   if(showPinModal){
     h+=`<div class="pin-modal-bg" onclick="cancelPin()"><div class="pin-modal" onclick="event.stopPropagation()">
-      <div class="pin-title">Enter PIN</div>
-      <div class="pin-sub">Unlock editing access</div>
+      <div class="pin-title">Enter PIN</div><div class="pin-sub">Unlock editing access</div>
       <div class="pin-dots">`;
     for(let i=0;i<6;i++)h+=`<div class="pin-dot${i<pinBuffer.length?' filled':''}${pinShake?' error':''}"></div>`;
     h+=`</div><div class="pin-error">${pinError}</div>
@@ -326,13 +385,8 @@ function render(){
 
   // Auth bar
   h+=`<div class="auth-bar">`;
-  if(unlocked){
-    h+=`<div class="auth-badge"><i class="ti ti-lock-open"></i> ${currentUser}</div>
-        <button class="auth-btn" onclick="signOut()">Lock</button>`;
-  } else {
-    h+=`<div class="auth-bar-left"><i class="ti ti-lock" style="font-size:14px"></i> View only</div>
-        <button class="auth-btn unlock" onclick="openPin()">Unlock</button>`;
-  }
+  if(unlocked){h+=`<div class="auth-badge"><i class="ti ti-lock-open"></i> ${currentUser}</div><button class="auth-btn" onclick="signOut()">Lock</button>`;}
+  else{h+=`<div class="auth-bar-left"><i class="ti ti-lock" style="font-size:14px"></i> View only</div><button class="auth-btn unlock" onclick="openPin()">Unlock</button>`;}
   h+=`</div>`;
 
   // Dashboard
@@ -358,21 +412,62 @@ function render(){
   if(dbError)h+=`<div class="error-box">${dbError}</div>`;
 
   // Balance card
-  const log=kidEntries(kid.id),bals=runningBals(kid.id),bal=balance(kid.id),base=kidBase(kid.id);
+  const log=kidEntries(kid.id),bals=runningBals(kid.id),bal=balance(kid.id),base=kidBaseForMonth(kid.id,m);
+  const fullBase=KID_CONFIG[kid.id]?.base??DEFAULT_BASE;
+  const isProrated=base!==fullBase;
   h+=`<div class="balance-card">
     <div><div class="balance-label">${kid.name}'s balance</div><div class="balance-amount ${bal>=0?'pos':'neg'}">$${bal.toFixed(2)}</div></div>
-    <div style="text-align:right"><div style="font-size:13px;color:var(--text-secondary)">${monthLabel(m)}</div><div class="balance-sub">Base: $${base.toFixed(2)}/mo</div></div>
+    <div style="text-align:right">
+      <div style="font-size:13px;color:var(--text-secondary)">${monthLabel(m)}</div>
+      <div class="balance-sub">Base: $${base.toFixed(2)}/mo${isProrated?' · pro-rated':''}</div>
+    </div>
   </div>`;
 
-  // Actions
+  // Actions — only when unlocked
   if(unlocked){
+    const extraP=kidExtraPenalties(kid.id);
     h+=`<div class="actions-grid"><div class="action-card"><div class="section-label">Earn</div>`;
     for(const c of CHORES)h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${c.id}','${c.name}',${c.amount})"><div><div>${c.name}</div>${c.note?`<div class="action-note">${c.note}</div>`:''}</div><span class="earn-amt">+$${c.amount.toFixed(2)}</span></button>`;
     h+=`</div><div class="action-card"><div class="section-label">Deductions</div>`;
     for(const p of PENALTIES){const amt=kidPenalty(kid.id,p.id);h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${p.id}','${p.name}',${amt})"><div><div>${p.name}</div>${p.note?`<div class="action-note">${p.note}</div>`:''}</div><span class="lose-amt">-$${Math.abs(amt).toFixed(2)}</span></button>`;}
+    for(const p of extraP)h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${p.id}','${p.name}',${p.amount})"><div><div>${p.name}</div>${p.note?`<div class="action-note">${p.note}</div>`:''}</div><span class="lose-amt">-$${Math.abs(p.amount).toFixed(2)}</span></button>`;
     h+=`</div></div>`;
   } else {
     h+=`<div class="locked-notice"><i class="ti ti-lock" style="font-size:13px;vertical-align:-1px"></i> Unlock to log chores and deductions</div>`;
+
+    // Chore & rules reference — visible while locked
+    const extraP=kidExtraPenalties(kid.id);
+    h+=`<div class="chore-list"><div class="chore-list-card">
+      <div class="chore-list-header" onclick="toggleChores()">
+        <div class="section-label" style="margin-bottom:0">Available chores &amp; rules</div>
+        <span style="font-size:18px;color:var(--text-tertiary)">${choresOpen?'▲':'▼'}</span>
+      </div>`;
+    if(choresOpen){
+      h+=`<div class="chore-list-body">
+        <div class="chore-group-label">Earn</div>`;
+      for(const c of CHORES){
+        h+=`<div class="chore-row">
+          <div><div class="chore-row-name">${c.name}</div>${c.note?`<div class="chore-row-note">${c.note}</div>`:''}</div>
+          <span class="chore-row-amt pos">+$${c.amount.toFixed(2)}</span>
+        </div>`;
+      }
+      h+=`<div class="chore-group-label">Deductions</div>`;
+      for(const p of PENALTIES){
+        const amt=kidPenalty(kid.id,p.id);
+        h+=`<div class="chore-row">
+          <div><div class="chore-row-name">${p.name}</div>${p.note?`<div class="chore-row-note">${p.note}</div>`:''}</div>
+          <span class="chore-row-amt neg">-$${Math.abs(amt).toFixed(2)}</span>
+        </div>`;
+      }
+      for(const p of extraP){
+        h+=`<div class="chore-row">
+          <div><div class="chore-row-name">${p.name}</div>${p.note?`<div class="chore-row-note">${p.note}</div>`:''}</div>
+          <span class="chore-row-amt neg">-$${Math.abs(p.amount).toFixed(2)}</span>
+        </div>`;
+      }
+      h+=`</div>`;
+    }
+    h+=`</div></div>`;
   }
 
   // Audit log
@@ -419,7 +514,12 @@ function render(){
         for(const mo of months){
           const isCur=mo===m;
           h+=`<tr${isCur?' class="cur"':''}><td>${monthLabelShort(mo)}${isCur?' <span style="font-size:10px;opacity:.6">(now)</span>':''}</td>`;
-          for(const k of KIDS){const b=histBalance(k.id,mo),net=b-kidBase(k.id);h+=`<td><div class="h-bal ${b>=0?'pos':'neg'}">$${b.toFixed(2)}</div><div class="h-net ${net>=0?'pos':'neg'}">${net>=0?'+':''}${net.toFixed(2)}</div></td>`;}
+          for(const k of KIDS){
+            const b=histBalance(k.id,mo);
+            const bBase=kidBaseForMonth(k.id,mo);
+            const net=b-bBase;
+            h+=`<td><div class="h-bal ${b>=0?'pos':'neg'}">$${b.toFixed(2)}</div><div class="h-net ${net>=0?'pos':'neg'}">${net>=0?'+':''}${net.toFixed(2)}</div></td>`;
+          }
           h+=`</tr>`;
         }
         h+=`</tbody></table></div>`;
@@ -428,35 +528,28 @@ function render(){
   }
   h+=`</div>`;
 
-  // Auth history — always show the toggle, content gated behind auth
+  // Auth history
   h+=`<div class="collapsible">
     <div class="collapsible-header" onclick="toggleAuthLog()">
       <div class="section-label" style="margin-bottom:0">Auth history</div>
       <span style="font-size:18px;color:var(--text-tertiary)">${authLogOpen?'▲':'▼'}</span>
     </div>`;
   if(authLogOpen){
-    if(!unlocked){
-      h+=`<div class="collapsible-locked"><i class="ti ti-lock" style="font-size:13px;vertical-align:-1px"></i> Unlock to view auth history</div>`;
-    } else if(authLogLoading){
-      h+=`<div class="collapsible-loading">Loading…</div>`;
-    } else if(!authLogs.length){
-      h+=`<div class="collapsible-loading">No auth history yet.</div>`;
-    } else {
+    if(!unlocked){h+=`<div class="collapsible-locked"><i class="ti ti-lock" style="font-size:13px;vertical-align:-1px"></i> Unlock to view auth history</div>`;}
+    else if(authLogLoading){h+=`<div class="collapsible-loading">Loading…</div>`;}
+    else if(!authLogs.length){h+=`<div class="collapsible-loading">No auth history yet.</div>`;}
+    else{
       h+=`<div class="auth-log-wrap">`;
       for(const e of authLogs){
-        const isUnlock=e.event==='unlocked';
-        const isFail=e.event==='failed attempt';
-        const isLock=e.event==='locked';
-        let iconClass=isUnlock?'icon-unlock':isFail?'icon-fail':'icon-lock';
-        let iconName=isUnlock?'ti-lock-open':isFail?'ti-alert-triangle':'ti-lock';
-        let displayName=isFail?'Unknown':''+e.username;
-        let eventClass=isFail?'auth-log-event fail':'auth-log-event';
+        const isUnlock=e.event==='unlocked',isFail=e.event==='failed attempt';
         h+=`<div class="auth-log-item">
           <div class="auth-log-left">
-            <div class="auth-event-icon ${iconClass}"><i class="ti ${iconName}"></i></div>
+            <div class="auth-event-icon ${isUnlock?'icon-unlock':isFail?'icon-fail':'icon-lock'}">
+              <i class="ti ${isUnlock?'ti-lock-open':isFail?'ti-alert-triangle':'ti-lock'}"></i>
+            </div>
             <div>
-              <div class="auth-log-name">${displayName}</div>
-              <div class="${eventClass}">${e.event}</div>
+              <div class="auth-log-name">${isFail?'Unknown':e.username}</div>
+              <div class="auth-log-event${isFail?' fail':''}">${e.event}</div>
             </div>
           </div>
           <div class="auth-log-time">${fmtFull(e.ts)}</div>
@@ -474,7 +567,7 @@ function render(){
       <div class="modal-title">${pendingEntry.name}</div>
       <div class="modal-amount" style="color:${amtColor}">${amtStr}</div>
       <label for="note-input">Note <span style="opacity:.5">(optional)</span></label>
-      <textarea id="note-input" placeholder="e.g. Dismissed at 7:30, great attitude"></textarea>
+      <textarea id="note-input" placeholder="e.g. Did a great job"></textarea>
       <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button class="primary" onclick="confirmEntry()">Log it</button></div>
     </div></div>`;
   }
