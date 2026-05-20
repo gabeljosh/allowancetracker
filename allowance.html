@@ -287,6 +287,7 @@ function fmtTime(ts){const d=new Date(ts);return d.toLocaleDateString('default',
 function fmtFull(ts){const d=new Date(ts);return d.toLocaleDateString('default',{month:'short',day:'numeric',year:'numeric'})+' '+d.toLocaleTimeString('default',{hour:'numeric',minute:'2-digit',second:'2-digit'})}
 function uid(){return 'e-'+Date.now()+'-'+Math.random().toString(36).slice(2,7)}
 function isLastDay(){const d=new Date(),t=new Date(d);t.setDate(d.getDate()+1);return t.getMonth()!==d.getMonth()}
+function daysLeftInMonth(){const n=new Date();const last=new Date(n.getFullYear(),n.getMonth()+1,0).getDate();return last-n.getDate()}
 function dayLabel(){
   const n=new Date(),day=n.getDate();
   const v=day%100,sfx=['th','st','nd','rd'];
@@ -415,11 +416,14 @@ function render(){
   const log=kidEntries(kid.id),bals=runningBals(kid.id),bal=balance(kid.id),base=kidBaseForMonth(kid.id,m);
   const fullBase=KID_CONFIG[kid.id]?.base??DEFAULT_BASE;
   const isProrated=base!==fullBase;
+  const daysLeft=daysLeftInMonth();
+  const daysLabel=daysLeft===0?'Last day of month':daysLeft===1?'1 day left':`${daysLeft} days left`;
   h+=`<div class="balance-card">
     <div><div class="balance-label">${kid.name}'s balance</div><div class="balance-amount ${bal>=0?'pos':'neg'}">$${bal.toFixed(2)}</div></div>
     <div style="text-align:right">
       <div style="font-size:13px;color:var(--text-secondary)">${monthLabel(m)}</div>
-      <div class="balance-sub">Base: $${base.toFixed(2)}/mo${isProrated?' · pro-rated':''}</div>
+      <div class="balance-sub">${daysLabel}</div>
+      <div class="balance-sub"style="margin-top:1px">Base: $${base.toFixed(2)}/mo${isProrated?' · pro-rated':''}</div>
     </div>
   </div>`;
 
