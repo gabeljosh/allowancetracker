@@ -448,25 +448,11 @@ function render(){
       </div>`;
     if(choresOpen){
       h+=`<div class="chore-list-body">
-        <div class="chore-group-label">Earn</div>`;
+        <div class="chore-group-label">Available chores</div>`;
       for(const c of CHORES){
         h+=`<div class="chore-row">
           <div><div class="chore-row-name">${c.name}</div>${c.note?`<div class="chore-row-note">${c.note}</div>`:''}</div>
           <span class="chore-row-amt pos">+$${c.amount.toFixed(2)}</span>
-        </div>`;
-      }
-      h+=`<div class="chore-group-label">Deductions</div>`;
-      for(const p of PENALTIES){
-        const amt=kidPenalty(kid.id,p.id);
-        h+=`<div class="chore-row">
-          <div><div class="chore-row-name">${p.name}</div>${p.note?`<div class="chore-row-note">${p.note}</div>`:''}</div>
-          <span class="chore-row-amt neg">-$${Math.abs(amt).toFixed(2)}</span>
-        </div>`;
-      }
-      for(const p of extraP){
-        h+=`<div class="chore-row">
-          <div><div class="chore-row-name">${p.name}</div>${p.note?`<div class="chore-row-note">${p.note}</div>`:''}</div>
-          <span class="chore-row-amt neg">-$${Math.abs(p.amount).toFixed(2)}</span>
         </div>`;
       }
       h+=`</div>`;
