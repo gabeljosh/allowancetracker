@@ -225,7 +225,7 @@ const USERS={
   '5cfd7297b12dad983f6f629c15f0e7b5a3eb78e24d38ba7a87ff7b1139bd9c44':'Jasmine'
 };
 
-const DEFAULT_BASE=10.00;
+const DEFAULT_BASE=7.50;
 
 // Monthly base overrides — used for pro-rated or special months
 // May 2026 is a ~10-day starter month; full base resumes June 2026
@@ -239,12 +239,12 @@ const MONTH_BASE_OVERRIDE={
 };
 
 const CHORES=[
-  {id:'dishwasher', name:'Empty dishwasher',        note:'Dry dishes · in correct place · no mess on floor', amount:0.85},
-  {id:'trash',      name:'Take out trash',           note:'Only when bag is full', amount:0.40},
-  {id:'mealclean',  name:'Help cleaning after meal', note:'Stay for full cleanup or until dismissed by adult', amount:0.70},
-  {id:'swiffer',    name:'Swiffer steps',            note:'', amount:0.40},
-  {id:'baseboards', name:'Clean baseboards',         note:'Must use minimally damp rag · Per room', amount:0.70},
-  {id:'weeds',      name:'Pull weeds',               note:'Per yard · up to parent\'s standards · subject to approval', amount:1.00},
+  {id:'dishwasher', name:'Empty dishwasher',        note:'Dry dishes · in correct place · no mess on floor', amount:0.95},
+  {id:'trash',      name:'Take out trash',           note:'Only when bag is full', amount:0.45},
+  {id:'mealclean',  name:'Help cleaning after meal', note:'Stay for full cleanup or until dismissed by adult', amount:0.75},
+  {id:'swiffer',    name:'Swiffer steps',            note:'', amount:0.45},
+  {id:'baseboards', name:'Clean baseboards',         note:'Must use minimally damp rag · Per room', amount:0.75},
+  {id:'weeds',      name:'Pull weeds',               note:'Per yard · up to parent\'s standards · subject to approval', amount:1.10},
 ];
 
 // Penalties that apply to all kids
@@ -256,7 +256,7 @@ const PENALTIES=[
 // Per-kid config: base amount, penalty overrides, and kid-specific extra penalties
 const KID_CONFIG={
   'kid-michael':{
-    base:15.00,
+    base:11.25,
     penalties:{bedroom:-2.00, bedtime:-2.50},
     extraPenalties:[
       {id:'laundry', name:'Laundry not put away same day', note:'Must be put away day of', amount:-1.00}
