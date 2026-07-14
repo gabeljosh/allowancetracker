@@ -11,49 +11,35 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
   :root {
-    --bg-primary:#ffffff;
-    --bg-secondary:#f9f9f9;
-    --bg-danger:#fef2f2;
-    --bg-warning:#fffbeb;
-    --text-primary:#111111;
-    --text-secondary:#555555;
-    --text-tertiary:#999999;
-    --text-danger:#b91c1c;
-    --text-warning:#92400e;
-    --border:rgba(0,0,0,0.10);
-    --border-med:rgba(0,0,0,0.20);
-    --border-warning:rgba(180,130,0,0.3);
+    --bg-primary:#ffffff;--bg-secondary:#f9f9f9;--bg-danger:#fef2f2;--bg-warning:#fffbeb;
+    --text-primary:#111111;--text-secondary:#555555;--text-tertiary:#999999;
+    --text-danger:#b91c1c;--text-warning:#92400e;
+    --border:rgba(0,0,0,0.10);--border-med:rgba(0,0,0,0.20);--border-warning:rgba(180,130,0,0.3);
     --radius-md:8px;--radius-lg:12px;
     --green:#1D9E75;--red:#E24B4A;--amber:#EF9F27;
     --garnet:#73000A;--garnet-light:#fdf0f1;--garnet-mid:#9a0010;
   }
   @media(prefers-color-scheme:dark){:root{
-    --bg-primary:#ffffff;
-    --bg-secondary:#f9f9f9;
-    --bg-danger:#fef2f2;
-    --bg-warning:#fffbeb;
-    --text-primary:#111111;
-    --text-secondary:#555555;
-    --text-tertiary:#999999;
-    --text-danger:#b91c1c;
-    --text-warning:#92400e;
-    --border:rgba(0,0,0,0.10);
-    --border-med:rgba(0,0,0,0.20);
-    --border-warning:rgba(180,130,0,0.3);
+    --bg-primary:#ffffff;--bg-secondary:#f9f9f9;--bg-danger:#fef2f2;--bg-warning:#fffbeb;
+    --text-primary:#111111;--text-secondary:#555555;--text-tertiary:#999999;
+    --text-danger:#b91c1c;--text-warning:#92400e;
+    --border:rgba(0,0,0,0.10);--border-med:rgba(0,0,0,0.20);--border-warning:rgba(180,130,0,0.3);
     --garnet-light:#fdf0f1;--garnet-mid:#9a0010;
   }}
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#ffffff;color:var(--text-primary);min-height:100vh}
   #app{max-width:600px;margin:0 auto;padding:1rem}
 
+  /* Auth bar */
   .auth-bar{display:flex;align-items:center;justify-content:space-between;background:var(--garnet);border:none;border-radius:var(--radius-lg);padding:.75rem 1.25rem;margin-bottom:1rem}
   .auth-bar-left{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.75)}
-  .auth-badge{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:#ffffff}
+  .auth-badge{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:#fff}
   .auth-badge i{color:rgba(255,255,255,0.8)}
   .auth-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.4);background:transparent;cursor:pointer;color:rgba(255,255,255,0.85);font-family:inherit}
   .auth-btn:active{opacity:.7}
-  .auth-btn.unlock{color:#ffffff;border-color:rgba(255,255,255,0.7);font-weight:500}
+  .auth-btn.unlock{color:#fff;border-color:rgba(255,255,255,0.7);font-weight:500}
 
+  /* PIN modal */
   .pin-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:300;padding:1rem}
   .pin-modal{background:var(--bg-primary);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:2rem 1.5rem;width:100%;max-width:280px;text-align:center}
   .pin-title{font-size:17px;font-weight:500;margin-bottom:6px}
@@ -69,6 +55,7 @@
   .pin-key.del{font-size:16px;color:var(--text-secondary)}
   .pin-cancel{font-size:13px;color:var(--text-tertiary);background:transparent;border:none;cursor:pointer;padding:8px;font-family:inherit}
 
+  /* Dashboard */
   .dashboard{background:var(--bg-primary);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;border:0.5px solid var(--border)}
   .dash-date{font-size:13px;color:var(--text-secondary);margin-bottom:10px;display:flex;align-items:baseline;gap:6px}
   .dash-day{font-size:22px;font-weight:500;color:var(--text-primary)}
@@ -81,13 +68,17 @@
   .dash-bal{font-size:16px;font-weight:500}
   .pos{color:var(--green)}.neg{color:var(--red)}
 
+  /* Month end */
   .month-end{border:0.5px solid var(--border-warning);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;background:var(--bg-warning)}
   .month-end-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-warning);font-weight:500;margin-bottom:10px}
-  .month-end-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;font-size:13px;border-top:0.5px solid var(--border-warning)}
+  .month-end-row{display:flex;align-items:flex-start;justify-content:space-between;padding:5px 0;font-size:13px;border-top:0.5px solid var(--border-warning);gap:8px}
   .month-end-row:first-of-type{border-top:none}
-  .month-end-name{font-weight:500}
+  .month-end-name{font-weight:500;flex-shrink:0}
+  .month-end-right{text-align:right}
   .payout{color:var(--green);font-weight:500}.carry-fwd{color:var(--red);font-weight:500}
+  .debt-applied{color:var(--garnet);font-weight:500;font-size:12px;margin-top:2px}
 
+  /* Top bar */
   .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .top-bar-left{display:flex;align-items:center;gap:6px}
   .kid-name{font-size:15px;font-weight:500}
@@ -97,11 +88,13 @@
   .icon-btn{font-size:13px;color:var(--garnet);background:transparent;border:0.5px solid var(--garnet);cursor:pointer;padding:6px 12px;border-radius:var(--radius-md);display:flex;align-items:center;gap:5px;font-family:inherit;font-weight:500}
   .icon-btn:active{opacity:.7}
 
+  /* Balance card */
   .balance-card{background:var(--bg-primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;border:0.5px solid var(--border);border-left:3px solid var(--garnet);flex-wrap:wrap;gap:12px}
   .balance-label{font-size:13px;color:var(--text-secondary);margin-bottom:4px}
   .balance-amount{font-size:32px;font-weight:500}
   .balance-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
 
+  /* Actions */
   .actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
   .action-card{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem}
   .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--garnet);margin-bottom:10px;font-weight:600}
@@ -113,18 +106,8 @@
   .earn-amt{color:var(--green);font-weight:500;font-size:13px;flex-shrink:0}
   .lose-amt{color:var(--red);font-weight:500;font-size:13px;flex-shrink:0}
   .locked-notice{text-align:center;padding:.75rem;font-size:13px;color:var(--text-tertiary);background:var(--bg-secondary);border-radius:var(--radius-md);margin-bottom:1rem}
-  .chore-list{margin-bottom:1rem}
-  .chore-list-card{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
-  .chore-list-header{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;cursor:pointer;user-select:none}
-  .chore-list-header:active{background:var(--bg-secondary)}
-  .chore-list-body{padding:0 1.25rem 1rem}
-  .chore-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--garnet);font-weight:600;margin:12px 0 6px}
-  .chore-row{display:flex;align-items:flex-start;justify-content:space-between;padding:7px 0;border-top:0.5px solid var(--border);gap:10px}
-  .chore-row:first-of-type{border-top:none}
-  .chore-row-name{font-size:13px;color:var(--text-primary)}
-  .chore-row-note{font-size:11px;color:var(--text-tertiary);margin-top:2px}
-  .chore-row-amt{font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
 
+  /* Audit log */
   .log-section{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
   .log-empty{font-size:13px;color:var(--text-tertiary);text-align:center;padding:1.5rem 0}
   .log-item{padding:10px 0;border-top:0.5px solid var(--border)}
@@ -141,6 +124,33 @@
   .delta-neg{color:var(--red);font-size:13px;font-weight:500;white-space:nowrap}
   .undo-btn{font-size:11px;color:var(--text-tertiary);background:transparent;border:none;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit}
 
+  /* Credits & Purchases */
+  .credits-section{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
+  .credits-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .credits-meta{font-size:12px;color:var(--text-tertiary);margin-bottom:12px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-md);display:flex;flex-direction:column;gap:3px}
+  .credits-meta-row{display:flex;justify-content:space-between;font-size:12px}
+  .credits-meta-label{color:var(--text-tertiary)}
+  .credits-meta-val{font-weight:500;color:var(--text-primary)}
+  .purchase-item{border:0.5px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;margin-bottom:8px}
+  .purchase-item:last-child{margin-bottom:0}
+  .purchase-item.paid{opacity:.6;border-style:dashed}
+  .purchase-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .purchase-name{font-size:13px;font-weight:500}
+  .purchase-status{font-size:11px;font-weight:500}
+  .purchase-status.owed{color:var(--red)}
+  .purchase-status.paid{color:var(--green)}
+  .progress-track{height:6px;background:var(--bg-secondary);border-radius:3px;overflow:hidden;margin-bottom:5px}
+  .progress-fill{height:100%;background:var(--garnet);border-radius:3px;transition:width .3s}
+  .progress-fill.complete{background:var(--green)}
+  .purchase-detail{display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary)}
+  .purchase-payments{margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border)}
+  .payment-row{display:flex;justify-content:space-between;font-size:11px;padding:2px 0;color:var(--text-secondary)}
+  .credits-empty{text-align:center;padding:1.5rem 0;font-size:13px;color:var(--text-tertiary)}
+  .add-purchase-btn{width:100%;padding:9px;border:0.5px dashed var(--border-med);border-radius:var(--radius-md);background:transparent;cursor:pointer;font-size:13px;color:var(--garnet);font-family:inherit;font-weight:500;margin-top:10px}
+  .add-purchase-btn:active{background:var(--garnet-light)}
+  .paid-section-label{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 6px;font-weight:500}
+
+  /* Collapsibles */
   .collapsible{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:1rem;overflow:hidden}
   .collapsible-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;user-select:none}
   .collapsible-header:active{background:var(--bg-secondary)}
@@ -158,30 +168,8 @@
   .h-net.pos{color:var(--green)}.h-net.neg{color:var(--red)}
   .h-cell{cursor:pointer;border-radius:var(--radius-md);padding:2px 4px;margin:-2px -4px;transition:background .12s}
   .h-cell:active{background:var(--garnet-light)}
-  .h-cell-hint{font-size:9px;color:var(--text-tertiary);margin-top:2px;opacity:0}
-  tr:hover .h-cell-hint{opacity:1}
 
-  .drill-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:flex-end;justify-content:center;z-index:250;padding:0}
-  .drill-modal{background:#ffffff;border-radius:var(--radius-lg) var(--radius-lg) 0 0;width:100%;max-width:600px;max-height:85vh;display:flex;flex-direction:column}
-  .drill-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.25rem 1rem;border-bottom:0.5px solid var(--border);flex-shrink:0}
-  .drill-title{font-size:16px;font-weight:600;color:var(--text-primary)}
-  .drill-sub{font-size:12px;color:var(--text-secondary);margin-top:2px}
-  .drill-close{background:transparent;border:none;font-size:22px;cursor:pointer;color:var(--text-tertiary);line-height:1;padding:0 4px}
-  .drill-body{overflow-y:auto;padding:0 1.25rem 2rem;flex:1}
-  .drill-empty{text-align:center;padding:2rem;font-size:13px;color:var(--text-tertiary)}
-  .drill-item{padding:10px 0;border-top:0.5px solid var(--border)}
-  .drill-item:first-child{border-top:none;padding-top:12px}
-  .drill-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-  .drill-name{font-size:13px;font-weight:500;color:var(--text-primary)}
-  .drill-meta{font-size:11px;color:var(--text-tertiary);margin-top:2px}
-  .drill-note{font-size:12px;color:var(--text-secondary);margin-top:4px;padding:4px 8px;background:var(--bg-secondary);border-radius:var(--radius-md);border-left:2px solid var(--border-med)}
-  .drill-bal{font-size:11px;color:var(--text-tertiary);margin-top:3px}
-  .drill-amt-pos{color:var(--green);font-size:13px;font-weight:500;white-space:nowrap}
-  .drill-amt-neg{color:var(--red);font-size:13px;font-weight:500;white-space:nowrap}
-  .drill-summary{display:flex;align-items:center;justify-content:space-between;padding:.875rem 0;border-top:1.5px solid var(--border);margin-top:4px;font-size:13px}
-  .drill-summary-label{color:var(--text-secondary);font-weight:500}
-  .drill-summary-val{font-size:16px;font-weight:600}
-
+  /* Auth history */
   .auth-log-wrap{padding:0 1.25rem 1.25rem}
   .auth-log-item{display:flex;align-items:flex-start;justify-content:space-between;padding:9px 0;border-top:0.5px solid var(--border);gap:12px}
   .auth-log-item:first-child{border-top:none}
@@ -195,21 +183,69 @@
   .auth-log-event.fail{color:var(--red)}
   .auth-log-time{font-size:11px;color:var(--text-tertiary);text-align:right;white-space:nowrap;flex-shrink:0}
 
+  /* Chore list */
+  .chore-list{margin-bottom:1rem}
+  .chore-list-card{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+  .chore-list-header{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;cursor:pointer;user-select:none}
+  .chore-list-header:active{background:var(--bg-secondary)}
+  .chore-list-body{padding:0 1.25rem 1rem}
+  .chore-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--garnet);font-weight:600;margin:12px 0 6px}
+  .chore-row{display:flex;align-items:flex-start;justify-content:space-between;padding:7px 0;border-top:0.5px solid var(--border);gap:10px}
+  .chore-row:first-of-type{border-top:none}
+  .chore-row-name{font-size:13px;color:var(--text-primary)}
+  .chore-row-note{font-size:11px;color:var(--text-tertiary);margin-top:2px}
+  .chore-row-amt{font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
+
+  /* Drill-down */
+  .drill-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:flex-end;justify-content:center;z-index:250;padding:0}
+  .drill-modal{background:#fff;border-radius:var(--radius-lg) var(--radius-lg) 0 0;width:100%;max-width:600px;max-height:85vh;display:flex;flex-direction:column}
+  .drill-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.25rem 1rem;border-bottom:0.5px solid var(--border);flex-shrink:0}
+  .drill-title{font-size:16px;font-weight:600}
+  .drill-sub{font-size:12px;color:var(--text-secondary);margin-top:2px}
+  .drill-close{background:transparent;border:none;font-size:22px;cursor:pointer;color:var(--text-tertiary);line-height:1;padding:0 4px}
+  .drill-body{overflow-y:auto;padding:0 1.25rem 2rem;flex:1}
+  .drill-empty{text-align:center;padding:2rem;font-size:13px;color:var(--text-tertiary)}
+  .drill-item{padding:10px 0;border-top:0.5px solid var(--border)}
+  .drill-item:first-child{border-top:none;padding-top:12px}
+  .drill-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .drill-name{font-size:13px;font-weight:500}
+  .drill-meta{font-size:11px;color:var(--text-tertiary);margin-top:2px}
+  .drill-note{font-size:12px;color:var(--text-secondary);margin-top:4px;padding:4px 8px;background:var(--bg-secondary);border-radius:var(--radius-md);border-left:2px solid var(--border-med)}
+  .drill-bal{font-size:11px;color:var(--text-tertiary);margin-top:3px}
+  .drill-amt-pos{color:var(--green);font-size:13px;font-weight:500;white-space:nowrap}
+  .drill-amt-neg{color:var(--red);font-size:13px;font-weight:500;white-space:nowrap}
+  .drill-summary{display:flex;align-items:center;justify-content:space-between;padding:.875rem 0;border-top:1.5px solid var(--border);margin-top:4px}
+  .drill-summary-label{color:var(--text-secondary);font-weight:500;font-size:13px}
+  .drill-summary-val{font-size:16px;font-weight:600}
+
+  /* Error */
   .error-box{background:var(--bg-danger);color:var(--text-danger);border-radius:var(--radius-md);padding:10px 14px;font-size:13px;margin-bottom:1rem}
+
+  /* Modals */
   .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:200;padding:1rem}
   .modal{background:var(--bg-primary);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:1.5rem;width:100%;max-width:320px}
   .modal-title{font-size:16px;font-weight:500;margin-bottom:4px}
   .modal-amount{font-size:13px;font-weight:500;margin-bottom:14px}
   .modal-body{font-size:13px;color:var(--text-secondary);margin-bottom:14px;line-height:1.6}
   .modal label{font-size:12px;color:var(--text-secondary);display:block;margin-bottom:5px}
-  .modal input[type=text],.modal textarea{width:100%;padding:10px 12px;border-radius:var(--radius-md);border:0.5px solid var(--border-med);background:var(--bg-secondary);color:var(--text-primary);font-size:14px;font-family:inherit;margin-bottom:14px;outline:none}
+  .modal input[type=text],.modal input[type=number],.modal textarea{width:100%;padding:10px 12px;border-radius:var(--radius-md);border:0.5px solid var(--border-med);background:var(--bg-secondary);color:var(--text-primary);font-size:14px;font-family:inherit;margin-bottom:14px;outline:none}
   .modal textarea{resize:vertical;min-height:80px}
-  .modal input[type=text]:focus,.modal textarea:focus{border-color:var(--text-secondary)}
+  .modal input:focus,.modal textarea:focus{border-color:var(--garnet)}
   .modal-btns{display:flex;gap:8px;justify-content:flex-end}
   .modal-btns button{padding:9px 18px;border-radius:var(--radius-md);border:0.5px solid var(--border-med);cursor:pointer;font-size:14px;background:transparent;color:var(--text-primary);font-family:inherit}
   .modal-btns button.primary{background:var(--garnet);color:#fff;border-color:transparent}
   .modal-btns button.danger{background:var(--red);color:#fff;border-color:transparent;opacity:.35;pointer-events:none;transition:opacity .15s}
   .modal-btns button.danger.ready{opacity:1;pointer-events:auto}
+  .modal-warn{font-size:12px;color:var(--red);margin-bottom:12px;padding:8px 10px;background:#fef2f2;border-radius:var(--radius-md)}
+  .modal-info{font-size:12px;color:var(--text-secondary);margin-bottom:12px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-md)}
+  .hour-picker{display:flex;align-items:center;justify-content:space-between;background:var(--bg-secondary);border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px}
+  .hour-btn{width:36px;height:36px;border-radius:50%;border:0.5px solid var(--border-med);background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--garnet);font-weight:500;line-height:1}
+  .hour-btn:active{background:var(--garnet-light)}
+  .hour-btn:disabled{opacity:.3;cursor:not-allowed}
+  .hour-display{text-align:center}
+  .hour-value{font-size:24px;font-weight:600;color:var(--text-primary)}
+  .hour-label{font-size:11px;color:var(--text-tertiary);margin-top:2px}
+  .hour-pay{font-size:16px;font-weight:600;color:var(--green);text-align:center;margin-bottom:14px}
   .loading{text-align:center;padding:4rem 1rem;color:var(--text-tertiary);font-size:15px}
 </style>
 </head>
@@ -226,49 +262,33 @@ const USERS={
 };
 
 const DEFAULT_BASE=7.50;
-
-// Monthly base overrides — used for pro-rated or special months
-// May 2026 is a ~10-day starter month; full base resumes June 2026
 const MONTH_BASE_OVERRIDE={
-  '2026-05':{
-    'kid-michael':10.00,
-    'kid-lincoln':5.00,
-    'kid-jackson':5.00,
-    'kid-harvey':5.00,
-  }
+  '2026-05':{'kid-michael':10.00,'kid-lincoln':5.00,'kid-jackson':5.00,'kid-harvey':5.00}
 };
 
 const CHORES=[
-  {id:'dishwasher', name:'Empty dishwasher',        note:'Dry dishes · in correct place · no mess on floor', amount:0.95},
-  {id:'trash',      name:'Take out trash',           note:'Only when bag is full', amount:0.45},
-  {id:'mealclean',  name:'Help cleaning after meal', note:'Stay for full cleanup or until dismissed by adult', amount:0.75},
-  {id:'swiffer',    name:'Swiffer steps',            note:'', amount:0.45},
-  {id:'baseboards', name:'Clean baseboards',         note:'Must use minimally damp rag · Per room', amount:0.75},
-  {id:'weeds',      name:'Pull weeds',               note:'Per yard · up to parent\'s standards · subject to approval', amount:1.10},
+  {id:'dishwasher',name:'Empty dishwasher',       note:'Dry dishes · in correct place · no mess on floor',amount:0.95},
+  {id:'trash',     name:'Take out trash',          note:'Only when bag is full',amount:0.45},
+  {id:'mealclean', name:'Help cleaning after meal',note:'Stay for full cleanup or until dismissed by adult',amount:0.75},
+  {id:'swiffer',   name:'Swiffer steps',           note:'',amount:0.45},
+  {id:'baseboards',name:'Clean baseboards',        note:'Must use minimally damp rag · Per room',amount:0.75},
+  {id:'weeds',     name:'Pull weeds',              note:"Per yard · up to parent's standards · subject to approval",amount:1.10},
 ];
 
-// Penalties that apply to all kids
 const PENALTIES=[
-  {id:'bedroom', name:'Messy bedroom check', note:'Random inspection', amount:-1.00},
-  {id:'bedtime', name:'Missed bedtime',      note:'', amount:-2.00},
+  {id:'bedroom',name:'Messy bedroom check',note:'Random inspection',amount:-1.00},
+  {id:'bedtime',name:'Missed bedtime',     note:'',amount:-2.00},
 ];
 
-// Per-kid config: base amount, penalty overrides, and kid-specific extra penalties
 const KID_CONFIG={
   'kid-michael':{
     base:11.25,
-    penalties:{bedroom:-2.00, bedtime:-2.50},
-    extraPenalties:[
-      {id:'laundry', name:'Laundry not put away same day', note:'Must be put away day of', amount:-1.00}
-    ]
+    penalties:{bedroom:-2.00,bedtime:-2.50},
+    extraPenalties:[{id:'laundry',name:'Laundry not put away same day',note:'Must be put away day of',amount:-1.00}]
   }
 };
 
-// Returns the correct base for a kid for a given month (handles overrides)
-function kidBaseForMonth(id, month){
-  const m=month||getMonth();
-  return MONTH_BASE_OVERRIDE[m]?.[id] ?? KID_CONFIG[id]?.base ?? DEFAULT_BASE;
-}
+function kidBaseForMonth(id,month){const m=month||getMonth();return MONTH_BASE_OVERRIDE[m]?.[id]??KID_CONFIG[id]?.base??DEFAULT_BASE}
 function kidBase(id){return kidBaseForMonth(id,getMonth())}
 function kidPenalty(id,pid){return KID_CONFIG[id]?.penalties?.[pid]??PENALTIES.find(p=>p.id===pid)?.amount}
 function kidExtraPenalties(id){return KID_CONFIG[id]?.extraPenalties||[]}
@@ -281,29 +301,28 @@ async function hashPin(pin){
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 async function logAuthEvent(username,event){
-  try{
-    await db.from('auth_log').insert({id:uid(),username,event,ts:Date.now()});
-    if(authLogOpen&&currentUser)await loadAuthLog(true);
-  }catch(e){}
+  try{await db.from('auth_log').insert({id:uid(),username,event,ts:Date.now()});if(authLogOpen&&currentUser)await loadAuthLog(true);}catch(e){}
 }
 async function attemptPin(){
   const h=await hashPin(pinBuffer);
   if(USERS[h]){
     currentUser=USERS[h];pinBuffer='';pinError='';pinShake=false;showPinModal=false;
-    await logAuthEvent(currentUser,'unlocked');render();
+    await logAuthEvent(currentUser,'unlocked');
+    await loadCredits();
+    render();
   } else {
     await logAuthEvent('unknown','failed attempt');
     pinError='Incorrect PIN';pinShake=true;pinBuffer='';render();
     setTimeout(()=>{pinShake=false;pinError='';render()},1500);
   }
 }
-function signOut(){if(currentUser)logAuthEvent(currentUser,'locked');currentUser=null;authLogOpen=false;authLogs=[];render()}
+function signOut(){if(currentUser)logAuthEvent(currentUser,'locked');currentUser=null;credits=[];authLogOpen=false;authLogs=[];render()}
 function openPin(){showPinModal=true;pinBuffer='';pinError='';pinShake=false;render()}
 function cancelPin(){showPinModal=false;pinBuffer='';pinError='';pinShake=false;render()}
 function pinKey(k){if(pinBuffer.length>=6)return;pinBuffer+=k;render();if(pinBuffer.length===6)setTimeout(attemptPin,120)}
 function pinDel(){if(pinBuffer.length>0){pinBuffer=pinBuffer.slice(0,-1);render()}}
 
-// Date / month helpers
+// Date helpers
 function getMonth(){const n=new Date();return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`}
 function getPrevMonth(){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
 function monthStart(m){const[y,mo]=m.split('-');return new Date(+y,+mo-1,1).getTime()}
@@ -313,7 +332,7 @@ function fmtTime(ts){const d=new Date(ts);return d.toLocaleDateString('default',
 function fmtFull(ts){const d=new Date(ts);return d.toLocaleDateString('default',{month:'short',day:'numeric',year:'numeric'})+' '+d.toLocaleTimeString('default',{hour:'numeric',minute:'2-digit',second:'2-digit'})}
 function uid(){return 'e-'+Date.now()+'-'+Math.random().toString(36).slice(2,7)}
 function isLastDay(){const d=new Date(),t=new Date(d);t.setDate(d.getDate()+1);return t.getMonth()!==d.getMonth()}
-function daysLeftInMonth(){const n=new Date();const last=new Date(n.getFullYear(),n.getMonth()+1,0).getDate();return last-n.getDate()}
+function daysLeftInMonth(){const n=new Date();return new Date(n.getFullYear(),n.getMonth()+1,0).getDate()-n.getDate()}
 function dayLabel(){
   const n=new Date(),day=n.getDate();
   const v=day%100,sfx=['th','st','nd','rd'];
@@ -322,24 +341,62 @@ function dayLabel(){
 }
 
 const db=window.supabase.createClient(SURL,SKEY);
-let entries=[],allEntries=null,authLogs=[],loading=true,syncing=false,dbError=null;
+let entries=[],allEntries=null,credits=[],authLogs=[],loading=true,syncing=false,dbError=null;
 let activeKid=localStorage.getItem('allowance-active')||'kid-michael';
 let modalMode=null,pendingEntry=null;
 let carryChecked=false,historyOpen=false,historyLoading=false,authLogOpen=false,authLogLoading=false,choresOpen=false;
-let drillKid=null,drillMonth=null; // history drill-down
+let drillKid=null,drillMonth=null;
+let purchaseName='',purchaseAmount='';
+let hourlyHours=1,hourlyDetails='';
 
+const KIDS=[
+  {id:'kid-michael',name:'Michael'},
+  {id:'kid-lincoln',name:'Lincoln'},
+  {id:'kid-jackson',name:'Jackson'},
+  {id:'kid-harvey', name:'Harvey'},
+];
+
+// Balance helpers
 function kidEntries(kidId,month){const m=month||getMonth();return entries.filter(e=>e.kid_id===kidId&&e.month===m).sort((a,b)=>a.ts-b.ts)}
 function balance(kidId,month){const m=month||getMonth();return kidBaseForMonth(kidId,m)+kidEntries(kidId,m).reduce((s,e)=>s+e.delta,0)}
-function runningBals(kidId){
-  const log=kidEntries(kidId);const b=[];let r=kidBaseForMonth(kidId,getMonth());
-  for(const e of log){r+=e.delta;b.push(r)}return b;
-}
+function runningBals(kidId){const log=kidEntries(kidId);const b=[];let r=kidBaseForMonth(kidId,getMonth());for(const e of log){r+=e.delta;b.push(r)}return b}
 function histMonths(){if(!allEntries)return[];const ms=new Set(allEntries.map(e=>e.month));ms.add(getMonth());return[...ms].sort((a,b)=>b.localeCompare(a))}
-function histBalance(kidId,month){
-  if(!allEntries)return kidBaseForMonth(kidId,month);
-  return kidBaseForMonth(kidId,month)+allEntries.filter(e=>e.kid_id===kidId&&e.month===month).reduce((s,e)=>s+e.delta,0);
+function histBalance(kidId,month){if(!allEntries)return kidBaseForMonth(kidId,month);return kidBaseForMonth(kidId,month)+allEntries.filter(e=>e.kid_id===kidId&&e.month===month).reduce((s,e)=>s+e.delta,0)}
+
+// Credits helpers
+function getPurchases(kidId){
+  const kc=credits.filter(c=>c.kid_id===kidId);
+  const map={};
+  for(const c of kc){
+    if(!map[c.purchase_id])map[c.purchase_id]={id:c.purchase_id,name:c.purchase_name,entries:[],total:0,firstTs:c.ts};
+    map[c.purchase_id].entries.push(c);
+    map[c.purchase_id].total=Math.round((map[c.purchase_id].total+c.delta)*100)/100;
+    if(c.ts<map[c.purchase_id].firstTs)map[c.purchase_id].firstTs=c.ts;
+  }
+  return Object.values(map).sort((a,b)=>{
+    const aActive=a.total<0,bActive=b.total<0;
+    if(aActive&&!bActive)return -1;if(!aActive&&bActive)return 1;
+    return a.firstTs-b.firstTs;
+  });
+}
+function getOutstandingDebt(kidId){
+  return Math.abs(Math.min(0,getPurchases(kidId).filter(p=>p.total<0).reduce((s,p)=>s+p.total,0)));
+}
+function getOriginalDebt(purchase){
+  const charge=purchase.entries.find(e=>e.delta<0);
+  return charge?Math.abs(charge.delta):0;
+}
+function getMaxDebt(kidId){
+  if(!allEntries)return kidBaseForMonth(kidId,getMonth())*3;
+  const m=getMonth();
+  const months=histMonths().filter(mo=>mo!==m).slice(0,3);
+  if(!months.length)return kidBaseForMonth(kidId,getMonth())*3;
+  const earnings=months.map(mo=>Math.max(0,histBalance(kidId,mo)));
+  const avg=earnings.reduce((s,e)=>s+e,0)/earnings.length;
+  return Math.round(avg*3*100)/100;
 }
 
+// Data loaders
 async function loadEntries(){
   const m=getMonth(),prev=getPrevMonth();
   const{data,error}=await db.from('entries').select('*').in('month',[m,prev]).order('ts',{ascending:true});
@@ -361,6 +418,12 @@ async function loadAuthLog(skipRender){
   if(!error&&data)authLogs=data;
   authLogLoading=false;render();
 }
+async function loadCredits(skipRender){
+  if(!skipRender)render();
+  const{data,error}=await db.from('credits').select('*').order('ts',{ascending:true});
+  if(!error&&data)credits=data.map(r=>({...r,delta:parseFloat(r.delta)}));
+  if(!skipRender)render();
+}
 async function applyCarryForwards(){
   const m=getMonth(),prev=getPrevMonth();let inserted=false;
   for(const kid of KIDS){
@@ -373,20 +436,57 @@ async function applyCarryForwards(){
 }
 async function insertEntry(row){syncing=true;render();const{error}=await db.from('entries').insert(row);if(error)dbError=error.message;syncing=false;allEntries=null;await loadEntries()}
 async function removeEntry(id){syncing=true;render();const{error}=await db.from('entries').delete().eq('id',id);if(error)dbError=error.message;syncing=false;allEntries=null;await loadEntries()}
-async function clearMonth(){syncing=true;render();const{error}=await db.from('entries').delete().eq('month',getMonth());if(error)dbError=error.message;carryChecked=false;syncing=false;allEntries=null;await loadEntries()}
 
+async function clearMonth(){
+  syncing=true;render();
+  const m=getMonth();
+  // Apply debt paydown for each kid before clearing
+  for(const kid of KIDS){
+    const bal=balance(kid.id);
+    const outstanding=getOutstandingDebt(kid.id);
+    if(bal>0&&outstanding>0){
+      const activePurchases=getPurchases(kid.id).filter(p=>p.total<0);
+      let remaining=Math.min(bal,outstanding);
+      for(const p of activePurchases){
+        if(remaining<=0)break;
+        const owed=Math.abs(p.total);
+        const apply=Math.min(remaining,owed);
+        await db.from('credits').insert({
+          id:uid(),kid_id:kid.id,purchase_id:p.id,purchase_name:p.name,
+          delta:Math.round(apply*100)/100,
+          note:`Auto-payment from ${monthLabel(m)} balance`,
+          ts:Date.now(),added_by:currentUser||'system'
+        });
+        remaining=Math.round((remaining-apply)*100)/100;
+      }
+    }
+  }
+  await loadCredits(true);
+  const{error}=await db.from('entries').delete().eq('month',m);
+  if(error)dbError=error.message;
+  carryChecked=false;syncing=false;allEntries=null;await loadEntries();
+}
+
+async function addPurchase(kidId,name,amount){
+  const pid=uid();
+  const{error}=await db.from('credits').insert({
+    id:uid(),kid_id:kidId,purchase_id:pid,purchase_name:name,
+    delta:-Math.abs(amount),note:'',ts:Date.now(),added_by:currentUser||'system'
+  });
+  if(error)dbError=error.message;
+  await loadCredits(true);
+}
+
+// Toggle functions
 function toggleHistory(){historyOpen=!historyOpen;if(historyOpen&&allEntries===null)loadAllEntries();else render()}
 function toggleAuthLog(){if(!currentUser){openPin();return}authLogOpen=!authLogOpen;if(authLogOpen&&!authLogs.length)loadAuthLog();else render()}
 function toggleChores(){choresOpen=!choresOpen;render()}
 function openDrill(kidId,month){drillKid=kidId;drillMonth=month;render()}
 function closeDrill(){drillKid=null;drillMonth=null;render()}
-
-const KIDS=[
-  {id:'kid-michael',name:'Michael'},
-  {id:'kid-lincoln',name:'Lincoln'},
-  {id:'kid-jackson',name:'Jackson'},
-  {id:'kid-harvey', name:'Harvey'},
-];
+function openAddPurchase(){purchaseName='';purchaseAmount='';modalMode='addpurchase';render()}
+function openHourly(){hourlyHours=1;hourlyDetails='';modalMode='hourly';render()}
+function hourlyAdjust(delta){hourlyHours=Math.max(1,Math.round((hourlyHours+delta)*2)/2);render()}
+function closeModal(e){if(e)e.stopPropagation();modalMode=null;pendingEntry=null;purchaseName='';purchaseAmount='';hourlyDetails='';render()}
 
 function render(){
   const root=document.getElementById('app');
@@ -426,10 +526,27 @@ function render(){
   for(const k of KIDS){const bal=balance(k.id);h+=`<div class="dash-kid${k.id===kid.id?' active':''}" onclick="selectKid('${k.id}')"><div class="dash-name">${k.name}</div><div class="dash-bal ${bal>=0?'pos':'neg'}">$${bal.toFixed(2)}</div></div>`;}
   h+=`</div></div>`;
 
-  // Month end
+  // Month-end panel
   if(isLastDay()){
     h+=`<div class="month-end"><div class="month-end-title">Month end · ${monthLabel(m)}</div>`;
-    for(const k of KIDS){const bal=balance(k.id);h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span>${bal>=0?`<span class="payout">Payout $${bal.toFixed(2)}</span>`:`<span class="carry-fwd">Carries $${bal.toFixed(2)} to next month</span>`}</div>`;}
+    for(const k of KIDS){
+      const bal=balance(k.id);
+      const outstanding=getOutstandingDebt(k.id);
+      if(bal<0){
+        h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span><span class="carry-fwd">Carries $${bal.toFixed(2)} to next month</span></div>`;
+      } else if(outstanding>0){
+        const applied=Math.min(bal,outstanding);
+        const cashOut=Math.max(0,bal-outstanding);
+        h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span>
+          <div class="month-end-right">
+            <div class="debt-applied">$${applied.toFixed(2)} → debt</div>
+            ${cashOut>0?`<div class="payout">$${cashOut.toFixed(2)} payout</div>`:'<div style="font-size:12px;color:var(--text-tertiary)">No cash payout</div>'}
+          </div>
+        </div>`;
+      } else {
+        h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span><span class="payout">Payout $${bal.toFixed(2)}</span></div>`;
+      }
+    }
     h+=`</div>`;
   }
 
@@ -443,8 +560,7 @@ function render(){
 
   // Balance card
   const log=kidEntries(kid.id),bals=runningBals(kid.id),bal=balance(kid.id),base=kidBaseForMonth(kid.id,m);
-  const fullBase=KID_CONFIG[kid.id]?.base??DEFAULT_BASE;
-  const isProrated=base!==fullBase;
+  const fullBase=KID_CONFIG[kid.id]?.base??DEFAULT_BASE,isProrated=base!==fullBase;
   const daysLeft=daysLeftInMonth();
   const daysLabel=daysLeft===0?'Last day of month':daysLeft===1?'1 day left':`${daysLeft} days left`;
   h+=`<div class="balance-card">
@@ -452,38 +568,90 @@ function render(){
     <div style="text-align:right">
       <div style="font-size:13px;color:var(--text-secondary)">${monthLabel(m)}</div>
       <div class="balance-sub">${daysLabel}</div>
-      <div class="balance-sub"style="margin-top:1px">Base: $${base.toFixed(2)}/mo${isProrated?' · pro-rated':''}</div>
+      <div class="balance-sub">Base: $${base.toFixed(2)}/mo${isProrated?' · pro-rated':''}</div>
     </div>
   </div>`;
 
-  // Actions — only when unlocked
+  // Actions or locked chore list
   if(unlocked){
     const extraP=kidExtraPenalties(kid.id);
     h+=`<div class="actions-grid"><div class="action-card"><div class="section-label">Earn</div>`;
     for(const c of CHORES)h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${c.id}','${c.name}',${c.amount})"><div><div>${c.name}</div>${c.note?`<div class="action-note">${c.note}</div>`:''}</div><span class="earn-amt">+$${c.amount.toFixed(2)}</span></button>`;
+    h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openHourly()" style="border-color:var(--garnet);border-style:dashed"><div><div style="color:var(--garnet);font-weight:500">Hourly work</div><div class="action-note">Details required · $6.00/hr · min 1 hr</div></div><span class="earn-amt" style="color:var(--garnet)">$6/hr</span></button>`;
     h+=`</div><div class="action-card"><div class="section-label">Deductions</div>`;
     for(const p of PENALTIES){const amt=kidPenalty(kid.id,p.id);h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${p.id}','${p.name}',${amt})"><div><div>${p.name}</div>${p.note?`<div class="action-note">${p.note}</div>`:''}</div><span class="lose-amt">-$${Math.abs(amt).toFixed(2)}</span></button>`;}
     for(const p of extraP)h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${p.id}','${p.name}',${p.amount})"><div><div>${p.name}</div>${p.note?`<div class="action-note">${p.note}</div>`:''}</div><span class="lose-amt">-$${Math.abs(p.amount).toFixed(2)}</span></button>`;
     h+=`</div></div>`;
+
+    // Credits & Purchases section (unlocked only)
+    const purchases=getPurchases(kid.id);
+    const activePurchases=purchases.filter(p=>p.total<0);
+    const paidPurchases=purchases.filter(p=>p.total>=0);
+    const outstanding=getOutstandingDebt(kid.id);
+    const maxDebt=getMaxDebt(kid.id);
+    const availCredit=Math.max(0,maxDebt-outstanding);
+
+    h+=`<div class="credits-section">
+      <div class="credits-header">
+        <div class="section-label" style="margin-bottom:0">Credit &amp; Purchases</div>
+      </div>
+      <div class="credits-meta">
+        <div class="credits-meta-row"><span class="credits-meta-label">Outstanding debt</span><span class="credits-meta-val ${outstanding>0?'neg':'pos'}">$${outstanding.toFixed(2)}</span></div>
+        <div class="credits-meta-row"><span class="credits-meta-label">Max allowed debt</span><span class="credits-meta-val">$${maxDebt.toFixed(2)}</span></div>
+        <div class="credits-meta-row"><span class="credits-meta-label">Available credit</span><span class="credits-meta-val ${availCredit>0?'pos':'neg'}">$${availCredit.toFixed(2)}</span></div>
+      </div>`;
+
+    if(!activePurchases.length&&!paidPurchases.length){
+      h+=`<div class="credits-empty">No purchases yet.</div>`;
+    }
+    for(const p of activePurchases){
+      const orig=getOriginalDebt(p);
+      const paid=orig+p.total;
+      const pct=orig>0?Math.min(100,Math.round(paid/orig*100)):0;
+      h+=`<div class="purchase-item">
+        <div class="purchase-top">
+          <div class="purchase-name">${p.name}</div>
+          <div class="purchase-status owed">$${Math.abs(p.total).toFixed(2)} owed</div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="purchase-detail"><span>$${paid.toFixed(2)} paid of $${orig.toFixed(2)}</span><span>${pct}%</span></div>
+        ${p.entries.filter(e=>e.delta>0).length?`<div class="purchase-payments">
+          ${p.entries.filter(e=>e.delta>0).map(e=>`<div class="payment-row"><span>${fmtTime(e.ts)}</span><span class="pos">+$${e.delta.toFixed(2)}</span></div>`).join('')}
+        </div>`:''}
+      </div>`;
+    }
+    if(paidPurchases.length){
+      h+=`<div class="paid-section-label">Paid off</div>`;
+      for(const p of paidPurchases){
+        const orig=getOriginalDebt(p);
+        h+=`<div class="purchase-item paid">
+          <div class="purchase-top">
+            <div class="purchase-name">${p.name}</div>
+            <div class="purchase-status paid">Paid off ✓</div>
+          </div>
+          <div class="progress-track"><div class="progress-fill complete" style="width:100%"></div></div>
+          <div class="purchase-detail"><span>$${orig.toFixed(2)} total</span><span>100%</span></div>
+        </div>`;
+      }
+    }
+    if(availCredit>0){
+      h+=`<button class="add-purchase-btn" onclick="openAddPurchase()">+ Add purchase</button>`;
+    } else {
+      h+=`<button class="add-purchase-btn" style="opacity:.4;cursor:not-allowed">Credit limit reached</button>`;
+    }
+    h+=`</div>`;
+
   } else {
     h+=`<div class="locked-notice"><i class="ti ti-lock" style="font-size:13px;vertical-align:-1px"></i> Unlock to log chores and deductions</div>`;
-
-    // Chore & rules reference — visible while locked
     const extraP=kidExtraPenalties(kid.id);
     h+=`<div class="chore-list"><div class="chore-list-card">
       <div class="chore-list-header" onclick="toggleChores()">
-        <div class="section-label" style="margin-bottom:0">Available chores &amp; rules</div>
+        <div class="section-label" style="margin-bottom:0">Available chores</div>
         <span style="font-size:18px;color:var(--text-tertiary)">${choresOpen?'▲':'▼'}</span>
       </div>`;
     if(choresOpen){
-      h+=`<div class="chore-list-body">
-        <div class="chore-group-label">Available chores</div>`;
-      for(const c of CHORES){
-        h+=`<div class="chore-row">
-          <div><div class="chore-row-name">${c.name}</div>${c.note?`<div class="chore-row-note">${c.note}</div>`:''}</div>
-          <span class="chore-row-amt pos">+$${c.amount.toFixed(2)}</span>
-        </div>`;
-      }
+      h+=`<div class="chore-list-body"><div class="chore-group-label">Earn</div>`;
+      for(const c of CHORES)h+=`<div class="chore-row"><div><div class="chore-row-name">${c.name}</div>${c.note?`<div class="chore-row-note">${c.note}</div>`:''}</div><span class="chore-row-amt pos">+$${c.amount.toFixed(2)}</span></div>`;
       h+=`</div>`;
     }
     h+=`</div></div>`;
@@ -534,13 +702,10 @@ function render(){
           const isCur=mo===m;
           h+=`<tr${isCur?' class="cur"':''}><td>${monthLabelShort(mo)}${isCur?' <span style="font-size:10px;opacity:.6">(now)</span>':''}</td>`;
           for(const k of KIDS){
-            const b=histBalance(k.id,mo);
-            const bBase=kidBaseForMonth(k.id,mo);
-            const net=b-bBase;
+            const b=histBalance(k.id,mo),bBase=kidBaseForMonth(k.id,mo),net=b-bBase;
             h+=`<td><div class="h-cell" onclick="openDrill('${k.id}','${mo}')">
               <div class="h-bal ${b>=0?'pos':'neg'}">$${b.toFixed(2)}</div>
               <div class="h-net ${net>=0?'pos':'neg'}">${net>=0?'+':''}${net.toFixed(2)}</div>
-              <div class="h-cell-hint">tap</div>
             </div></td>`;
           }
           h+=`</tr>`;
@@ -570,10 +735,7 @@ function render(){
             <div class="auth-event-icon ${isUnlock?'icon-unlock':isFail?'icon-fail':'icon-lock'}">
               <i class="ti ${isUnlock?'ti-lock-open':isFail?'ti-alert-triangle':'ti-lock'}"></i>
             </div>
-            <div>
-              <div class="auth-log-name">${isFail?'Unknown':e.username}</div>
-              <div class="auth-log-event${isFail?' fail':''}">${e.event}</div>
-            </div>
+            <div><div class="auth-log-name">${isFail?'Unknown':e.username}</div><div class="auth-log-event${isFail?' fail':''}">${e.event}</div></div>
           </div>
           <div class="auth-log-time">${fmtFull(e.ts)}</div>
         </div>`;
@@ -583,30 +745,7 @@ function render(){
   }
   h+=`</div>`;
 
-  // Entry modal
-  if(modalMode==='entry'&&pendingEntry){
-    const amt=pendingEntry.delta,amtStr=amt>=0?`+$${amt.toFixed(2)}`:`-$${Math.abs(amt).toFixed(2)}`,amtColor=amt>=0?'var(--green)':'var(--red)';
-    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
-      <div class="modal-title">${pendingEntry.name}</div>
-      <div class="modal-amount" style="color:${amtColor}">${amtStr}</div>
-      <label for="note-input">Note <span style="opacity:.5">(optional)</span></label>
-      <textarea id="note-input" placeholder="e.g. Did a great job"></textarea>
-      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button class="primary" onclick="confirmEntry()">Log it</button></div>
-    </div></div>`;
-  }
-
-  // Reset modal
-  if(modalMode==='reset'){
-    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
-      <div class="modal-title" style="color:var(--red)">Reset all balances?</div>
-      <div class="modal-body">This will clear ${monthLabel(m)} activity for <strong>${KIDS.map(k=>k.name).join(', ')}</strong>. Cannot be undone.</div>
-      <label for="reset-input">Type <strong>reset month</strong> to confirm</label>
-      <input type="text" id="reset-input" placeholder="reset month" autocomplete="off" spellcheck="false"/>
-      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button id="reset-btn" class="danger" onclick="confirmReset()">Reset all</button></div>
-    </div></div>`;
-  }
-
-  // History drill-down modal
+  // Drill-down modal
   if(drillKid&&drillMonth&&allEntries){
     const dKid=KIDS.find(k=>k.id===drillKid);
     const dEntries=allEntries.filter(e=>e.kid_id===drillKid&&e.month===drillMonth).sort((a,b)=>a.ts-b.ts);
@@ -614,9 +753,7 @@ function render(){
     let runBal=dBase;
     const runBals=dEntries.map(e=>{runBal+=e.delta;return runBal;});
     const finalBal=dBase+dEntries.reduce((s,e)=>s+e.delta,0);
-    const totalEarned=dEntries.filter(e=>e.delta>0).reduce((s,e)=>s+e.delta,0);
     const totalLost=dEntries.filter(e=>e.delta<0).reduce((s,e)=>s+e.delta,0);
-
     h+=`<div class="drill-modal-bg" onclick="closeDrill()"><div class="drill-modal" onclick="event.stopPropagation()">
       <div class="drill-header">
         <div>
@@ -626,17 +763,12 @@ function render(){
         <button class="drill-close" onclick="closeDrill()">×</button>
       </div>
       <div class="drill-body">`;
-
-    if(!dEntries.length){
-      h+=`<div class="drill-empty">No activity logged this month.</div>`;
-    } else {
-      const rev=[...dEntries].reverse();
-      const revBals=[...runBals].reverse();
+    if(!dEntries.length){h+=`<div class="drill-empty">No activity logged this month.</div>`;}
+    else{
+      const rev=[...dEntries].reverse(),revBals=[...runBals].reverse();
       for(let i=0;i<rev.length;i++){
-        const e=rev[i],rb=revBals[i],pb=rb-e.delta;
-        const isCarry=e.name===CARRY_NAME;
-        const cls=e.delta>=0?'drill-amt-pos':'drill-amt-neg';
-        const sign=e.delta>=0?'+':'';
+        const e=rev[i],rb=revBals[i],pb=rb-e.delta,isCarry=e.name===CARRY_NAME;
+        const cls=e.delta>=0?'drill-amt-pos':'drill-amt-neg',sign=e.delta>=0?'+':'';
         const safeNote=e.note?e.note.replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
         const byLabel=e.edited_by&&e.edited_by!=='system'?`<span class="log-by">${e.edited_by}</span>`:'';
         h+=`<div class="drill-item"><div class="drill-row">
@@ -650,19 +782,109 @@ function render(){
         </div></div>`;
       }
       h+=`<div class="drill-summary">
-        <div>
-          <div class="drill-summary-label">Earned</div>
-          <div style="font-size:12px;color:var(--text-tertiary);margin-top:1px">Lost: <span style="color:var(--red)">-$${Math.abs(totalLost).toFixed(2)}</span></div>
-        </div>
+        <div><div class="drill-summary-label">Final balance</div>${Math.abs(totalLost)>0?`<div style="font-size:12px;color:var(--text-tertiary);margin-top:2px">Deductions: <span style="color:var(--red)">-$${Math.abs(totalLost).toFixed(2)}</span></div>`:''}</div>
         <div class="drill-summary-val ${finalBal>=0?'pos':'neg'}">$${finalBal.toFixed(2)}</div>
       </div>`;
     }
     h+=`</div></div></div>`;
   }
 
+  // Hourly work modal
+  if(modalMode==='hourly'){
+    const HOURLY_RATE=6.00;
+    const pay=Math.round(hourlyHours*HOURLY_RATE*100)/100;
+    const halfHours=hourlyHours%1!==0;
+    const hourLabel=hourlyHours===1?'1 hour':(halfHours?`${Math.floor(hourlyHours)}½ hours`:`${hourlyHours} hours`);
+    const canSubmit=hourlyDetails.trim().length>0;
+    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">Hourly work — ${kid.name}</div>
+      <div class="modal-body" style="margin-bottom:12px">$6.00/hr · minimum 1 hr · ½ hr increments after first hour</div>
+      <div class="hour-picker">
+        <button class="hour-btn" onclick="hourlyAdjust(-0.5)" ${hourlyHours<=1?'disabled':''}>−</button>
+        <div class="hour-display">
+          <div class="hour-value">${hourLabel}</div>
+          <div class="hour-label">${halfHours?'(½ hr at half rate)':''}</div>
+        </div>
+        <button class="hour-btn" onclick="hourlyAdjust(0.5)">+</button>
+      </div>
+      <div class="hour-pay">+$${pay.toFixed(2)}</div>
+      <label>Details <span style="color:var(--red)">*</span></label>
+      <textarea id="hourly-details" placeholder="What did they work on? Be specific." style="margin-bottom:${canSubmit?'14':'4'}px">${hourlyDetails}</textarea>
+      ${!canSubmit&&hourlyDetails.length===0?'':(!canSubmit?'<div style="font-size:12px;color:var(--red);margin-bottom:12px">Details are required.</div>':'')}
+      <div class="modal-btns">
+        <button onclick="closeModal()">Cancel</button>
+        <button class="primary" onclick="confirmHourly()" ${!canSubmit?'style="opacity:.4;pointer-events:none"':''}>Log $${pay.toFixed(2)}</button>
+      </div>
+    </div></div>`;
+  }
+
+  // Entry modal
+  if(modalMode==='entry'&&pendingEntry){
+    const amt=pendingEntry.delta,amtStr=amt>=0?`+$${amt.toFixed(2)}`:`-$${Math.abs(amt).toFixed(2)}`,amtColor=amt>=0?'var(--green)':'var(--red)';
+    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">${pendingEntry.name}</div>
+      <div class="modal-amount" style="color:${amtColor}">${amtStr}</div>
+      <label for="note-input">Note <span style="opacity:.5">(optional)</span></label>
+      <textarea id="note-input" placeholder="e.g. Did a great job"></textarea>
+      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button class="primary" onclick="confirmEntry()">Log it</button></div>
+    </div></div>`;
+  }
+
+  // Add purchase modal
+  if(modalMode==='addpurchase'){
+    const outstanding=getOutstandingDebt(kid.id);
+    const maxDebt=getMaxDebt(kid.id);
+    const availCredit=Math.max(0,maxDebt-outstanding);
+    const amt=parseFloat(purchaseAmount)||0;
+    const wouldExceed=amt>availCredit;
+    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">Add purchase — ${kid.name}</div>
+      <div class="modal-info">Available credit: <strong>$${availCredit.toFixed(2)}</strong> · Max debt: $${maxDebt.toFixed(2)}</div>
+      ${wouldExceed&&amt>0?`<div class="modal-warn">Amount exceeds available credit of $${availCredit.toFixed(2)}</div>`:''}
+      <label>Purchase name</label>
+      <input type="text" id="purchase-name-input" placeholder="e.g. Video game" value="${purchaseName}" />
+      <label>Total cost ($)</label>
+      <input type="number" id="purchase-amt-input" placeholder="0.00" min="0.01" step="0.01" value="${purchaseAmount}" />
+      <div class="modal-btns">
+        <button onclick="closeModal()">Cancel</button>
+        <button class="primary" onclick="confirmAddPurchase()" ${wouldExceed||!purchaseName.trim()||amt<=0?'disabled style="opacity:.4;pointer-events:none"':''}>Add</button>
+      </div>
+    </div></div>`;
+  }
+
+  // Reset modal
+  if(modalMode==='reset'){
+    // Build paydown preview
+    let previewLines='';
+    for(const k of KIDS){
+      const bal=balance(k.id),outstanding=getOutstandingDebt(k.id);
+      if(bal>0&&outstanding>0){
+        const applied=Math.min(bal,outstanding),cashOut=Math.max(0,bal-outstanding);
+        previewLines+=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:3px">• ${k.name}: $${applied.toFixed(2)} → debt${cashOut>0?` · $${cashOut.toFixed(2)} cash`:' · no cash'}</div>`;
+      }
+    }
+    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title" style="color:var(--red)">Reset all balances?</div>
+      ${previewLines?`<div class="modal-info"style="margin-bottom:12px"><div style="font-size:12px;font-weight:500;margin-bottom:6px;color:var(--text-primary)">Debt paydown on reset:</div>${previewLines}</div>`:''}
+      <div class="modal-body">This will clear ${monthLabel(m)} activity for <strong>${KIDS.map(k=>k.name).join(', ')}</strong>. Cannot be undone.</div>
+      <label for="reset-input">Type <strong>reset month</strong> to confirm</label>
+      <input type="text" id="reset-input" placeholder="reset month" autocomplete="off" spellcheck="false"/>
+      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button id="reset-btn" class="danger" onclick="confirmReset()">Reset all</button></div>
+    </div></div>`;
+  }
+
   root.innerHTML=h;
 
+  if(modalMode==='hourly'){
+    const ta=document.getElementById('hourly-details');
+    if(ta){ta.focus();ta.oninput=e=>{hourlyDetails=e.target.value;render()}}
+  }
   if(modalMode==='entry'){const ta=document.getElementById('note-input');if(ta){ta.focus();ta.onkeydown=e=>{if(e.key==='Enter'&&e.metaKey)confirmEntry()}}}
+  if(modalMode==='addpurchase'){
+    const ni=document.getElementById('purchase-name-input'),ai=document.getElementById('purchase-amt-input');
+    if(ni){ni.focus();ni.oninput=e=>{purchaseName=e.target.value;render()}}
+    if(ai){ai.oninput=e=>{purchaseAmount=e.target.value;render()}}
+  }
   if(modalMode==='reset'){
     const inp=document.getElementById('reset-input'),btn=document.getElementById('reset-btn');
     if(inp){inp.focus();inp.addEventListener('input',()=>btn.classList.toggle('ready',inp.value.toLowerCase()==='reset month'));inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&inp.value.toLowerCase()==='reset month')confirmReset()});}
@@ -672,13 +894,30 @@ function render(){
 function selectKid(id){activeKid=id;localStorage.setItem('allowance-active',id);render()}
 function openEntry(id,name,delta){if(!currentUser)return;modalMode='entry';pendingEntry={id,name,delta};render()}
 function openReset(){if(!currentUser)return;modalMode='reset';render()}
-function closeModal(e){if(e)e.stopPropagation();modalMode=null;pendingEntry=null;render()}
 function confirmEntry(){
   if(!currentUser)return;
   const ta=document.getElementById('note-input'),note=ta?ta.value.trim():'';
   const kid=KIDS.find(k=>k.id===activeKid);if(!kid||!pendingEntry)return;
   const row={id:uid(),kid_id:kid.id,month:getMonth(),name:pendingEntry.name,delta:pendingEntry.delta,note,ts:Date.now(),edited_by:currentUser};
   modalMode=null;pendingEntry=null;insertEntry(row);
+}
+function confirmHourly(){
+  if(!currentUser||!hourlyDetails.trim())return;
+  const HOURLY_RATE=6.00;
+  const pay=Math.round(hourlyHours*HOURLY_RATE*100)/100;
+  const halfHours=hourlyHours%1!==0;
+  const hourLabel=hourlyHours===1?'1 hour':(halfHours?`${Math.floor(hourlyHours)}½ hours`:`${hourlyHours} hours`);
+  const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
+  const row={id:uid(),kid_id:kid.id,month:getMonth(),name:`Hourly work (${hourLabel})`,delta:pay,note:hourlyDetails.trim(),ts:Date.now(),edited_by:currentUser};
+  modalMode=null;hourlyDetails='';hourlyHours=1;insertEntry(row);
+}
+function confirmAddPurchase(){
+  if(!currentUser)return;
+  const name=purchaseName.trim(),amt=parseFloat(purchaseAmount);
+  if(!name||amt<=0)return;
+  const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
+  modalMode=null;purchaseName='';purchaseAmount='';
+  addPurchase(kid.id,name,amt);
 }
 function undoEntry(id){if(!currentUser)return;removeEntry(id)}
 function confirmReset(){
@@ -688,6 +927,7 @@ function confirmReset(){
 }
 
 db.channel('entries-live').on('postgres_changes',{event:'*',schema:'public',table:'entries'},()=>{if(!syncing){allEntries=null;loadEntries()}}).subscribe();
+db.channel('credits-live').on('postgres_changes',{event:'*',schema:'public',table:'credits'},()=>{if(currentUser)loadCredits(true)}).subscribe();
 db.channel('auth-live').on('postgres_changes',{event:'INSERT',schema:'public',table:'auth_log'},()=>{if(authLogOpen&&currentUser)loadAuthLog(true)}).subscribe();
 loadEntries();
 </script>
