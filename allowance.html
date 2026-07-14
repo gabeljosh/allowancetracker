@@ -585,6 +585,7 @@ function render(){
     h+=`</div><div class="action-card"><div class="section-label">Deductions</div>`;
     for(const p of PENALTIES){const amt=kidPenalty(kid.id,p.id);h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${p.id}','${p.name}',${amt})"><div><div>${p.name}</div>${p.note?`<div class="action-note">${p.note}</div>`:''}</div><span class="lose-amt">-$${Math.abs(amt).toFixed(2)}</span></button>`;}
     for(const p of extraP)h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${p.id}','${p.name}',${p.amount})"><div><div>${p.name}</div>${p.note?`<div class="action-note">${p.note}</div>`:''}</div><span class="lose-amt">-$${Math.abs(p.amount).toFixed(2)}</span></button>`;
+    h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openMiscDeduct()" style="border-color:var(--red);border-style:dashed"><div><div style="color:var(--red);font-weight:500">Misc deduction</div><div class="action-note">Custom amount · description required</div></div><span class="lose-amt">-$?</span></button>`;
     h+=`</div></div>`;
 
     // Credits & Purchases section (unlocked only)
@@ -839,19 +840,32 @@ function render(){
     const outstanding=getOutstandingDebt(kid.id);
     const maxDebt=getMaxDebt(kid.id);
     const availCredit=Math.max(0,maxDebt-outstanding);
-    const amt=parseFloat(purchaseAmount)||0;
-    const wouldExceed=amt>availCredit;
     h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
       <div class="modal-title">Add purchase — ${kid.name}</div>
       <div class="modal-info">Available credit: <strong>$${availCredit.toFixed(2)}</strong> · Max debt: $${maxDebt.toFixed(2)}</div>
-      ${wouldExceed&&amt>0?`<div class="modal-warn">Amount exceeds available credit of $${availCredit.toFixed(2)}</div>`:''}
+      <div id="purchase-warn" style="display:none" class="modal-warn">Amount exceeds available credit of $${availCredit.toFixed(2)}</div>
       <label>Purchase name</label>
-      <input type="text" id="purchase-name-input" placeholder="e.g. Video game" value="${purchaseName}" />
+      <input type="text" id="purchase-name-input" placeholder="e.g. Video game" autocomplete="off" />
       <label>Total cost ($)</label>
-      <input type="number" id="purchase-amt-input" placeholder="0.00" min="0.01" step="0.01" value="${purchaseAmount}" />
+      <input type="number" id="purchase-amt-input" placeholder="0.00" min="0.01" step="0.01" />
       <div class="modal-btns">
         <button onclick="closeModal()">Cancel</button>
-        <button class="primary" onclick="confirmAddPurchase()" ${wouldExceed||!purchaseName.trim()||amt<=0?'disabled style="opacity:.4;pointer-events:none"':''}>Add</button>
+        <button id="add-purchase-submit" class="primary" style="opacity:.4;pointer-events:none" onclick="confirmAddPurchase()">Add</button>
+      </div>
+    </div></div>`;
+  }
+
+  // Misc deduction modal
+  if(modalMode==='miscdeduct'){
+    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">Misc deduction — ${kid.name}</div>
+      <label>Description <span style="color:var(--red)">*</span></label>
+      <input type="text" id="misc-desc-input" placeholder="e.g. Broke house rule" autocomplete="off" />
+      <label>Amount ($) <span style="color:var(--red)">*</span></label>
+      <input type="number" id="misc-amt-input" placeholder="0.00" min="0.01" step="0.01" />
+      <div class="modal-btns">
+        <button onclick="closeModal()">Cancel</button>
+        <button id="misc-deduct-submit" class="primary" style="opacity:.4;pointer-events:none;background:var(--red)" onclick="confirmMiscDeduct()">Deduct</button>
       </div>
     </div></div>`;
   }
@@ -881,13 +895,45 @@ function render(){
 
   if(modalMode==='hourly'){
     const ta=document.getElementById('hourly-details');
-    if(ta){ta.focus();ta.oninput=e=>{hourlyDetails=e.target.value;render()}}
+    if(ta){
+      ta.focus();
+      ta.addEventListener('input',e=>{
+        hourlyDetails=e.target.value;
+        const btn=document.querySelector('.modal-btns .primary');
+        if(btn){const ok=hourlyDetails.trim().length>0;btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}
+      });
+    }
   }
   if(modalMode==='entry'){const ta=document.getElementById('note-input');if(ta){ta.focus();ta.onkeydown=e=>{if(e.key==='Enter'&&e.metaKey)confirmEntry()}}}
   if(modalMode==='addpurchase'){
-    const ni=document.getElementById('purchase-name-input'),ai=document.getElementById('purchase-amt-input');
-    if(ni){ni.focus();ni.oninput=e=>{purchaseName=e.target.value;render()}}
-    if(ai){ai.oninput=e=>{purchaseAmount=e.target.value;render()}}
+    const ni=document.getElementById('purchase-name-input');
+    const ai=document.getElementById('purchase-amt-input');
+    const btn=document.getElementById('add-purchase-submit');
+    const warn=document.getElementById('purchase-warn');
+    const outstanding=getOutstandingDebt(activeKid);
+    const maxDebt=getMaxDebt(activeKid);
+    const availCredit=Math.max(0,maxDebt-outstanding);
+    function updatePurchaseBtn(){
+      const amt=parseFloat(ai?.value)||0;
+      const name=(ni?.value||'').trim();
+      const exceeds=amt>availCredit;
+      if(warn)warn.style.display=(exceeds&&amt>0)?'block':'none';
+      if(btn){const ok=name&&amt>0&&!exceeds;btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}
+    }
+    if(ni){ni.focus();ni.addEventListener('input',e=>{purchaseName=e.target.value;updatePurchaseBtn();})}
+    if(ai){ai.addEventListener('input',e=>{purchaseAmount=e.target.value;updatePurchaseBtn();})}
+  }
+  if(modalMode==='miscdeduct'){
+    const di=document.getElementById('misc-desc-input');
+    const ai=document.getElementById('misc-amt-input');
+    const btn=document.getElementById('misc-deduct-submit');
+    function updateMiscBtn(){
+      const amt=parseFloat(ai?.value)||0;
+      const desc=(di?.value||'').trim();
+      if(btn){const ok=desc&&amt>0;btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}
+    }
+    if(di){di.focus();di.addEventListener('input',e=>{updateMiscBtn();})}
+    if(ai){ai.addEventListener('input',e=>{updateMiscBtn();})}
   }
   if(modalMode==='reset'){
     const inp=document.getElementById('reset-input'),btn=document.getElementById('reset-btn');
@@ -904,6 +950,18 @@ function confirmEntry(){
   const kid=KIDS.find(k=>k.id===activeKid);if(!kid||!pendingEntry)return;
   const row={id:uid(),kid_id:kid.id,month:getMonth(),name:pendingEntry.name,delta:pendingEntry.delta,note,ts:Date.now(),edited_by:currentUser};
   modalMode=null;pendingEntry=null;insertEntry(row);
+}
+function openMiscDeduct(){modalMode='miscdeduct';render()}
+function confirmMiscDeduct(){
+  if(!currentUser)return;
+  const di=document.getElementById('misc-desc-input');
+  const ai=document.getElementById('misc-amt-input');
+  const desc=(di?.value||'').trim();
+  const amt=parseFloat(ai?.value)||0;
+  if(!desc||amt<=0)return;
+  const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
+  const row={id:uid(),kid_id:kid.id,month:getMonth(),name:desc,delta:-Math.abs(amt),note:'',ts:Date.now(),edited_by:currentUser};
+  modalMode=null;insertEntry(row);
 }
 function confirmHourly(){
   if(!currentUser||!hourlyDetails.trim())return;
