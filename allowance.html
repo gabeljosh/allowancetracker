@@ -308,7 +308,7 @@ async function attemptPin(){
   if(USERS[h]){
     currentUser=USERS[h];pinBuffer='';pinError='';pinShake=false;showPinModal=false;
     await logAuthEvent(currentUser,'unlocked');
-    await loadCredits();
+    await Promise.all([loadCredits(true), loadAllEntries(true)]);
     render();
   } else {
     await logAuthEvent('unknown','failed attempt');
@@ -388,10 +388,13 @@ function getOriginalDebt(purchase){
 }
 function getMaxDebt(kidId){
   const multiplier=kidId==='kid-michael'?4:3;
-  if(!allEntries)return kidBaseForMonth(kidId,getMonth())*multiplier;
+  // Use total actual payout (base + chores earned) from history, not just base pay
   const m=getMonth();
-  const months=histMonths().filter(mo=>mo!==m).slice(0,multiplier);
-  if(!months.length)return kidBaseForMonth(kidId,getMonth())*multiplier;
+  const months=allEntries?histMonths().filter(mo=>mo!==m).slice(0,multiplier):[];
+  if(!months.length){
+    // No history yet — use base pay only as a conservative fallback
+    return Math.round(kidBaseForMonth(kidId,m)*multiplier*100)/100;
+  }
   const earnings=months.map(mo=>Math.max(0,histBalance(kidId,mo)));
   const avg=earnings.reduce((s,e)=>s+e,0)/earnings.length;
   return Math.round(avg*multiplier*100)/100;
