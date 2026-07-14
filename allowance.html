@@ -387,13 +387,14 @@ function getOriginalDebt(purchase){
   return charge?Math.abs(charge.delta):0;
 }
 function getMaxDebt(kidId){
-  if(!allEntries)return kidBaseForMonth(kidId,getMonth())*3;
+  const multiplier=kidId==='kid-michael'?4:3;
+  if(!allEntries)return kidBaseForMonth(kidId,getMonth())*multiplier;
   const m=getMonth();
-  const months=histMonths().filter(mo=>mo!==m).slice(0,3);
-  if(!months.length)return kidBaseForMonth(kidId,getMonth())*3;
+  const months=histMonths().filter(mo=>mo!==m).slice(0,multiplier);
+  if(!months.length)return kidBaseForMonth(kidId,getMonth())*multiplier;
   const earnings=months.map(mo=>Math.max(0,histBalance(kidId,mo)));
   const avg=earnings.reduce((s,e)=>s+e,0)/earnings.length;
-  return Math.round(avg*3*100)/100;
+  return Math.round(avg*multiplier*100)/100;
 }
 
 // Data loaders
