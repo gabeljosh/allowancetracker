@@ -261,7 +261,7 @@ const USERS={
   '5cfd7297b12dad983f6f629c15f0e7b5a3eb78e24d38ba7a87ff7b1139bd9c44':'Jasmine'
 };
 
-const DEFAULT_BASE=7.50;
+const DEFAULT_BASE=5.00;
 const MONTH_BASE_OVERRIDE={
   '2026-05':{'kid-michael':10.00,'kid-lincoln':5.00,'kid-jackson':5.00,'kid-harvey':5.00}
 };
@@ -282,7 +282,7 @@ const PENALTIES=[
 
 const KID_CONFIG={
   'kid-michael':{
-    base:11.25,
+    base:5.00,
     penalties:{bedroom:-2.00,bedtime:-2.50},
     extraPenalties:[{id:'laundry',name:'Laundry not put away same day',note:'Must be put away day of',amount:-1.00}]
   }
@@ -444,6 +444,11 @@ async function removeEntry(id){syncing=true;render();const{error}=await db.from(
 async function clearMonth(){
   syncing=true;render();
   const m=getMonth();
+
+  // Fetch fresh credits from DB before paydown — don't rely on in-memory state
+  const{data:freshCredits}=await db.from('credits').select('*').order('ts',{ascending:true});
+  if(freshCredits) credits=freshCredits.map(r=>({...r,delta:parseFloat(r.delta)}));
+
   // Apply debt paydown for each kid before clearing
   for(const kid of KIDS){
     const bal=balance(kid.id);
@@ -465,7 +470,12 @@ async function clearMonth(){
       }
     }
   }
-  await loadCredits(true);
+
+  // Reload credits after paydowns
+  const{data:updatedCredits}=await db.from('credits').select('*').order('ts',{ascending:true});
+  if(updatedCredits) credits=updatedCredits.map(r=>({...r,delta:parseFloat(r.delta)}));
+
+  // Now clear the month's entries
   const{error}=await db.from('entries').delete().eq('month',m);
   if(error)dbError=error.message;
   carryChecked=false;syncing=false;allEntries=null;await loadEntries();
