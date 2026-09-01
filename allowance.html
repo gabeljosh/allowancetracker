@@ -34,23 +34,22 @@
   .auth-bar{display:flex;align-items:center;justify-content:space-between;background:var(--garnet);border:none;border-radius:var(--radius-lg);padding:.75rem 1.25rem;margin-bottom:1rem}
   .auth-bar-left{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.75)}
   .auth-badge{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:#fff}
-  .auth-badge i{color:rgba(255,255,255,0.8)}
   .auth-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.4);background:transparent;cursor:pointer;color:rgba(255,255,255,0.85);font-family:inherit}
   .auth-btn:active{opacity:.7}
   .auth-btn.unlock{color:#fff;border-color:rgba(255,255,255,0.7);font-weight:500}
 
-  /* PIN modal */
+  /* PIN */
   .pin-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:300;padding:1rem}
   .pin-modal{background:var(--bg-primary);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:2rem 1.5rem;width:100%;max-width:280px;text-align:center}
   .pin-title{font-size:17px;font-weight:500;margin-bottom:6px}
   .pin-sub{font-size:13px;color:var(--text-secondary);margin-bottom:1.5rem}
   .pin-dots{display:flex;gap:10px;justify-content:center;margin-bottom:1.5rem}
-  .pin-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border-med);transition:background .15s,border-color .15s}
+  .pin-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border-med)}
   .pin-dot.filled{background:var(--garnet);border-color:var(--garnet)}
   .pin-dot.error{border-color:var(--red)}
   .pin-error{font-size:13px;color:var(--red);margin-bottom:1rem;min-height:20px}
   .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
-  .pin-key{padding:16px;border-radius:var(--radius-md);border:0.5px solid var(--border);background:var(--bg-secondary);font-size:20px;font-weight:400;cursor:pointer;color:var(--text-primary);font-family:inherit}
+  .pin-key{padding:16px;border-radius:var(--radius-md);border:0.5px solid var(--border);background:var(--bg-secondary);font-size:20px;cursor:pointer;color:var(--text-primary);font-family:inherit}
   .pin-key:active{background:var(--border-med)}
   .pin-key.del{font-size:16px;color:var(--text-secondary)}
   .pin-cancel{font-size:13px;color:var(--text-tertiary);background:transparent;border:none;cursor:pointer;padding:8px;font-family:inherit}
@@ -60,7 +59,7 @@
   .dash-date{font-size:13px;color:var(--text-secondary);margin-bottom:10px;display:flex;align-items:baseline;gap:6px}
   .dash-day{font-size:22px;font-weight:500;color:var(--text-primary)}
   .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .dash-kid{background:var(--bg-secondary);border:0.5px solid var(--border);border-radius:var(--radius-md);padding:8px 6px;text-align:center;cursor:pointer;transition:border-color .15s}
+  .dash-kid{background:var(--bg-secondary);border:0.5px solid var(--border);border-radius:var(--radius-md);padding:8px 6px;text-align:center;cursor:pointer}
   .dash-kid:active{opacity:.75}
   .dash-kid.active{border:2px solid var(--garnet)}
   .dash-name{font-size:10px;color:var(--text-tertiary);margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
@@ -124,7 +123,7 @@
   .delta-neg{color:var(--red);font-size:13px;font-weight:500;white-space:nowrap}
   .undo-btn{font-size:11px;color:var(--text-tertiary);background:transparent;border:none;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit}
 
-  /* Credits & Purchases */
+  /* Credits */
   .credits-section{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
   .credits-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
   .credits-meta{font-size:12px;color:var(--text-tertiary);margin-bottom:12px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-md);display:flex;flex-direction:column;gap:3px}
@@ -140,7 +139,7 @@
   .purchase-status.owed{color:var(--red)}
   .purchase-status.paid{color:var(--green)}
   .progress-track{height:6px;background:var(--bg-secondary);border-radius:3px;overflow:hidden;margin-bottom:5px}
-  .progress-fill{height:100%;background:var(--garnet);border-radius:3px;transition:width .3s}
+  .progress-fill{height:100%;background:var(--garnet);border-radius:3px}
   .progress-fill.complete{background:var(--green)}
   .purchase-detail{display:flex;justify-content:space-between;font-size:11px;color:var(--text-tertiary)}
   .purchase-payments{margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border)}
@@ -149,6 +148,26 @@
   .add-purchase-btn{width:100%;padding:9px;border:0.5px dashed var(--border-med);border-radius:var(--radius-md);background:transparent;cursor:pointer;font-size:13px;color:var(--garnet);font-family:inherit;font-weight:500;margin-top:10px}
   .add-purchase-btn:active{background:var(--garnet-light)}
   .paid-section-label{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 6px;font-weight:500}
+
+  /* Bank / Ledger */
+  .bank-section{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
+  .bank-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .bank-balance-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .bank-balance-label{font-size:13px;color:var(--text-secondary)}
+  .bank-balance-amt{font-size:26px;font-weight:600}
+  .bank-actions{display:flex;gap:8px;margin-bottom:12px}
+  .bank-btn{flex:1;padding:9px;border-radius:var(--radius-md);border:0.5px solid var(--border-med);background:transparent;cursor:pointer;font-size:13px;font-family:inherit;font-weight:500}
+  .bank-btn:active{opacity:.7}
+  .bank-btn.pay{background:var(--garnet);color:#fff;border-color:transparent}
+  .bank-btn.adjust{color:var(--text-primary)}
+  .bank-log-label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-tertiary);font-weight:500;margin-bottom:8px}
+  .bank-log-item{display:flex;align-items:flex-start;justify-content:space-between;padding:7px 0;border-top:0.5px solid var(--border);gap:10px}
+  .bank-log-item:first-child{border-top:none}
+  .bank-log-desc{font-size:13px;font-weight:500}
+  .bank-log-note{font-size:11px;color:var(--text-tertiary);margin-top:2px}
+  .bank-log-meta{font-size:11px;color:var(--text-tertiary);margin-top:1px}
+  .bank-log-amt{font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
+  .bank-empty{font-size:13px;color:var(--text-tertiary);text-align:center;padding:1rem 0}
 
   /* Collapsibles */
   .collapsible{background:var(--bg-primary);border:0.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:1rem;overflow:hidden}
@@ -166,7 +185,7 @@
   table.hist tr.cur td:first-child{font-weight:500;color:var(--text-primary)}
   .h-bal{font-weight:500}.h-net{font-size:11px;color:var(--text-tertiary);margin-top:1px}
   .h-net.pos{color:var(--green)}.h-net.neg{color:var(--red)}
-  .h-cell{cursor:pointer;border-radius:var(--radius-md);padding:2px 4px;margin:-2px -4px;transition:background .12s}
+  .h-cell{cursor:pointer;border-radius:var(--radius-md);padding:2px 4px;margin:-2px -4px}
   .h-cell:active{background:var(--garnet-light)}
 
   /* Auth history */
@@ -192,7 +211,7 @@
   .chore-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--garnet);font-weight:600;margin:12px 0 6px}
   .chore-row{display:flex;align-items:flex-start;justify-content:space-between;padding:7px 0;border-top:0.5px solid var(--border);gap:10px}
   .chore-row:first-of-type{border-top:none}
-  .chore-row-name{font-size:13px;color:var(--text-primary)}
+  .chore-row-name{font-size:13px}
   .chore-row-note{font-size:11px;color:var(--text-tertiary);margin-top:2px}
   .chore-row-amt{font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
 
@@ -218,7 +237,6 @@
   .drill-summary-label{color:var(--text-secondary);font-weight:500;font-size:13px}
   .drill-summary-val{font-size:16px;font-weight:600}
 
-  /* Error */
   .error-box{background:var(--bg-danger);color:var(--text-danger);border-radius:var(--radius-md);padding:10px 14px;font-size:13px;margin-bottom:1rem}
 
   /* Modals */
@@ -234,18 +252,25 @@
   .modal-btns{display:flex;gap:8px;justify-content:flex-end}
   .modal-btns button{padding:9px 18px;border-radius:var(--radius-md);border:0.5px solid var(--border-med);cursor:pointer;font-size:14px;background:transparent;color:var(--text-primary);font-family:inherit}
   .modal-btns button.primary{background:var(--garnet);color:#fff;border-color:transparent}
-  .modal-btns button.danger{background:var(--red);color:#fff;border-color:transparent;opacity:.35;pointer-events:none;transition:opacity .15s}
+  .modal-btns button.danger{background:var(--red);color:#fff;border-color:transparent;opacity:.35;pointer-events:none}
   .modal-btns button.danger.ready{opacity:1;pointer-events:auto}
   .modal-warn{font-size:12px;color:var(--red);margin-bottom:12px;padding:8px 10px;background:#fef2f2;border-radius:var(--radius-md)}
   .modal-info{font-size:12px;color:var(--text-secondary);margin-bottom:12px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-md)}
+  .modal-highlight{font-size:22px;font-weight:600;text-align:center;margin:12px 0;color:var(--green)}
+  .toggle-row{display:flex;gap:8px;margin-bottom:14px}
+  .toggle-btn{flex:1;padding:8px;border-radius:var(--radius-md);border:0.5px solid var(--border-med);background:transparent;cursor:pointer;font-size:13px;font-family:inherit;color:var(--text-secondary)}
+  .toggle-btn.active{background:var(--garnet);color:#fff;border-color:transparent}
+
+  /* Hourly */
   .hour-picker{display:flex;align-items:center;justify-content:space-between;background:var(--bg-secondary);border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px}
-  .hour-btn{width:36px;height:36px;border-radius:50%;border:0.5px solid var(--border-med);background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--garnet);font-weight:500;line-height:1}
+  .hour-btn{width:36px;height:36px;border-radius:50%;border:0.5px solid var(--border-med);background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--garnet);font-weight:500}
   .hour-btn:active{background:var(--garnet-light)}
   .hour-btn:disabled{opacity:.3;cursor:not-allowed}
   .hour-display{text-align:center}
-  .hour-value{font-size:24px;font-weight:600;color:var(--text-primary)}
+  .hour-value{font-size:24px;font-weight:600}
   .hour-label{font-size:11px;color:var(--text-tertiary);margin-top:2px}
   .hour-pay{font-size:16px;font-weight:600;color:var(--green);text-align:center;margin-bottom:14px}
+
   .loading{text-align:center;padding:4rem 1rem;color:var(--text-tertiary);font-size:15px}
 </style>
 </head>
@@ -255,13 +280,20 @@
 const SURL='https://plzihujpxuivhmpdjeck.supabase.co';
 const SKEY='sb_publishable_z8V65CwMYRdjtJmVV4sd2A_sgocfB-l';
 const CARRY_NAME='Deficit carried forward';
+const HOURLY_RATE=6.00;
 
 const USERS={
   '597b5e92aa8d424a475adb764ab15bb5c92c701991af987b1784e43478fa30d4':'Josh',
   '5cfd7297b12dad983f6f629c15f0e7b5a3eb78e24d38ba7a87ff7b1139bd9c44':'Jasmine'
 };
 
-const DEFAULT_BASE=5.00;
+// CashApp = digital transfer, Cash = manual memory tracking
+const KID_PAY_METHOD={
+  'kid-michael':'CashApp','kid-jackson':'CashApp',
+  'kid-lincoln':'Cash','kid-harvey':'Cash'
+};
+
+const DEFAULT_BASE=7.00;
 const MONTH_BASE_OVERRIDE={
   '2026-05':{'kid-michael':10.00,'kid-lincoln':5.00,'kid-jackson':5.00,'kid-harvey':5.00}
 };
@@ -274,19 +306,19 @@ const CHORES=[
   {id:'baseboards',name:'Clean baseboards',        note:'Must use minimally damp rag · Per room',amount:0.75},
   {id:'weeds',     name:'Pull weeds',              note:"Per yard · up to parent's standards · subject to approval",amount:1.10},
 ];
-
 const PENALTIES=[
   {id:'bedroom',name:'Messy bedroom check',note:'Random inspection',amount:-1.00},
   {id:'bedtime',name:'Missed bedtime',     note:'',amount:-2.00},
 ];
-
 const KID_CONFIG={
-  'kid-michael':{
-    base:5.00,
-    penalties:{bedroom:-2.00,bedtime:-2.50},
-    extraPenalties:[{id:'laundry',name:'Laundry not put away same day',note:'Must be put away day of',amount:-1.00}]
-  }
+  'kid-michael':{base:7.00,penalties:{bedroom:-2.00,bedtime:-2.50},extraPenalties:[{id:'laundry',name:'Laundry not put away same day',note:'Must be put away day of',amount:-1.00}]}
 };
+const KIDS=[
+  {id:'kid-michael',name:'Michael'},
+  {id:'kid-lincoln',name:'Lincoln'},
+  {id:'kid-jackson',name:'Jackson'},
+  {id:'kid-harvey', name:'Harvey'},
+];
 
 function kidBaseForMonth(id,month){const m=month||getMonth();return MONTH_BASE_OVERRIDE[m]?.[id]??KID_CONFIG[id]?.base??DEFAULT_BASE}
 function kidBase(id){return kidBaseForMonth(id,getMonth())}
@@ -295,20 +327,14 @@ function kidExtraPenalties(id){return KID_CONFIG[id]?.extraPenalties||[]}
 
 // Auth
 let currentUser=null,pinBuffer='',pinError='',pinShake=false,showPinModal=false;
-
-async function hashPin(pin){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-async function logAuthEvent(username,event){
-  try{await db.from('auth_log').insert({id:uid(),username,event,ts:Date.now()});if(authLogOpen&&currentUser)await loadAuthLog(true);}catch(e){}
-}
+async function hashPin(pin){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+async function logAuthEvent(username,event){try{await db.from('auth_log').insert({id:uid(),username,event,ts:Date.now()});if(authLogOpen&&currentUser)await loadAuthLog(true);}catch(e){}}
 async function attemptPin(){
   const h=await hashPin(pinBuffer);
   if(USERS[h]){
     currentUser=USERS[h];pinBuffer='';pinError='';pinShake=false;showPinModal=false;
     await logAuthEvent(currentUser,'unlocked');
-    await Promise.all([loadCredits(true), loadAllEntries(true)]);
+    await Promise.all([loadCredits(true),loadAllEntries(true),loadLedger(true)]);
     render();
   } else {
     await logAuthEvent('unknown','failed attempt');
@@ -316,13 +342,13 @@ async function attemptPin(){
     setTimeout(()=>{pinShake=false;pinError='';render()},1500);
   }
 }
-function signOut(){if(currentUser)logAuthEvent(currentUser,'locked');currentUser=null;credits=[];authLogOpen=false;authLogs=[];render()}
+function signOut(){if(currentUser)logAuthEvent(currentUser,'locked');currentUser=null;credits=[];ledger=[];authLogOpen=false;authLogs=[];render()}
 function openPin(){showPinModal=true;pinBuffer='';pinError='';pinShake=false;render()}
 function cancelPin(){showPinModal=false;pinBuffer='';pinError='';pinShake=false;render()}
 function pinKey(k){if(pinBuffer.length>=6)return;pinBuffer+=k;render();if(pinBuffer.length===6)setTimeout(attemptPin,120)}
 function pinDel(){if(pinBuffer.length>0){pinBuffer=pinBuffer.slice(0,-1);render()}}
 
-// Date helpers
+// Helpers
 function getMonth(){const n=new Date();return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`}
 function getPrevMonth(){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
 function monthStart(m){const[y,mo]=m.split('-');return new Date(+y,+mo-1,1).getTime()}
@@ -333,28 +359,18 @@ function fmtFull(ts){const d=new Date(ts);return d.toLocaleDateString('default',
 function uid(){return 'e-'+Date.now()+'-'+Math.random().toString(36).slice(2,7)}
 function isLastDay(){const d=new Date(),t=new Date(d);t.setDate(d.getDate()+1);return t.getMonth()!==d.getMonth()}
 function daysLeftInMonth(){const n=new Date();return new Date(n.getFullYear(),n.getMonth()+1,0).getDate()-n.getDate()}
-function dayLabel(){
-  const n=new Date(),day=n.getDate();
-  const v=day%100,sfx=['th','st','nd','rd'];
-  const s=sfx[(v-20)%10]||sfx[v]||sfx[0];
-  return{day:`${day}${s}`,context:n.toLocaleString('default',{weekday:'long',month:'long'})};
-}
+function dayLabel(){const n=new Date(),day=n.getDate();const v=day%100,sfx=['th','st','nd','rd'];const s=sfx[(v-20)%10]||sfx[v]||sfx[0];return{day:`${day}${s}`,context:n.toLocaleString('default',{weekday:'long',month:'long'})}}
 
 const db=window.supabase.createClient(SURL,SKEY);
-let entries=[],allEntries=null,credits=[],authLogs=[],loading=true,syncing=false,dbError=null;
+let entries=[],allEntries=null,credits=[],ledger=[],authLogs=[];
+let loading=true,syncing=false,dbError=null;
 let activeKid=localStorage.getItem('allowance-active')||'kid-michael';
 let modalMode=null,pendingEntry=null;
 let carryChecked=false,historyOpen=false,historyLoading=false,authLogOpen=false,authLogLoading=false,choresOpen=false;
 let drillKid=null,drillMonth=null;
 let purchaseName='',purchaseAmount='';
 let hourlyHours=1,hourlyDetails='';
-
-const KIDS=[
-  {id:'kid-michael',name:'Michael'},
-  {id:'kid-lincoln',name:'Lincoln'},
-  {id:'kid-jackson',name:'Jackson'},
-  {id:'kid-harvey', name:'Harvey'},
-];
+let adjustType='add',adjustAmount='',adjustNote='';
 
 // Balance helpers
 function kidEntries(kidId,month){const m=month||getMonth();return entries.filter(e=>e.kid_id===kidId&&e.month===m).sort((a,b)=>a.ts-b.ts)}
@@ -365,40 +381,25 @@ function histBalance(kidId,month){if(!allEntries)return kidBaseForMonth(kidId,mo
 
 // Credits helpers
 function getPurchases(kidId){
-  const kc=credits.filter(c=>c.kid_id===kidId);
-  const map={};
-  for(const c of kc){
-    if(!map[c.purchase_id])map[c.purchase_id]={id:c.purchase_id,name:c.purchase_name,entries:[],total:0,firstTs:c.ts};
-    map[c.purchase_id].entries.push(c);
-    map[c.purchase_id].total=Math.round((map[c.purchase_id].total+c.delta)*100)/100;
-    if(c.ts<map[c.purchase_id].firstTs)map[c.purchase_id].firstTs=c.ts;
-  }
-  return Object.values(map).sort((a,b)=>{
-    const aActive=a.total<0,bActive=b.total<0;
-    if(aActive&&!bActive)return -1;if(!aActive&&bActive)return 1;
-    return a.firstTs-b.firstTs;
-  });
+  const kc=credits.filter(c=>c.kid_id===kidId);const map={};
+  for(const c of kc){if(!map[c.purchase_id])map[c.purchase_id]={id:c.purchase_id,name:c.purchase_name,entries:[],total:0,firstTs:c.ts};map[c.purchase_id].entries.push(c);map[c.purchase_id].total=Math.round((map[c.purchase_id].total+c.delta)*100)/100;if(c.ts<map[c.purchase_id].firstTs)map[c.purchase_id].firstTs=c.ts;}
+  return Object.values(map).sort((a,b)=>{const aA=a.total<0,bA=b.total<0;if(aA&&!bA)return -1;if(!aA&&bA)return 1;return a.firstTs-b.firstTs;});
 }
-function getOutstandingDebt(kidId){
-  return Math.abs(Math.min(0,getPurchases(kidId).filter(p=>p.total<0).reduce((s,p)=>s+p.total,0)));
-}
-function getOriginalDebt(purchase){
-  const charge=purchase.entries.find(e=>e.delta<0);
-  return charge?Math.abs(charge.delta):0;
-}
+function getOutstandingDebt(kidId){return Math.abs(Math.min(0,getPurchases(kidId).filter(p=>p.total<0).reduce((s,p)=>s+p.total,0)))}
+function getOriginalDebt(purchase){const c=purchase.entries.find(e=>e.delta<0);return c?Math.abs(c.delta):0}
 function getMaxDebt(kidId){
   const multiplier=kidId==='kid-michael'?4:3;
-  // Use total actual payout (base + chores earned) from history, not just base pay
   const m=getMonth();
   const months=allEntries?histMonths().filter(mo=>mo!==m).slice(0,multiplier):[];
-  if(!months.length){
-    // No history yet — use base pay only as a conservative fallback
-    return Math.round(kidBaseForMonth(kidId,m)*multiplier*100)/100;
-  }
+  if(!months.length)return Math.round(kidBaseForMonth(kidId,m)*multiplier*100)/100;
   const earnings=months.map(mo=>Math.max(0,histBalance(kidId,mo)));
   const avg=earnings.reduce((s,e)=>s+e,0)/earnings.length;
   return Math.round(avg*multiplier*100)/100;
 }
+
+// Ledger helpers
+function getBankBalance(kidId){return Math.round(ledger.filter(l=>l.kid_id===kidId).reduce((s,l)=>s+l.delta,0)*100)/100}
+function kidLedger(kidId){return ledger.filter(l=>l.kid_id===kidId).sort((a,b)=>b.ts-a.ts)}
 
 // Data loaders
 async function loadEntries(){
@@ -414,7 +415,17 @@ async function loadAllEntries(skipRender){
   historyLoading=true;if(!skipRender)render();
   const{data,error}=await db.from('entries').select('*').order('month',{ascending:false}).order('ts',{ascending:true});
   if(!error&&data)allEntries=data.map(r=>({...r,delta:parseFloat(r.delta)}));
-  historyLoading=false;render();
+  historyLoading=false;if(!skipRender)render();
+}
+async function loadCredits(skipRender){
+  const{data,error}=await db.from('credits').select('*').order('ts',{ascending:true});
+  if(!error&&data)credits=data.map(r=>({...r,delta:parseFloat(r.delta)}));
+  if(!skipRender)render();
+}
+async function loadLedger(skipRender){
+  const{data,error}=await db.from('ledger').select('*').order('ts',{ascending:true});
+  if(!error&&data)ledger=data.map(r=>({...r,delta:parseFloat(r.delta)}));
+  if(!skipRender)render();
 }
 async function loadAuthLog(skipRender){
   authLogLoading=true;if(!skipRender)render();
@@ -422,60 +433,61 @@ async function loadAuthLog(skipRender){
   if(!error&&data)authLogs=data;
   authLogLoading=false;render();
 }
-async function loadCredits(skipRender){
-  if(!skipRender)render();
-  const{data,error}=await db.from('credits').select('*').order('ts',{ascending:true});
-  if(!error&&data)credits=data.map(r=>({...r,delta:parseFloat(r.delta)}));
-  if(!skipRender)render();
-}
+
 async function applyCarryForwards(){
   const m=getMonth(),prev=getPrevMonth();let inserted=false;
+  const{data:freshCredits}=await db.from('credits').select('*').order('ts',{ascending:true});
+  const allC=freshCredits?freshCredits.map(r=>({...r,delta:parseFloat(r.delta)})):credits;
+  function kidHasDebt(kidId){const map={};for(const c of allC.filter(c=>c.kid_id===kidId)){if(!map[c.purchase_id])map[c.purchase_id]=0;map[c.purchase_id]=Math.round((map[c.purchase_id]+c.delta)*100)/100;}return Object.values(map).some(t=>t<0)}
   for(const kid of KIDS){
     const hasCarry=entries.some(e=>e.kid_id===kid.id&&e.month===m&&e.name===CARRY_NAME);if(hasCarry)continue;
+    if(kidHasDebt(kid.id))continue;
     const prevHas=entries.some(e=>e.kid_id===kid.id&&e.month===prev);
     const prevBal=kidBaseForMonth(kid.id,prev)+entries.filter(e=>e.kid_id===kid.id&&e.month===prev).reduce((s,e)=>s+e.delta,0);
     if(prevHas&&prevBal<0){const{error}=await db.from('entries').insert({id:uid(),kid_id:kid.id,month:m,name:CARRY_NAME,delta:Math.round(prevBal*100)/100,note:`${monthLabel(prev)} ended at $${prevBal.toFixed(2)}`,ts:monthStart(m),edited_by:'system'});if(!error)inserted=true;}
   }
   return inserted;
 }
+
 async function insertEntry(row){syncing=true;render();const{error}=await db.from('entries').insert(row);if(error)dbError=error.message;syncing=false;allEntries=null;await loadEntries()}
 async function removeEntry(id){syncing=true;render();const{error}=await db.from('entries').delete().eq('id',id);if(error)dbError=error.message;syncing=false;allEntries=null;await loadEntries()}
 
 async function clearMonth(){
   syncing=true;render();
   const m=getMonth();
-
-  // Fetch fresh credits from DB before paydown — don't rely on in-memory state
   const{data:freshCredits}=await db.from('credits').select('*').order('ts',{ascending:true});
-  if(freshCredits) credits=freshCredits.map(r=>({...r,delta:parseFloat(r.delta)}));
+  if(freshCredits)credits=freshCredits.map(r=>({...r,delta:parseFloat(r.delta)}));
 
-  // Apply debt paydown for each kid before clearing
   for(const kid of KIDS){
     const bal=balance(kid.id);
+    if(bal<=0)continue;
     const outstanding=getOutstandingDebt(kid.id);
-    if(bal>0&&outstanding>0){
+    let remainder=bal;
+
+    // Pay debt first
+    if(outstanding>0){
+      const debtPayment=Math.min(bal,outstanding);
+      remainder=Math.round((bal-debtPayment)*100)/100;
       const activePurchases=getPurchases(kid.id).filter(p=>p.total<0);
-      let remaining=Math.min(bal,outstanding);
+      let remaining=debtPayment;
       for(const p of activePurchases){
         if(remaining<=0)break;
-        const owed=Math.abs(p.total);
-        const apply=Math.min(remaining,owed);
-        await db.from('credits').insert({
-          id:uid(),kid_id:kid.id,purchase_id:p.id,purchase_name:p.name,
-          delta:Math.round(apply*100)/100,
-          note:`Auto-payment from ${monthLabel(m)} balance`,
-          ts:Date.now(),added_by:currentUser||'system'
-        });
+        const owed=Math.abs(p.total);const apply=Math.min(remaining,owed);
+        await db.from('credits').insert({id:uid(),kid_id:kid.id,purchase_id:p.id,purchase_name:p.name,delta:Math.round(apply*100)/100,note:`Auto-payment from ${monthLabel(m)} balance`,ts:Date.now(),added_by:currentUser||'system'});
         remaining=Math.round((remaining-apply)*100)/100;
       }
     }
+
+    // Deposit remainder to bank
+    if(remainder>0){
+      await db.from('ledger').insert({id:uid(),kid_id:kid.id,delta:remainder,note:`Auto-deposit from ${monthLabel(m)}`,ts:Date.now(),added_by:'system'});
+    }
   }
 
-  // Reload credits after paydowns
-  const{data:updatedCredits}=await db.from('credits').select('*').order('ts',{ascending:true});
-  if(updatedCredits) credits=updatedCredits.map(r=>({...r,delta:parseFloat(r.delta)}));
+  const{data:updC}=await db.from('credits').select('*').order('ts',{ascending:true});
+  if(updC)credits=updC.map(r=>({...r,delta:parseFloat(r.delta)}));
+  await loadLedger(true);
 
-  // Now clear the month's entries
   const{error}=await db.from('entries').delete().eq('month',m);
   if(error)dbError=error.message;
   carryChecked=false;syncing=false;allEntries=null;await loadEntries();
@@ -483,15 +495,24 @@ async function clearMonth(){
 
 async function addPurchase(kidId,name,amount){
   const pid=uid();
-  const{error}=await db.from('credits').insert({
-    id:uid(),kid_id:kidId,purchase_id:pid,purchase_name:name,
-    delta:-Math.abs(amount),note:'',ts:Date.now(),added_by:currentUser||'system'
-  });
+  const{error}=await db.from('credits').insert({id:uid(),kid_id:kidId,purchase_id:pid,purchase_name:name,delta:-Math.abs(amount),note:'',ts:Date.now(),added_by:currentUser||'system'});
   if(error)dbError=error.message;
   await loadCredits(true);
 }
 
-// Toggle functions
+async function payKid(kidId){
+  const bankBal=getBankBalance(kidId);
+  if(bankBal<=0)return;
+  await db.from('ledger').insert({id:uid(),kid_id:kidId,delta:-bankBal,note:`Paid out via ${KID_PAY_METHOD[kidId]||'cash'}`,ts:Date.now(),added_by:currentUser||'system'});
+  await loadLedger(true);
+}
+
+async function adjustBank(kidId,delta,note){
+  await db.from('ledger').insert({id:uid(),kid_id:kidId,delta:Math.round(delta*100)/100,note,ts:Date.now(),added_by:currentUser||'system'});
+  await loadLedger(true);
+}
+
+// Toggles
 function toggleHistory(){historyOpen=!historyOpen;if(historyOpen&&allEntries===null)loadAllEntries();else render()}
 function toggleAuthLog(){if(!currentUser){openPin();return}authLogOpen=!authLogOpen;if(authLogOpen&&!authLogs.length)loadAuthLog();else render()}
 function toggleChores(){choresOpen=!choresOpen;render()}
@@ -500,7 +521,10 @@ function closeDrill(){drillKid=null;drillMonth=null;render()}
 function openAddPurchase(){purchaseName='';purchaseAmount='';modalMode='addpurchase';render()}
 function openHourly(){hourlyHours=1;hourlyDetails='';modalMode='hourly';render()}
 function hourlyAdjust(delta){hourlyHours=Math.max(1,Math.round((hourlyHours+delta)*2)/2);render()}
-function closeModal(e){if(e)e.stopPropagation();modalMode=null;pendingEntry=null;purchaseName='';purchaseAmount='';hourlyDetails='';render()}
+function openPay(){modalMode='pay';render()}
+function openAdjust(){adjustType='add';adjustAmount='';adjustNote='';modalMode='adjust';render()}
+function openMiscDeduct(){modalMode='miscdeduct';render()}
+function closeModal(e){if(e)e.stopPropagation();modalMode=null;pendingEntry=null;purchaseName='';purchaseAmount='';hourlyDetails='';adjustAmount='';adjustNote='';render()}
 
 function render(){
   const root=document.getElementById('app');
@@ -517,13 +541,10 @@ function render(){
       <div class="pin-dots">`;
     for(let i=0;i<6;i++)h+=`<div class="pin-dot${i<pinBuffer.length?' filled':''}${pinShake?' error':''}"></div>`;
     h+=`</div><div class="pin-error">${pinError}</div>
-      <div class="pin-pad">
-        ${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="pin-key" onclick="pinKey('${n}')">${n}</button>`).join('')}
+      <div class="pin-pad">${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="pin-key" onclick="pinKey('${n}')">${n}</button>`).join('')}
         <button class="pin-key del" onclick="pinDel()">⌫</button>
-        <button class="pin-key" onclick="pinKey('0')">0</button>
-        <div></div>
-      </div>
-      <button class="pin-cancel" onclick="cancelPin()">Cancel</button>
+        <button class="pin-key" onclick="pinKey('0')">0</button><div></div>
+      </div><button class="pin-cancel" onclick="cancelPin()">Cancel</button>
     </div></div>`;
   }
 
@@ -544,21 +565,19 @@ function render(){
   if(isLastDay()){
     h+=`<div class="month-end"><div class="month-end-title">Month end · ${monthLabel(m)}</div>`;
     for(const k of KIDS){
-      const bal=balance(k.id);
-      const outstanding=getOutstandingDebt(k.id);
+      const bal=balance(k.id),outstanding=getOutstandingDebt(k.id);
       if(bal<0){
         h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span><span class="carry-fwd">Carries $${bal.toFixed(2)} to next month</span></div>`;
       } else if(outstanding>0){
-        const applied=Math.min(bal,outstanding);
-        const cashOut=Math.max(0,bal-outstanding);
+        const applied=Math.min(bal,outstanding),cashOut=Math.max(0,bal-outstanding);
         h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span>
           <div class="month-end-right">
             <div class="debt-applied">$${applied.toFixed(2)} → debt</div>
-            ${cashOut>0?`<div class="payout">$${cashOut.toFixed(2)} payout</div>`:'<div style="font-size:12px;color:var(--text-tertiary)">No cash payout</div>'}
+            ${cashOut>0?`<div class="payout">$${cashOut.toFixed(2)} → bank</div>`:'<div style="font-size:12px;color:var(--text-tertiary)">$0 to bank</div>'}
           </div>
         </div>`;
       } else {
-        h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span><span class="payout">Payout $${bal.toFixed(2)}</span></div>`;
+        h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span><span class="payout">$${bal.toFixed(2)} → bank</span></div>`;
       }
     }
     h+=`</div>`;
@@ -586,9 +605,9 @@ function render(){
     </div>
   </div>`;
 
-  // Actions or locked chore list
   if(unlocked){
     const extraP=kidExtraPenalties(kid.id);
+    // Actions
     h+=`<div class="actions-grid"><div class="action-card"><div class="section-label">Earn</div>`;
     for(const c of CHORES)h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openEntry('${c.id}','${c.name}',${c.amount})"><div><div>${c.name}</div>${c.note?`<div class="action-note">${c.note}</div>`:''}</div><span class="earn-amt">+$${c.amount.toFixed(2)}</span></button>`;
     h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openHourly()" style="border-color:var(--garnet);border-style:dashed"><div><div style="color:var(--garnet);font-weight:500">Hourly work</div><div class="action-note">Details required · $6.00/hr · min 1 hr</div></div><span class="earn-amt" style="color:var(--garnet)">$6/hr</span></button>`;
@@ -598,67 +617,72 @@ function render(){
     h+=`<button class="action-btn"${syncing?' disabled':''} onclick="openMiscDeduct()" style="border-color:var(--red);border-style:dashed"><div><div style="color:var(--red);font-weight:500">Misc deduction</div><div class="action-note">Custom amount · description required</div></div><span class="lose-amt">-$?</span></button>`;
     h+=`</div></div>`;
 
-    // Credits & Purchases section (unlocked only)
+    // Credits & Purchases
     const purchases=getPurchases(kid.id);
     const activePurchases=purchases.filter(p=>p.total<0);
     const paidPurchases=purchases.filter(p=>p.total>=0);
     const outstanding=getOutstandingDebt(kid.id);
     const maxDebt=getMaxDebt(kid.id);
     const availCredit=Math.max(0,maxDebt-outstanding);
-
     h+=`<div class="credits-section">
-      <div class="credits-header">
-        <div class="section-label" style="margin-bottom:0">Credit &amp; Purchases</div>
-      </div>
+      <div class="credits-header"><div class="section-label" style="margin-bottom:0">Credit &amp; Purchases</div></div>
       <div class="credits-meta">
         <div class="credits-meta-row"><span class="credits-meta-label">Outstanding debt</span><span class="credits-meta-val ${outstanding>0?'neg':'pos'}">$${outstanding.toFixed(2)}</span></div>
         <div class="credits-meta-row"><span class="credits-meta-label">Max allowed debt</span><span class="credits-meta-val">$${maxDebt.toFixed(2)}</span></div>
         <div class="credits-meta-row"><span class="credits-meta-label">Available credit</span><span class="credits-meta-val ${availCredit>0?'pos':'neg'}">$${availCredit.toFixed(2)}</span></div>
       </div>`;
-
-    if(!activePurchases.length&&!paidPurchases.length){
-      h+=`<div class="credits-empty">No purchases yet.</div>`;
-    }
+    if(!activePurchases.length&&!paidPurchases.length){h+=`<div class="credits-empty">No purchases yet.</div>`;}
     for(const p of activePurchases){
-      const orig=getOriginalDebt(p);
-      const paid=orig+p.total;
-      const pct=orig>0?Math.min(100,Math.round(paid/orig*100)):0;
+      const orig=getOriginalDebt(p),paid=orig+p.total,pct=orig>0?Math.min(100,Math.round(paid/orig*100)):0;
       h+=`<div class="purchase-item">
-        <div class="purchase-top">
-          <div class="purchase-name">${p.name}</div>
-          <div class="purchase-status owed">$${Math.abs(p.total).toFixed(2)} owed</div>
-        </div>
+        <div class="purchase-top"><div class="purchase-name">${p.name}</div><div class="purchase-status owed">$${Math.abs(p.total).toFixed(2)} owed</div></div>
         <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
         <div class="purchase-detail"><span>$${paid.toFixed(2)} paid of $${orig.toFixed(2)}</span><span>${pct}%</span></div>
-        ${p.entries.filter(e=>e.delta>0).length?`<div class="purchase-payments">
-          ${p.entries.filter(e=>e.delta>0).map(e=>`<div class="payment-row"><span>${fmtTime(e.ts)}</span><span class="pos">+$${e.delta.toFixed(2)}</span></div>`).join('')}
-        </div>`:''}
+        ${p.entries.filter(e=>e.delta>0).length?`<div class="purchase-payments">${p.entries.filter(e=>e.delta>0).map(e=>`<div class="payment-row"><span>${fmtTime(e.ts)}</span><span class="pos">+$${e.delta.toFixed(2)}</span></div>`).join('')}</div>`:''}
       </div>`;
     }
     if(paidPurchases.length){
       h+=`<div class="paid-section-label">Paid off</div>`;
-      for(const p of paidPurchases){
-        const orig=getOriginalDebt(p);
-        h+=`<div class="purchase-item paid">
-          <div class="purchase-top">
-            <div class="purchase-name">${p.name}</div>
-            <div class="purchase-status paid">Paid off ✓</div>
+      for(const p of paidPurchases){const orig=getOriginalDebt(p);h+=`<div class="purchase-item paid"><div class="purchase-top"><div class="purchase-name">${p.name}</div><div class="purchase-status paid">Paid off ✓</div></div><div class="progress-track"><div class="progress-fill complete" style="width:100%"></div></div><div class="purchase-detail"><span>$${orig.toFixed(2)} total</span><span>100%</span></div></div>`;}
+    }
+    if(availCredit>0){h+=`<button class="add-purchase-btn" onclick="openAddPurchase()">+ Add purchase</button>`;}
+    else{h+=`<button class="add-purchase-btn" style="opacity:.4;cursor:not-allowed">Credit limit reached</button>`;}
+    h+=`</div>`;
+
+    // Bank / Ledger
+    const bankBal=getBankBalance(kid.id);
+    const kLedger=kidLedger(kid.id).slice(0,10);
+    const payMethod=KID_PAY_METHOD[kid.id]||'Cash';
+    h+=`<div class="bank-section">
+      <div class="bank-header"><div class="section-label" style="margin-bottom:0">Bank</div></div>
+      <div class="bank-balance-row">
+        <div class="bank-balance-label">Banked balance</div>
+        <div class="bank-balance-amt ${bankBal>=0?'pos':'neg'}">$${bankBal.toFixed(2)}</div>
+      </div>
+      <div class="bank-actions">
+        <button class="bank-btn pay" onclick="openPay()" ${bankBal<=0?'disabled style="opacity:.4;cursor:not-allowed"':''}>Pay via ${payMethod}</button>
+        <button class="bank-btn adjust" onclick="openAdjust()">Adjust</button>
+      </div>
+      <div class="bank-log-label">Recent transactions</div>`;
+    if(!kLedger.length){h+=`<div class="bank-empty">No transactions yet.</div>`;}
+    else{
+      for(const l of kLedger){
+        const isDeposit=l.delta>0;
+        const safeNote=l.note?l.note.replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
+        h+=`<div class="bank-log-item">
+          <div>
+            <div class="bank-log-desc">${isDeposit?'Deposit':'Payment'}</div>
+            ${safeNote?`<div class="bank-log-note">${safeNote}</div>`:''}
+            <div class="bank-log-meta">${fmtTime(l.ts)}${l.added_by&&l.added_by!=='system'?` <span class="log-by">${l.added_by}</span>`:''}</div>
           </div>
-          <div class="progress-track"><div class="progress-fill complete" style="width:100%"></div></div>
-          <div class="purchase-detail"><span>$${orig.toFixed(2)} total</span><span>100%</span></div>
+          <div class="bank-log-amt ${isDeposit?'delta-pos':'delta-neg'}">${isDeposit?'+':'-'}$${Math.abs(l.delta).toFixed(2)}</div>
         </div>`;
       }
-    }
-    if(availCredit>0){
-      h+=`<button class="add-purchase-btn" onclick="openAddPurchase()">+ Add purchase</button>`;
-    } else {
-      h+=`<button class="add-purchase-btn" style="opacity:.4;cursor:not-allowed">Credit limit reached</button>`;
     }
     h+=`</div>`;
 
   } else {
     h+=`<div class="locked-notice"><i class="ti ti-lock" style="font-size:13px;vertical-align:-1px"></i> Unlock to log chores and deductions</div>`;
-    const extraP=kidExtraPenalties(kid.id);
     h+=`<div class="chore-list"><div class="chore-list-card">
       <div class="chore-list-header" onclick="toggleChores()">
         <div class="section-label" style="margin-bottom:0">Available chores</div>
@@ -683,14 +707,12 @@ function render(){
       const safeNote=e.note?e.note.replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
       const byLabel=e.edited_by&&e.edited_by!=='system'?`<span class="log-by">${e.edited_by}</span>`:'';
       h+=`<div class="log-item${isCarry?' carry-item':''}"><div class="log-row">
-        <div style="flex:1;min-width:0">
-          <div class="log-desc">${e.name}</div>
+        <div style="flex:1;min-width:0"><div class="log-desc">${e.name}</div>
           <div class="log-meta">${fmtTime(e.ts)}${byLabel}</div>
           <div class="log-bal">$${prevBal.toFixed(2)} → $${runBal.toFixed(2)}</div>
           ${safeNote?`<div class="log-note">${safeNote}</div>`:''}
         </div>
-        <div class="log-right">
-          <span class="${cls}">${sign}$${Math.abs(e.delta).toFixed(2)}</span>
+        <div class="log-right"><span class="${cls}">${sign}$${Math.abs(e.delta).toFixed(2)}</span>
           ${unlocked&&!isCarry?`<button class="undo-btn" onclick="undoEntry('${e.id}')">undo</button>`:''}
         </div>
       </div></div>`;
@@ -699,11 +721,7 @@ function render(){
   h+=`</div>`;
 
   // Monthly history
-  h+=`<div class="collapsible">
-    <div class="collapsible-header" onclick="toggleHistory()">
-      <div class="section-label" style="margin-bottom:0">Monthly history</div>
-      <span style="font-size:18px;color:var(--text-tertiary)">${historyOpen?'▲':'▼'}</span>
-    </div>`;
+  h+=`<div class="collapsible"><div class="collapsible-header" onclick="toggleHistory()"><div class="section-label" style="margin-bottom:0">Monthly history</div><span style="font-size:18px;color:var(--text-tertiary)">${historyOpen?'▲':'▼'}</span></div>`;
   if(historyOpen){
     if(historyLoading){h+=`<div class="collapsible-loading">Loading…</div>`;}
     else if(allEntries){
@@ -716,13 +734,7 @@ function render(){
         for(const mo of months){
           const isCur=mo===m;
           h+=`<tr${isCur?' class="cur"':''}><td>${monthLabelShort(mo)}${isCur?' <span style="font-size:10px;opacity:.6">(now)</span>':''}</td>`;
-          for(const k of KIDS){
-            const b=histBalance(k.id,mo),bBase=kidBaseForMonth(k.id,mo),net=b-bBase;
-            h+=`<td><div class="h-cell" onclick="openDrill('${k.id}','${mo}')">
-              <div class="h-bal ${b>=0?'pos':'neg'}">$${b.toFixed(2)}</div>
-              <div class="h-net ${net>=0?'pos':'neg'}">${net>=0?'+':''}${net.toFixed(2)}</div>
-            </div></td>`;
-          }
+          for(const k of KIDS){const b=histBalance(k.id,mo),bBase=kidBaseForMonth(k.id,mo),net=b-bBase;h+=`<td><div class="h-cell" onclick="openDrill('${k.id}','${mo}')"><div class="h-bal ${b>=0?'pos':'neg'}">$${b.toFixed(2)}</div><div class="h-net ${net>=0?'pos':'neg'}">${net>=0?'+':''}${net.toFixed(2)}</div></div></td>`;}
           h+=`</tr>`;
         }
         h+=`</tbody></table></div>`;
@@ -732,104 +744,63 @@ function render(){
   h+=`</div>`;
 
   // Auth history
-  h+=`<div class="collapsible">
-    <div class="collapsible-header" onclick="toggleAuthLog()">
-      <div class="section-label" style="margin-bottom:0">Auth history</div>
-      <span style="font-size:18px;color:var(--text-tertiary)">${authLogOpen?'▲':'▼'}</span>
-    </div>`;
+  h+=`<div class="collapsible"><div class="collapsible-header" onclick="toggleAuthLog()"><div class="section-label" style="margin-bottom:0">Auth history</div><span style="font-size:18px;color:var(--text-tertiary)">${authLogOpen?'▲':'▼'}</span></div>`;
   if(authLogOpen){
     if(!unlocked){h+=`<div class="collapsible-locked"><i class="ti ti-lock" style="font-size:13px;vertical-align:-1px"></i> Unlock to view auth history</div>`;}
     else if(authLogLoading){h+=`<div class="collapsible-loading">Loading…</div>`;}
     else if(!authLogs.length){h+=`<div class="collapsible-loading">No auth history yet.</div>`;}
     else{
       h+=`<div class="auth-log-wrap">`;
-      for(const e of authLogs){
-        const isUnlock=e.event==='unlocked',isFail=e.event==='failed attempt';
-        h+=`<div class="auth-log-item">
-          <div class="auth-log-left">
-            <div class="auth-event-icon ${isUnlock?'icon-unlock':isFail?'icon-fail':'icon-lock'}">
-              <i class="ti ${isUnlock?'ti-lock-open':isFail?'ti-alert-triangle':'ti-lock'}"></i>
-            </div>
-            <div><div class="auth-log-name">${isFail?'Unknown':e.username}</div><div class="auth-log-event${isFail?' fail':''}">${e.event}</div></div>
-          </div>
-          <div class="auth-log-time">${fmtFull(e.ts)}</div>
-        </div>`;
-      }
+      for(const e of authLogs){const isU=e.event==='unlocked',isF=e.event==='failed attempt';h+=`<div class="auth-log-item"><div class="auth-log-left"><div class="auth-event-icon ${isU?'icon-unlock':isF?'icon-fail':'icon-lock'}"><i class="ti ${isU?'ti-lock-open':isF?'ti-alert-triangle':'ti-lock'}"></i></div><div><div class="auth-log-name">${isF?'Unknown':e.username}</div><div class="auth-log-event${isF?' fail':''}">${e.event}</div></div></div><div class="auth-log-time">${fmtFull(e.ts)}</div></div>`;}
       h+=`</div>`;
     }
   }
   h+=`</div>`;
 
-  // Drill-down modal
+  // Drill-down
   if(drillKid&&drillMonth&&allEntries){
     const dKid=KIDS.find(k=>k.id===drillKid);
     const dEntries=allEntries.filter(e=>e.kid_id===drillKid&&e.month===drillMonth).sort((a,b)=>a.ts-b.ts);
     const dBase=kidBaseForMonth(drillKid,drillMonth);
-    let runBal=dBase;
-    const runBals=dEntries.map(e=>{runBal+=e.delta;return runBal;});
+    let rb=dBase;const runBals=dEntries.map(e=>{rb+=e.delta;return rb;});
     const finalBal=dBase+dEntries.reduce((s,e)=>s+e.delta,0);
     const totalLost=dEntries.filter(e=>e.delta<0).reduce((s,e)=>s+e.delta,0);
     h+=`<div class="drill-modal-bg" onclick="closeDrill()"><div class="drill-modal" onclick="event.stopPropagation()">
-      <div class="drill-header">
-        <div>
-          <div class="drill-title">${dKid?.name} · ${monthLabel(drillMonth)}</div>
-          <div class="drill-sub">Started at $${dBase.toFixed(2)} · ended at <span class="${finalBal>=0?'pos':'neg'}" style="font-weight:500">$${finalBal.toFixed(2)}</span></div>
-        </div>
-        <button class="drill-close" onclick="closeDrill()">×</button>
-      </div>
+      <div class="drill-header"><div><div class="drill-title">${dKid?.name} · ${monthLabel(drillMonth)}</div><div class="drill-sub">Started $${dBase.toFixed(2)} · ended <span class="${finalBal>=0?'pos':'neg'}" style="font-weight:500">$${finalBal.toFixed(2)}</span></div></div><button class="drill-close" onclick="closeDrill()">×</button></div>
       <div class="drill-body">`;
-    if(!dEntries.length){h+=`<div class="drill-empty">No activity logged this month.</div>`;}
+    if(!dEntries.length){h+=`<div class="drill-empty">No activity logged.</div>`;}
     else{
-      const rev=[...dEntries].reverse(),revBals=[...runBals].reverse();
+      const rev=[...dEntries].reverse(),revB=[...runBals].reverse();
       for(let i=0;i<rev.length;i++){
-        const e=rev[i],rb=revBals[i],pb=rb-e.delta,isCarry=e.name===CARRY_NAME;
+        const e=rev[i],rb=revB[i],pb=rb-e.delta,isCarry=e.name===CARRY_NAME;
         const cls=e.delta>=0?'drill-amt-pos':'drill-amt-neg',sign=e.delta>=0?'+':'';
         const safeNote=e.note?e.note.replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
         const byLabel=e.edited_by&&e.edited_by!=='system'?`<span class="log-by">${e.edited_by}</span>`:'';
-        h+=`<div class="drill-item"><div class="drill-row">
-          <div style="flex:1;min-width:0">
-            <div class="drill-name">${e.name}</div>
-            <div class="drill-meta">${fmtTime(e.ts)}${byLabel}</div>
-            <div class="drill-bal">$${pb.toFixed(2)} → $${rb.toFixed(2)}</div>
-            ${safeNote?`<div class="drill-note">${safeNote}</div>`:''}
-          </div>
-          <span class="${cls}">${sign}$${Math.abs(e.delta).toFixed(2)}</span>
-        </div></div>`;
+        h+=`<div class="drill-item"><div class="drill-row"><div style="flex:1;min-width:0"><div class="drill-name">${e.name}</div><div class="drill-meta">${fmtTime(e.ts)}${byLabel}</div><div class="drill-bal">$${pb.toFixed(2)} → $${rb.toFixed(2)}</div>${safeNote?`<div class="drill-note">${safeNote}</div>`:''}</div><span class="${cls}">${sign}$${Math.abs(e.delta).toFixed(2)}</span></div></div>`;
       }
-      h+=`<div class="drill-summary">
-        <div><div class="drill-summary-label">Final balance</div>${Math.abs(totalLost)>0?`<div style="font-size:12px;color:var(--text-tertiary);margin-top:2px">Deductions: <span style="color:var(--red)">-$${Math.abs(totalLost).toFixed(2)}</span></div>`:''}</div>
-        <div class="drill-summary-val ${finalBal>=0?'pos':'neg'}">$${finalBal.toFixed(2)}</div>
-      </div>`;
+      h+=`<div class="drill-summary"><div><div class="drill-summary-label">Final balance</div>${Math.abs(totalLost)>0?`<div style="font-size:12px;color:var(--text-tertiary);margin-top:2px">Deductions: <span style="color:var(--red)">-$${Math.abs(totalLost).toFixed(2)}</span></div>`:''}</div><div class="drill-summary-val ${finalBal>=0?'pos':'neg'}">$${finalBal.toFixed(2)}</div></div>`;
     }
     h+=`</div></div></div>`;
   }
 
-  // Hourly work modal
+  // Hourly modal
   if(modalMode==='hourly'){
-    const HOURLY_RATE=6.00;
     const pay=Math.round(hourlyHours*HOURLY_RATE*100)/100;
-    const halfHours=hourlyHours%1!==0;
-    const hourLabel=hourlyHours===1?'1 hour':(halfHours?`${Math.floor(hourlyHours)}½ hours`:`${hourlyHours} hours`);
+    const halfH=hourlyHours%1!==0;
+    const hourLabel=hourlyHours===1?'1 hour':(halfH?`${Math.floor(hourlyHours)}½ hours`:`${hourlyHours} hours`);
     const canSubmit=hourlyDetails.trim().length>0;
     h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
       <div class="modal-title">Hourly work — ${kid.name}</div>
-      <div class="modal-body" style="margin-bottom:12px">$6.00/hr · minimum 1 hr · ½ hr increments after first hour</div>
+      <div class="modal-body" style="margin-bottom:12px">$6.00/hr · minimum 1 hr · ½ hr increments</div>
       <div class="hour-picker">
         <button class="hour-btn" onclick="hourlyAdjust(-0.5)" ${hourlyHours<=1?'disabled':''}>−</button>
-        <div class="hour-display">
-          <div class="hour-value">${hourLabel}</div>
-          <div class="hour-label">${halfHours?'(½ hr at half rate)':''}</div>
-        </div>
+        <div class="hour-display"><div class="hour-value">${hourLabel}</div><div class="hour-label">${halfH?'(½ hr at half rate)':''}</div></div>
         <button class="hour-btn" onclick="hourlyAdjust(0.5)">+</button>
       </div>
       <div class="hour-pay">+$${pay.toFixed(2)}</div>
       <label>Details <span style="color:var(--red)">*</span></label>
-      <textarea id="hourly-details" placeholder="What did they work on? Be specific." style="margin-bottom:${canSubmit?'14':'4'}px">${hourlyDetails}</textarea>
-      ${!canSubmit&&hourlyDetails.length===0?'':(!canSubmit?'<div style="font-size:12px;color:var(--red);margin-bottom:12px">Details are required.</div>':'')}
-      <div class="modal-btns">
-        <button onclick="closeModal()">Cancel</button>
-        <button class="primary" onclick="confirmHourly()" ${!canSubmit?'style="opacity:.4;pointer-events:none"':''}>Log $${pay.toFixed(2)}</button>
-      </div>
+      <textarea id="hourly-details" placeholder="What did they work on? Be specific.">${hourlyDetails}</textarea>
+      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button class="primary" onclick="confirmHourly()" ${!canSubmit?'style="opacity:.4;pointer-events:none"':''}>Log $${pay.toFixed(2)}</button></div>
     </div></div>`;
   }
 
@@ -845,26 +816,6 @@ function render(){
     </div></div>`;
   }
 
-  // Add purchase modal
-  if(modalMode==='addpurchase'){
-    const outstanding=getOutstandingDebt(kid.id);
-    const maxDebt=getMaxDebt(kid.id);
-    const availCredit=Math.max(0,maxDebt-outstanding);
-    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
-      <div class="modal-title">Add purchase — ${kid.name}</div>
-      <div class="modal-info">Available credit: <strong>$${availCredit.toFixed(2)}</strong> · Max debt: $${maxDebt.toFixed(2)}</div>
-      <div id="purchase-warn" style="display:none" class="modal-warn">Amount exceeds available credit of $${availCredit.toFixed(2)}</div>
-      <label>Purchase name</label>
-      <input type="text" id="purchase-name-input" placeholder="e.g. Video game" autocomplete="off" />
-      <label>Total cost ($)</label>
-      <input type="number" id="purchase-amt-input" placeholder="0.00" min="0.01" step="0.01" />
-      <div class="modal-btns">
-        <button onclick="closeModal()">Cancel</button>
-        <button id="add-purchase-submit" class="primary" style="opacity:.4;pointer-events:none" onclick="confirmAddPurchase()">Add</button>
-      </div>
-    </div></div>`;
-  }
-
   // Misc deduction modal
   if(modalMode==='miscdeduct'){
     h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
@@ -873,28 +824,69 @@ function render(){
       <input type="text" id="misc-desc-input" placeholder="e.g. Broke house rule" autocomplete="off" />
       <label>Amount ($) <span style="color:var(--red)">*</span></label>
       <input type="number" id="misc-amt-input" placeholder="0.00" min="0.01" step="0.01" />
-      <div class="modal-btns">
-        <button onclick="closeModal()">Cancel</button>
-        <button id="misc-deduct-submit" class="primary" style="opacity:.4;pointer-events:none;background:var(--red)" onclick="confirmMiscDeduct()">Deduct</button>
+      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button id="misc-deduct-submit" class="primary" style="opacity:.4;pointer-events:none;background:var(--red)" onclick="confirmMiscDeduct()">Deduct</button></div>
+    </div></div>`;
+  }
+
+  // Add purchase modal
+  if(modalMode==='addpurchase'){
+    const outstanding=getOutstandingDebt(kid.id),maxDebt=getMaxDebt(kid.id),availCredit=Math.max(0,maxDebt-outstanding);
+    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">Add purchase — ${kid.name}</div>
+      <div class="modal-info">Available credit: <strong>$${availCredit.toFixed(2)}</strong> · Max: $${maxDebt.toFixed(2)}</div>
+      <div id="purchase-warn" style="display:none" class="modal-warn">Amount exceeds available credit of $${availCredit.toFixed(2)}</div>
+      <label>Purchase name</label>
+      <input type="text" id="purchase-name-input" placeholder="e.g. Video game" autocomplete="off" />
+      <label>Total cost ($)</label>
+      <input type="number" id="purchase-amt-input" placeholder="0.00" min="0.01" step="0.01" />
+      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button id="add-purchase-submit" class="primary" style="opacity:.4;pointer-events:none" onclick="confirmAddPurchase()">Add</button></div>
+    </div></div>`;
+  }
+
+  // Pay modal
+  if(modalMode==='pay'){
+    const bankBal=getBankBalance(kid.id);
+    const payMethod=KID_PAY_METHOD[kid.id]||'Cash';
+    const isCashApp=payMethod==='CashApp';
+    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">Pay ${kid.name}</div>
+      <div class="modal-body">
+        ${isCashApp?`This will record a <strong>CashApp transfer</strong> of the full banked amount to ${kid.name}. Make sure you send the actual transfer in CashApp — this just records it.`:`This will record a <strong>cash payment</strong> of the full banked amount to ${kid.name}. Remember to hand over the cash — this just tracks that it was paid.`}
       </div>
+      <div class="modal-highlight">$${bankBal.toFixed(2)}</div>
+      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button class="primary" onclick="confirmPay()">Confirm payment</button></div>
+    </div></div>`;
+  }
+
+  // Adjust modal
+  if(modalMode==='adjust'){
+    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">Adjust bank — ${kid.name}</div>
+      <div class="modal-body">Add or subtract from the banked balance. Note is required.</div>
+      <div class="toggle-row">
+        <button class="toggle-btn${adjustType==='add'?' active':''}" onclick="setAdjustType('add')">+ Add</button>
+        <button class="toggle-btn${adjustType==='subtract'?' active':''}" onclick="setAdjustType('subtract')">− Subtract</button>
+      </div>
+      <label>Amount ($) <span style="color:var(--red)">*</span></label>
+      <input type="number" id="adjust-amt-input" placeholder="0.00" min="0.01" step="0.01" />
+      <label>Note <span style="color:var(--red)">*</span></label>
+      <input type="text" id="adjust-note-input" placeholder="e.g. Cash advance for school" autocomplete="off" />
+      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button id="adjust-submit" class="primary" style="opacity:.4;pointer-events:none" onclick="confirmAdjust()">Save</button></div>
     </div></div>`;
   }
 
   // Reset modal
   if(modalMode==='reset'){
-    // Build paydown preview
     let previewLines='';
     for(const k of KIDS){
       const bal=balance(k.id),outstanding=getOutstandingDebt(k.id);
-      if(bal>0&&outstanding>0){
-        const applied=Math.min(bal,outstanding),cashOut=Math.max(0,bal-outstanding);
-        previewLines+=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:3px">• ${k.name}: $${applied.toFixed(2)} → debt${cashOut>0?` · $${cashOut.toFixed(2)} cash`:' · no cash'}</div>`;
-      }
+      if(bal>0&&outstanding>0){const applied=Math.min(bal,outstanding),cashOut=Math.max(0,bal-outstanding);previewLines+=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:3px">• ${k.name}: $${applied.toFixed(2)} → debt${cashOut>0?` · $${cashOut.toFixed(2)} → bank`:' · $0 to bank'}</div>`;}
+      else if(bal>0){previewLines+=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:3px">• ${k.name}: $${bal.toFixed(2)} → bank</div>`;}
     }
     h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
       <div class="modal-title" style="color:var(--red)">Reset all balances?</div>
-      ${previewLines?`<div class="modal-info"style="margin-bottom:12px"><div style="font-size:12px;font-weight:500;margin-bottom:6px;color:var(--text-primary)">Debt paydown on reset:</div>${previewLines}</div>`:''}
-      <div class="modal-body">This will clear ${monthLabel(m)} activity for <strong>${KIDS.map(k=>k.name).join(', ')}</strong>. Cannot be undone.</div>
+      ${previewLines?`<div class="modal-info" style="margin-bottom:12px"><div style="font-size:12px;font-weight:500;margin-bottom:6px">On reset:</div>${previewLines}</div>`:''}
+      <div class="modal-body">Clears ${monthLabel(m)} for <strong>${KIDS.map(k=>k.name).join(', ')}</strong>. Cannot be undone.</div>
       <label for="reset-input">Type <strong>reset month</strong> to confirm</label>
       <input type="text" id="reset-input" placeholder="reset month" autocomplete="off" spellcheck="false"/>
       <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button id="reset-btn" class="danger" onclick="confirmReset()">Reset all</button></div>
@@ -903,47 +895,30 @@ function render(){
 
   root.innerHTML=h;
 
+  // Wire up modals without re-render
   if(modalMode==='hourly'){
     const ta=document.getElementById('hourly-details');
-    if(ta){
-      ta.focus();
-      ta.addEventListener('input',e=>{
-        hourlyDetails=e.target.value;
-        const btn=document.querySelector('.modal-btns .primary');
-        if(btn){const ok=hourlyDetails.trim().length>0;btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}
-      });
-    }
+    if(ta){ta.focus();ta.addEventListener('input',e=>{hourlyDetails=e.target.value;const btn=document.querySelector('.modal-btns .primary');if(btn){const ok=hourlyDetails.trim().length>0;btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}})}
   }
   if(modalMode==='entry'){const ta=document.getElementById('note-input');if(ta){ta.focus();ta.onkeydown=e=>{if(e.key==='Enter'&&e.metaKey)confirmEntry()}}}
-  if(modalMode==='addpurchase'){
-    const ni=document.getElementById('purchase-name-input');
-    const ai=document.getElementById('purchase-amt-input');
-    const btn=document.getElementById('add-purchase-submit');
-    const warn=document.getElementById('purchase-warn');
-    const outstanding=getOutstandingDebt(activeKid);
-    const maxDebt=getMaxDebt(activeKid);
-    const availCredit=Math.max(0,maxDebt-outstanding);
-    function updatePurchaseBtn(){
-      const amt=parseFloat(ai?.value)||0;
-      const name=(ni?.value||'').trim();
-      const exceeds=amt>availCredit;
-      if(warn)warn.style.display=(exceeds&&amt>0)?'block':'none';
-      if(btn){const ok=name&&amt>0&&!exceeds;btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}
-    }
-    if(ni){ni.focus();ni.addEventListener('input',e=>{purchaseName=e.target.value;updatePurchaseBtn();})}
-    if(ai){ai.addEventListener('input',e=>{purchaseAmount=e.target.value;updatePurchaseBtn();})}
-  }
   if(modalMode==='miscdeduct'){
-    const di=document.getElementById('misc-desc-input');
-    const ai=document.getElementById('misc-amt-input');
-    const btn=document.getElementById('misc-deduct-submit');
-    function updateMiscBtn(){
-      const amt=parseFloat(ai?.value)||0;
-      const desc=(di?.value||'').trim();
-      if(btn){const ok=desc&&amt>0;btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}
-    }
-    if(di){di.focus();di.addEventListener('input',e=>{updateMiscBtn();})}
-    if(ai){ai.addEventListener('input',e=>{updateMiscBtn();})}
+    const di=document.getElementById('misc-desc-input'),ai=document.getElementById('misc-amt-input'),btn=document.getElementById('misc-deduct-submit');
+    function updateMisc(){const ok=(di?.value||'').trim()&&parseFloat(ai?.value||'0')>0;if(btn){btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}}
+    if(di){di.focus();di.addEventListener('input',updateMisc)}
+    if(ai){ai.addEventListener('input',updateMisc)}
+  }
+  if(modalMode==='addpurchase'){
+    const ni=document.getElementById('purchase-name-input'),ai=document.getElementById('purchase-amt-input'),btn=document.getElementById('add-purchase-submit'),warn=document.getElementById('purchase-warn');
+    const outstanding=getOutstandingDebt(activeKid),maxDebt=getMaxDebt(activeKid),availCredit=Math.max(0,maxDebt-outstanding);
+    function updatePurchase(){const amt=parseFloat(ai?.value||'0'),name=(ni?.value||'').trim(),exceeds=amt>availCredit;if(warn)warn.style.display=(exceeds&&amt>0)?'block':'none';if(btn){const ok=name&&amt>0&&!exceeds;btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}}
+    if(ni){ni.focus();ni.addEventListener('input',e=>{purchaseName=e.target.value;updatePurchase();})}
+    if(ai){ai.addEventListener('input',e=>{purchaseAmount=e.target.value;updatePurchase();})}
+  }
+  if(modalMode==='adjust'){
+    const ai=document.getElementById('adjust-amt-input'),ni=document.getElementById('adjust-note-input'),btn=document.getElementById('adjust-submit');
+    function updateAdjust(){const ok=parseFloat(ai?.value||'0')>0&&(ni?.value||'').trim().length>0;if(btn){btn.style.opacity=ok?'1':'0.4';btn.style.pointerEvents=ok?'auto':'none';}}
+    if(ai){ai.focus();ai.addEventListener('input',e=>{adjustAmount=e.target.value;updateAdjust();})}
+    if(ni){ni.addEventListener('input',e=>{adjustNote=e.target.value;updateAdjust();})}
   }
   if(modalMode==='reset'){
     const inp=document.getElementById('reset-input'),btn=document.getElementById('reset-btn');
@@ -951,9 +926,13 @@ function render(){
   }
 }
 
+// Actions
 function selectKid(id){activeKid=id;localStorage.setItem('allowance-active',id);render()}
 function openEntry(id,name,delta){if(!currentUser)return;modalMode='entry';pendingEntry={id,name,delta};render()}
 function openReset(){if(!currentUser)return;modalMode='reset';render()}
+function closeModal(e){if(e)e.stopPropagation();modalMode=null;pendingEntry=null;purchaseName='';purchaseAmount='';hourlyDetails='';adjustAmount='';adjustNote='';render()}
+function setAdjustType(t){adjustType=t;render()}
+
 function confirmEntry(){
   if(!currentUser)return;
   const ta=document.getElementById('note-input'),note=ta?ta.value.trim():'';
@@ -961,35 +940,44 @@ function confirmEntry(){
   const row={id:uid(),kid_id:kid.id,month:getMonth(),name:pendingEntry.name,delta:pendingEntry.delta,note,ts:Date.now(),edited_by:currentUser};
   modalMode=null;pendingEntry=null;insertEntry(row);
 }
-function openMiscDeduct(){modalMode='miscdeduct';render()}
+function confirmHourly(){
+  if(!currentUser||!hourlyDetails.trim())return;
+  const pay=Math.round(hourlyHours*HOURLY_RATE*100)/100;
+  const halfH=hourlyHours%1!==0;
+  const hourLabel=hourlyHours===1?'1 hour':(halfH?`${Math.floor(hourlyHours)}½ hours`:`${hourlyHours} hours`);
+  const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
+  const row={id:uid(),kid_id:kid.id,month:getMonth(),name:`Hourly work (${hourLabel})`,delta:pay,note:hourlyDetails.trim(),ts:Date.now(),edited_by:currentUser};
+  modalMode=null;hourlyDetails='';hourlyHours=1;insertEntry(row);
+}
 function confirmMiscDeduct(){
   if(!currentUser)return;
-  const di=document.getElementById('misc-desc-input');
-  const ai=document.getElementById('misc-amt-input');
-  const desc=(di?.value||'').trim();
-  const amt=parseFloat(ai?.value)||0;
+  const di=document.getElementById('misc-desc-input'),ai=document.getElementById('misc-amt-input');
+  const desc=(di?.value||'').trim(),amt=parseFloat(ai?.value||'0');
   if(!desc||amt<=0)return;
   const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
   const row={id:uid(),kid_id:kid.id,month:getMonth(),name:desc,delta:-Math.abs(amt),note:'',ts:Date.now(),edited_by:currentUser};
   modalMode=null;insertEntry(row);
-}
-function confirmHourly(){
-  if(!currentUser||!hourlyDetails.trim())return;
-  const HOURLY_RATE=6.00;
-  const pay=Math.round(hourlyHours*HOURLY_RATE*100)/100;
-  const halfHours=hourlyHours%1!==0;
-  const hourLabel=hourlyHours===1?'1 hour':(halfHours?`${Math.floor(hourlyHours)}½ hours`:`${hourlyHours} hours`);
-  const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
-  const row={id:uid(),kid_id:kid.id,month:getMonth(),name:`Hourly work (${hourLabel})`,delta:pay,note:hourlyDetails.trim(),ts:Date.now(),edited_by:currentUser};
-  modalMode=null;hourlyDetails='';hourlyHours=1;insertEntry(row);
 }
 function confirmAddPurchase(){
   if(!currentUser)return;
   const name=purchaseName.trim(),amt=parseFloat(purchaseAmount);
   if(!name||amt<=0)return;
   const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
-  modalMode=null;purchaseName='';purchaseAmount='';
-  addPurchase(kid.id,name,amt);
+  modalMode=null;purchaseName='';purchaseAmount='';addPurchase(kid.id,name,amt);
+}
+function confirmPay(){
+  if(!currentUser)return;
+  const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
+  modalMode=null;payKid(kid.id);render();
+}
+function confirmAdjust(){
+  if(!currentUser)return;
+  const ai=document.getElementById('adjust-amt-input'),ni=document.getElementById('adjust-note-input');
+  const amt=parseFloat(ai?.value||'0'),note=(ni?.value||'').trim();
+  if(amt<=0||!note)return;
+  const delta=adjustType==='add'?amt:-amt;
+  const kid=KIDS.find(k=>k.id===activeKid);if(!kid)return;
+  modalMode=null;adjustAmount='';adjustNote='';adjustBank(kid.id,delta,note);render();
 }
 function undoEntry(id){if(!currentUser)return;removeEntry(id)}
 function confirmReset(){
@@ -998,8 +986,10 @@ function confirmReset(){
   modalMode=null;clearMonth();
 }
 
+// Realtime
 db.channel('entries-live').on('postgres_changes',{event:'*',schema:'public',table:'entries'},()=>{if(!syncing){allEntries=null;loadEntries()}}).subscribe();
 db.channel('credits-live').on('postgres_changes',{event:'*',schema:'public',table:'credits'},()=>{if(currentUser)loadCredits(true)}).subscribe();
+db.channel('ledger-live').on('postgres_changes',{event:'*',schema:'public',table:'ledger'},()=>{if(currentUser)loadLedger(true)}).subscribe();
 db.channel('auth-live').on('postgres_changes',{event:'INSERT',schema:'public',table:'auth_log'},()=>{if(authLogOpen&&currentUser)loadAuthLog(true)}).subscribe();
 loadEntries();
 </script>
