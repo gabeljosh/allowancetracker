@@ -295,7 +295,14 @@ const KID_PAY_METHOD={
 
 const DEFAULT_BASE=7.00;
 const MONTH_BASE_OVERRIDE={
-  '2026-05':{'kid-michael':10.00,'kid-lincoln':5.00,'kid-jackson':5.00,'kid-harvey':5.00}
+  // Pinned historical bases — past months never change when the base changes.
+  // When you change a base, pin the outgoing month here first.
+  '2026-05':{'kid-michael':10.00,'kid-lincoln':5.00,'kid-jackson':5.00,'kid-harvey':5.00},
+  '2026-06':{'kid-michael':15.00,'kid-lincoln':10.00,'kid-jackson':10.00,'kid-harvey':10.00},
+  '2026-07':{'kid-michael':11.25,'kid-lincoln':7.50,'kid-jackson':7.50,'kid-harvey':7.50},
+  '2026-08':{'kid-michael':11.25,'kid-lincoln':7.50,'kid-jackson':7.50,'kid-harvey':7.50},
+  '2026-09':{'kid-michael':7.00,'kid-lincoln':7.00,'kid-jackson':7.00,'kid-harvey':7.00},
+  '2026-10':{'kid-michael':7.00,'kid-lincoln':7.00,'kid-jackson':7.00,'kid-harvey':7.00}
 };
 
 const CHORES=[
@@ -366,7 +373,7 @@ let entries=[],allEntries=null,credits=[],ledger=[],authLogs=[];
 let loading=true,syncing=false,dbError=null;
 let activeKid=localStorage.getItem('allowance-active')||'kid-michael';
 let modalMode=null,pendingEntry=null;
-let carryChecked=false,historyOpen=false,historyLoading=false,authLogOpen=false,authLogLoading=false,choresOpen=false;
+let historyOpen=false,historyLoading=false,authLogOpen=false,authLogLoading=false,choresOpen=false;
 let drillKid=null,drillMonth=null;
 let purchaseName='',purchaseAmount='';
 let hourlyHours=1,hourlyDetails='';
@@ -374,10 +381,27 @@ let adjustType='add',adjustAmount='',adjustNote='';
 
 // Balance helpers
 function kidEntries(kidId,month){const m=month||getMonth();return entries.filter(e=>e.kid_id===kidId&&e.month===m).sort((a,b)=>a.ts-b.ts)}
-function balance(kidId,month){const m=month||getMonth();return kidBaseForMonth(kidId,m)+kidEntries(kidId,m).reduce((s,e)=>s+e.delta,0)}
+// Minimum chore rule: from MIN_CHORES_START on, a kid with fewer than MIN_CHORES chores
+// in a month forfeits all earnings (base + chore pay). Deductions and carry-forwards still apply.
+const MIN_CHORES=3, MIN_CHORES_START='2026-11';
+const CHORE_NAMES=new Set(CHORES.map(c=>c.name));
+function isChoreEntry(e){return CHORE_NAMES.has(e.name)||(e.name||'').startsWith('Hourly work')}
+function minChoreRuleActive(month){return month>=MIN_CHORES_START}
+function choreCountIn(list,kidId,month){return list.filter(e=>e.kid_id===kidId&&e.month===month&&isChoreEntry(e)).length}
+function calcBalance(list,kidId,month){
+  const es=list.filter(e=>e.kid_id===kidId&&e.month===month);
+  const full=kidBaseForMonth(kidId,month)+es.reduce((s,e)=>s+e.delta,0);
+  if(!minChoreRuleActive(month)||choreCountIn(list,kidId,month)>=MIN_CHORES)return full;
+  return es.filter(e=>e.delta<0).reduce((s,e)=>s+e.delta,0);
+}
+// What the kid would have if they hit the minimum (used for "pending" display)
+function fullBalance(kidId,month){const m=month||getMonth();return kidBaseForMonth(kidId,m)+kidEntries(kidId,m).reduce((s,e)=>s+e.delta,0)}
+function choreCount(kidId,month){return choreCountIn(entries,kidId,month||getMonth())}
+function earningsLocked(kidId,month){const m=month||getMonth();return minChoreRuleActive(m)&&choreCount(kidId,m)<MIN_CHORES}
+function balance(kidId,month){return calcBalance(entries,kidId,month||getMonth())}
 function runningBals(kidId){const log=kidEntries(kidId);const b=[];let r=kidBaseForMonth(kidId,getMonth());for(const e of log){r+=e.delta;b.push(r)}return b}
 function histMonths(){if(!allEntries)return[];const ms=new Set(allEntries.map(e=>e.month));ms.add(getMonth());return[...ms].sort((a,b)=>b.localeCompare(a))}
-function histBalance(kidId,month){if(!allEntries)return kidBaseForMonth(kidId,month);return kidBaseForMonth(kidId,month)+allEntries.filter(e=>e.kid_id===kidId&&e.month===month).reduce((s,e)=>s+e.delta,0)}
+function histBalance(kidId,month){if(!allEntries)return kidBaseForMonth(kidId,month);return calcBalance(allEntries,kidId,month)}
 
 // Credits helpers
 function getPurchases(kidId){
@@ -407,8 +431,9 @@ async function loadEntries(){
   const{data,error}=await db.from('entries').select('*').in('month',[m,prev]).order('ts',{ascending:true});
   if(error){dbError=error.message;loading=false;render();return}
   entries=data.map(r=>({...r,delta:parseFloat(r.delta)}));
-  if(!carryChecked){carryChecked=true;const ins=await applyCarryForwards();if(ins){const{data:d2}=await db.from('entries').select('*').in('month',[m,prev]).order('ts',{ascending:true});if(d2)entries=d2.map(r=>({...r,delta:parseFloat(r.delta)}))}}
-  loading=false;dbError=null;
+  dbError=null;
+  if(!closeChecked){closeChecked=true;const ch=await autoCloseMonths();if(ch){const{data:d2}=await db.from('entries').select('*').in('month',[m,prev]).order('ts',{ascending:true});if(d2)entries=d2.map(r=>({...r,delta:parseFloat(r.delta)}));if(currentUser)await Promise.all([loadCredits(true),loadLedger(true)]);}}
+  loading=false;
   if(historyOpen)await loadAllEntries(true);else render();
 }
 async function loadAllEntries(skipRender){
@@ -434,64 +459,62 @@ async function loadAuthLog(skipRender){
   authLogLoading=false;render();
 }
 
-async function applyCarryForwards(){
-  const m=getMonth(),prev=getPrevMonth();let inserted=false;
-  const{data:freshCredits}=await db.from('credits').select('*').order('ts',{ascending:true});
-  const allC=freshCredits?freshCredits.map(r=>({...r,delta:parseFloat(r.delta)})):credits;
-  function kidHasDebt(kidId){const map={};for(const c of allC.filter(c=>c.kid_id===kidId)){if(!map[c.purchase_id])map[c.purchase_id]=0;map[c.purchase_id]=Math.round((map[c.purchase_id]+c.delta)*100)/100;}return Object.values(map).some(t=>t<0)}
-  for(const kid of KIDS){
-    const hasCarry=entries.some(e=>e.kid_id===kid.id&&e.month===m&&e.name===CARRY_NAME);if(hasCarry)continue;
-    if(kidHasDebt(kid.id))continue;
-    const prevHas=entries.some(e=>e.kid_id===kid.id&&e.month===prev);
-    const prevBal=kidBaseForMonth(kid.id,prev)+entries.filter(e=>e.kid_id===kid.id&&e.month===prev).reduce((s,e)=>s+e.delta,0);
-    if(prevHas&&prevBal<0){const{error}=await db.from('entries').insert({id:uid(),kid_id:kid.id,month:m,name:CARRY_NAME,delta:Math.round(prevBal*100)/100,note:`${monthLabel(prev)} ended at $${prevBal.toFixed(2)}`,ts:monthStart(m),edited_by:'system'});if(!error)inserted=true;}
+// Automatic month close. Runs on page load for every finished month since AUTO_CLOSE_START.
+// Each kid+month is claimed in month_closes first (primary key), so it runs exactly once
+// even with several phones open. Nothing is deleted — history stays intact.
+//   negative → carried into next month
+//   positive → pays debt (oldest first), remainder deposits to bank
+const AUTO_CLOSE_START='2026-10';
+function nextMonth(m){const[y,mo]=m.split('-').map(Number);const d=new Date(y,mo,1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
+function monthEndTs(m){return monthStart(nextMonth(m))-60000}
+let closeChecked=false;
+
+async function applyPositiveBalance(kidId,amount,month){
+  const{data:cr}=await db.from('credits').select('*').eq('kid_id',kidId).order('ts',{ascending:true});
+  const mine=(cr||[]).map(r=>({...r,delta:parseFloat(r.delta)}));
+  credits=credits.filter(c=>c.kid_id!==kidId).concat(mine);
+  let remaining=Math.round(amount*100)/100;
+  for(const p of getPurchases(kidId).filter(p=>p.total<0)){
+    if(remaining<=0)break;
+    const apply=Math.round(Math.min(remaining,Math.abs(p.total))*100)/100;
+    await db.from('credits').insert({id:uid(),kid_id:kidId,purchase_id:p.id,purchase_name:p.name,delta:apply,note:`Auto-payment from ${monthLabel(month)} balance`,ts:monthEndTs(month),added_by:'system'});
+    remaining=Math.round((remaining-apply)*100)/100;
   }
-  return inserted;
+  if(remaining>0){
+    await db.from('ledger').insert({id:uid(),kid_id:kidId,delta:remaining,note:`Auto-deposit from ${monthLabel(month)}`,ts:monthEndTs(month),added_by:'system'});
+  }
+}
+
+async function autoCloseMonths(){
+  const cur=getMonth();
+  if(AUTO_CLOSE_START>=cur)return false;
+  const{data:closes,error:ce}=await db.from('month_closes').select('kid_id,month');
+  if(ce){dbError='Month close is not set up yet (month_closes table missing).';return false}
+  const done=new Set((closes||[]).map(c=>c.kid_id+'|'+c.month));
+  let changed=false;
+  for(let mo=AUTO_CLOSE_START;mo<cur;mo=nextMonth(mo)){
+    const nm=nextMonth(mo);
+    const{data:es}=await db.from('entries').select('*').in('month',[mo,nm]);
+    const list=(es||[]).map(r=>({...r,delta:parseFloat(r.delta)}));
+    for(const kid of KIDS){
+      if(done.has(kid.id+'|'+mo))continue;
+      const bal=Math.round(calcBalance(list,kid.id,mo)*100)/100;
+      const{error:claimErr}=await db.from('month_closes').insert({kid_id:kid.id,month:mo,final_balance:bal,ts:Date.now()});
+      if(claimErr)continue; // already closed by another device
+      changed=true;
+      if(bal<0){
+        const hasCarry=list.some(e=>e.kid_id===kid.id&&e.month===nm&&e.name===CARRY_NAME);
+        if(!hasCarry)await db.from('entries').insert({id:uid(),kid_id:kid.id,month:nm,name:CARRY_NAME,delta:bal,note:`${monthLabel(mo)} ended at $${bal.toFixed(2)}`,ts:monthStart(nm),edited_by:'system'});
+      } else if(bal>0){
+        await applyPositiveBalance(kid.id,bal,mo);
+      }
+    }
+  }
+  return changed;
 }
 
 async function insertEntry(row){syncing=true;render();const{error}=await db.from('entries').insert(row);if(error)dbError=error.message;syncing=false;allEntries=null;await loadEntries()}
 async function removeEntry(id){syncing=true;render();const{error}=await db.from('entries').delete().eq('id',id);if(error)dbError=error.message;syncing=false;allEntries=null;await loadEntries()}
-
-async function clearMonth(){
-  syncing=true;render();
-  const m=getMonth();
-  const{data:freshCredits}=await db.from('credits').select('*').order('ts',{ascending:true});
-  if(freshCredits)credits=freshCredits.map(r=>({...r,delta:parseFloat(r.delta)}));
-
-  for(const kid of KIDS){
-    const bal=balance(kid.id);
-    if(bal<=0)continue;
-    const outstanding=getOutstandingDebt(kid.id);
-    let remainder=bal;
-
-    // Pay debt first
-    if(outstanding>0){
-      const debtPayment=Math.min(bal,outstanding);
-      remainder=Math.round((bal-debtPayment)*100)/100;
-      const activePurchases=getPurchases(kid.id).filter(p=>p.total<0);
-      let remaining=debtPayment;
-      for(const p of activePurchases){
-        if(remaining<=0)break;
-        const owed=Math.abs(p.total);const apply=Math.min(remaining,owed);
-        await db.from('credits').insert({id:uid(),kid_id:kid.id,purchase_id:p.id,purchase_name:p.name,delta:Math.round(apply*100)/100,note:`Auto-payment from ${monthLabel(m)} balance`,ts:Date.now(),added_by:currentUser||'system'});
-        remaining=Math.round((remaining-apply)*100)/100;
-      }
-    }
-
-    // Deposit remainder to bank
-    if(remainder>0){
-      await db.from('ledger').insert({id:uid(),kid_id:kid.id,delta:remainder,note:`Auto-deposit from ${monthLabel(m)}`,ts:Date.now(),added_by:'system'});
-    }
-  }
-
-  const{data:updC}=await db.from('credits').select('*').order('ts',{ascending:true});
-  if(updC)credits=updC.map(r=>({...r,delta:parseFloat(r.delta)}));
-  await loadLedger(true);
-
-  const{error}=await db.from('entries').delete().eq('month',m);
-  if(error)dbError=error.message;
-  carryChecked=false;syncing=false;allEntries=null;await loadEntries();
-}
 
 async function addPurchase(kidId,name,amount){
   const pid=uid();
@@ -566,7 +589,9 @@ function render(){
     h+=`<div class="month-end"><div class="month-end-title">Month end · ${monthLabel(m)}</div>`;
     for(const k of KIDS){
       const bal=balance(k.id),outstanding=getOutstandingDebt(k.id);
-      if(bal<0){
+      if(earningsLocked(k.id)){
+        h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span><div class="month-end-right"><div class="carry-fwd">Forfeits earnings · ${choreCount(k.id)}/${MIN_CHORES} chores</div>${bal<0?`<div class="carry-fwd" style="font-size:12px">Carries $${bal.toFixed(2)}</div>`:''}</div></div>`;
+      } else if(bal<0){
         h+=`<div class="month-end-row"><span class="month-end-name">${k.name}</span><span class="carry-fwd">Carries $${bal.toFixed(2)} to next month</span></div>`;
       } else if(outstanding>0){
         const applied=Math.min(bal,outstanding),cashOut=Math.max(0,bal-outstanding);
@@ -586,7 +611,6 @@ function render(){
   // Top bar
   h+=`<div class="top-bar">
     <div class="top-bar-left"><span class="kid-name">${kid.name}</span><div class="sync-dot${syncing?' syncing':''}"></div></div>
-    ${unlocked?`<button class="icon-btn" onclick="openReset()">↺ Reset month</button>`:''}
   </div>`;
 
   if(dbError)h+=`<div class="error-box">${dbError}</div>`;
@@ -602,8 +626,15 @@ function render(){
       <div style="font-size:13px;color:var(--text-secondary)">${monthLabel(m)}</div>
       <div class="balance-sub">${daysLabel}</div>
       <div class="balance-sub">Base: $${base.toFixed(2)}/mo${isProrated?' · pro-rated':''}</div>
+      ${minChoreRuleActive(m)?`<div class="balance-sub" style="font-weight:500;color:${earningsLocked(kid.id)?'var(--red)':'var(--green)'}">Chores: ${choreCount(kid.id)}/${MIN_CHORES}${earningsLocked(kid.id)?' ⚠️':' ✓'}</div>`:''}
     </div>
   </div>`;
+  if(earningsLocked(kid.id)){
+    const need=MIN_CHORES-choreCount(kid.id),pending=Math.max(0,fullBalance(kid.id)-bal);
+    h+=`<div class="modal-warn" style="margin-bottom:1rem;font-size:13px"><strong>Earnings locked.</strong> ${kid.name} needs ${need} more chore${need===1?'':'s'} this month. Under ${MIN_CHORES} chores by month end forfeits base and chore pay${pending>0?` ($${pending.toFixed(2)} pending)`:''}. Deductions still count.</div>`;
+  } else if(!minChoreRuleActive(m)&&getMonth()<MIN_CHORES_START){
+    h+=`<div class="modal-info" style="margin-bottom:1rem;font-size:13px"><strong>Starting November 1:</strong> minimum ${MIN_CHORES} chores per month to earn. Fewer than ${MIN_CHORES} forfeits base and chore pay.</div>`;
+  }
 
   if(unlocked){
     const extraP=kidExtraPenalties(kid.id);
@@ -689,7 +720,7 @@ function render(){
         <span style="font-size:18px;color:var(--text-tertiary)">${choresOpen?'▲':'▼'}</span>
       </div>`;
     if(choresOpen){
-      h+=`<div class="chore-list-body"><div class="chore-group-label">Earn</div>`;
+      h+=`<div class="chore-list-body"><div class="chore-row-note" style="margin-top:10px;font-size:12px">Minimum ${MIN_CHORES} chores per month to earn (starting Nov 2026). Hourly work counts as a chore.</div><div class="chore-group-label">Earn</div>`;
       for(const c of CHORES)h+=`<div class="chore-row"><div><div class="chore-row-name">${c.name}</div>${c.note?`<div class="chore-row-note">${c.note}</div>`:''}</div><span class="chore-row-amt pos">+$${c.amount.toFixed(2)}</span></div>`;
       h+=`</div>`;
     }
@@ -875,24 +906,6 @@ function render(){
     </div></div>`;
   }
 
-  // Reset modal
-  if(modalMode==='reset'){
-    let previewLines='';
-    for(const k of KIDS){
-      const bal=balance(k.id),outstanding=getOutstandingDebt(k.id);
-      if(bal>0&&outstanding>0){const applied=Math.min(bal,outstanding),cashOut=Math.max(0,bal-outstanding);previewLines+=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:3px">• ${k.name}: $${applied.toFixed(2)} → debt${cashOut>0?` · $${cashOut.toFixed(2)} → bank`:' · $0 to bank'}</div>`;}
-      else if(bal>0){previewLines+=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:3px">• ${k.name}: $${bal.toFixed(2)} → bank</div>`;}
-    }
-    h+=`<div class="modal-bg" onclick="closeModal(event)"><div class="modal" onclick="event.stopPropagation()">
-      <div class="modal-title" style="color:var(--red)">Reset all balances?</div>
-      ${previewLines?`<div class="modal-info" style="margin-bottom:12px"><div style="font-size:12px;font-weight:500;margin-bottom:6px">On reset:</div>${previewLines}</div>`:''}
-      <div class="modal-body">Clears ${monthLabel(m)} for <strong>${KIDS.map(k=>k.name).join(', ')}</strong>. Cannot be undone.</div>
-      <label for="reset-input">Type <strong>reset month</strong> to confirm</label>
-      <input type="text" id="reset-input" placeholder="reset month" autocomplete="off" spellcheck="false"/>
-      <div class="modal-btns"><button onclick="closeModal()">Cancel</button><button id="reset-btn" class="danger" onclick="confirmReset()">Reset all</button></div>
-    </div></div>`;
-  }
-
   root.innerHTML=h;
 
   // Wire up modals without re-render
@@ -920,16 +933,11 @@ function render(){
     if(ai){ai.focus();ai.addEventListener('input',e=>{adjustAmount=e.target.value;updateAdjust();})}
     if(ni){ni.addEventListener('input',e=>{adjustNote=e.target.value;updateAdjust();})}
   }
-  if(modalMode==='reset'){
-    const inp=document.getElementById('reset-input'),btn=document.getElementById('reset-btn');
-    if(inp){inp.focus();inp.addEventListener('input',()=>btn.classList.toggle('ready',inp.value.toLowerCase()==='reset month'));inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&inp.value.toLowerCase()==='reset month')confirmReset()});}
-  }
 }
 
 // Actions
 function selectKid(id){activeKid=id;localStorage.setItem('allowance-active',id);render()}
 function openEntry(id,name,delta){if(!currentUser)return;modalMode='entry';pendingEntry={id,name,delta};render()}
-function openReset(){if(!currentUser)return;modalMode='reset';render()}
 function closeModal(e){if(e)e.stopPropagation();modalMode=null;pendingEntry=null;purchaseName='';purchaseAmount='';hourlyDetails='';adjustAmount='';adjustNote='';render()}
 function setAdjustType(t){adjustType=t;render()}
 
@@ -980,11 +988,6 @@ function confirmAdjust(){
   modalMode=null;adjustAmount='';adjustNote='';adjustBank(kid.id,delta,note);render();
 }
 function undoEntry(id){if(!currentUser)return;removeEntry(id)}
-function confirmReset(){
-  if(!currentUser)return;
-  const inp=document.getElementById('reset-input');if(!inp||inp.value.toLowerCase()!=='reset month')return;
-  modalMode=null;clearMonth();
-}
 
 // Realtime
 db.channel('entries-live').on('postgres_changes',{event:'*',schema:'public',table:'entries'},()=>{if(!syncing){allEntries=null;loadEntries()}}).subscribe();
